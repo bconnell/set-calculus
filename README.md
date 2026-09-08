@@ -1,22 +1,15 @@
 # Set Calculus
 
-Set Calculus is the implementation repository for a computational form of the foundational set work developed around structure, membership, transformation, and resolution.
+Set Calculus is the implementation and research repository for a computational form of the foundational set work developed around structure, membership, transformation, and resolution.
 
-The goal is not merely to describe sets, but to make set relationships executable so they can be used as a deterministic transformation layer inside larger systems.
+The project has two linked goals:
 
-## Purpose
+1. make set relationships executable as a deterministic transformation layer; and
+2. reconstruct calculus from mathematical dependency, transformation, and resolution rather than inherited course boundaries.
 
-This repository is intended to provide:
+The goal is not merely to describe sets. It is to make relationships between states explicit, executable, reversible where possible, and traceable.
 
-- a compact formal representation of set membership and transformation
-- deterministic operations over sets and relationships
-- explicit resolution states rather than implicit interpretation
-- a reusable calculus that can be embedded in language, data, AI, and systems work
-- machine-testable behavior for the underlying theory
-
-## Design direction
-
-The core implementation should keep the mathematical layer separate from presentation and model behavior.
+## Core idea
 
 ```text
 input structure
@@ -27,32 +20,89 @@ input structure
     -> expose trace / provenance
 ```
 
-The implementation should prefer deterministic operations wherever possible. Language models may explain or propose transformations, but the calculus itself should be inspectable and testable.
+A property produced by a transform is not assumed to be a property of the unresolved input.
+
+```text
+Potential != Resolved
+Unresolved != Unknown
+```
+
+An unresolved state may preserve enough relational information to become resolvable when later constraints arrive.
+
+## Mathematical direction
+
+Set Calculus will model:
+
+- sets and membership
+- relationships between sets and members
+- transformations between states
+- explicit resolution states
+- reversible and irreversible transforms
+- closure and logical failure
+- provenance and trace
+- value and properties as state-dependent outcomes
+
+The project should remain compatible with conventional calculus wherever conventional calculus is valid. The aim is not to discard derivatives, integrals, differential equations, limits, vector fields, or existing notation. It is to expose the deeper dependency structure that connects them.
+
+## Curriculum reconstruction
+
+A parallel research track will map the actual prerequisite graph behind:
+
+- Calculus I
+- Calculus II
+- Calculus III / multivariable calculus
+- Differential Equations
+
+The course labels will be treated as historical containers, not as assumed mathematical dependencies.
+
+We will ask:
+
+> If calculus were reconstructed from its mathematical dependencies rather than its historical curriculum, what is the minimal valid ordering of concepts?
+
+This work will feed a Set Calculus textbook and a compatibility layer for students and practitioners already trained in conventional calculus.
 
 ## Relationship to NLM
 
-`set-calculus` is intended to become a lower-level reasoning/transform dependency for `nlm-ruby`.
-
-The split is deliberate:
+`set-calculus` is intended to become a lower-level reasoning and transform dependency for `nlm-ruby`.
 
 ```text
 nlm-ruby
-   -> language / model-facing interpretation
-   -> parser / routing
+   -> interpretation / parser / routing
+   -> normalized relational structure
    -> set-calculus
    -> deterministic structural resolution
+   -> resolved structure + trace
 ```
 
 This keeps language generation separate from the formal transform engine.
 
+## Repository map
+
+```text
+README.md
+PLAN.md
+SCOPE.md
+PROVENANCE.md
+LICENSE
+LICENSE_REQUIREMENTS.md
+docs/
+  dependency-map/
+  conventional-calculus/
+  set-calculus-core/
+  textbook/
+```
+
 ## Initial milestones
 
-1. Capture the canonical primitives and notation.
-2. Define machine-readable set and relationship structures.
+1. Capture canonical primitives and notation.
+2. Define machine-readable set, relationship, transform, state, and provenance structures.
 3. Implement deterministic membership and transform operations.
-4. Add explicit result states such as resolved, unresolved, and logical failure.
-5. Add trace output so every resolution can be inspected.
-6. Build a conformance test suite from small canonical examples.
-7. Expose a stable API for NLM and other systems to consume.
+4. Add explicit result states such as resolved, unresolved, reversible resolution, closure, and logical failure.
+5. Build conformance tests from small canonical examples.
+6. Construct a dependency map of conventional calculus topics.
+7. Derive a Set Calculus teaching order from that dependency map.
+8. Build a compatibility mapping from conventional calculus into Set Calculus.
+9. Draft the Set Calculus textbook as the canonical educational specification.
+10. Finalize the immutable reciprocal-open license before public release.
 
-See `PLAN.md` for the working implementation plan.
+See `PLAN.md` and `SCOPE.md` for the current working boundaries.
