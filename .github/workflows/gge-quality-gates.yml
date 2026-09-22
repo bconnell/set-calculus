@@ -26,7 +26,7 @@ jobs:
       PYTHONPATH: ${{ github.workspace }}/generative-governance-engine/src
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -61,7 +61,7 @@ jobs:
         python-version: ["3.11", "3.14"]
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
@@ -131,7 +131,8 @@ jobs:
               if b"\0" in data:
                   continue
               text = data.decode("utf-8", errors="replace")
-              if "<<<<<<< " in text or ">>>>>>> " in text or "||||||| " in text:
+              conflict_markers = ("<" * 7 + " ", ">" * 7 + " ", "|" * 7 + " ")
+              if any(marker in text for marker in conflict_markers):
                   failures.append(f"possible unresolved merge marker: {raw_path}")
 
           if failures:
