@@ -2469,3 +2469,707 @@ Epistemic status:
 - Four-valued composition: **working algebra**
 - Six-witness boundary model: **working boundary formalization**
 - External novelty/equivalence claims: **not established**
+
+
+---
+
+# 27. Anchor Checkpoint: Three-Axis Resolution and Tie-Break Sequent Calculus
+
+This checkpoint extends the six-witness four-state boundary model with a richer internal resolution state, independent decisive-positive and decisive-negative closure, constructive positive proof, conflict reconciliation, admissible tie-break precedence, and a proof-theoretic sequent calculus.
+
+## 27.1 Three-axis resolution state
+
+The internal resolution state is:
+
+```text
+ρ = <P,N,C>
+```
+
+where:
+
+```text
+P = established positive support
+N = established negative support
+C = completeness of materially required resolution
+```
+
+The three axes are independent:
+
+```text
+positive support
+!=
+negative support
+!=
+resolution completeness
+```
+
+For normalized coordinates:
+
+```text
+P,N,C ∈ [0,1]
+```
+
+The product partial order is:
+
+```text
+ρ1 ⪯ ρ2
+iff
+P1 <= P2
+∧ N1 <= N2
+∧ C1 <= C2
+```
+
+This is an information-extension order, not a truth ranking.
+
+Incomparability is:
+
+```text
+ρ1 ∥ ρ2
+iff
+¬(ρ1 ⪯ ρ2)
+∧
+¬(ρ2 ⪯ ρ1)
+```
+
+Join and meet are componentwise:
+
+```text
+ρ1 ∨ ρ2
+=
+<max(P1,P2), max(N1,N2), max(C1,C2)>
+
+ρ1 ∧ ρ2
+=
+<min(P1,P2), min(N1,N2), min(C1,C2)>
+```
+
+Canonical law:
+
+```text
+incomparability
+!=
+uncomposability
+```
+
+The lattice preserves conflicting evidence rather than cancelling it.
+
+## 27.2 Public four-state projection
+
+The public resolution interface remains:
+
+```text
+VALID
+PARTIAL
+UNRESOLVED
+INVALID
+```
+
+These are projections of regions and proof conditions over `ρ`, not the lattice itself.
+
+The active resolution profile is:
+
+```text
+Q = <O,D+,D-,R>
+```
+
+where:
+
+```text
+O  = materially relevant obligations
+D+ = positively decisive conditions
+D- = negatively decisive conditions
+R  = ordinary non-decisive requirements
+```
+
+Supporting predicates include:
+
+```text
+PositiveExists(ρ|Q)
+PositiveSatisfied(ρ|Q)
+DecisivePositive(ρ|Q)
+DecisiveNegative(ρ|Q)
+Complete(ρ)
+```
+
+with the non-collapse laws:
+
+```text
+positive evidence
+!=
+positive satisfaction
+
+negative evidence
+!=
+decisive negative
+
+incomplete
+!=
+partial
+
+complete
+!=
+valid
+```
+
+## 27.3 Independent decisive closure
+
+Decisive positive and decisive negative are independent proof predicates.
+
+```text
+DecisivePositive
+!=
+¬DecisiveNegative
+
+DecisiveNegative
+!=
+¬DecisivePositive
+```
+
+Positive closure:
+
+```text
+DecisivePositive(ρ|Q)
+iff
+∃d+ ∈ D+ :
+PositiveDecisionConditionSatisfied(d+)
+```
+
+Negative closure:
+
+```text
+DecisiveNegative(ρ|Q)
+iff
+∃d- ∈ D- :
+NegativeDecisionConditionSatisfied(d-)
+```
+
+Neither requires global completeness:
+
+```text
+DecisivePositive !-> C = 1
+DecisiveNegative !-> C = 1
+```
+
+Canonical symmetry:
+
+```text
+D+ -> positive closure
+D- -> negative closure
+```
+
+A positive decision does not require prior exhaustion or elimination of negative alternatives.
+
+## 27.4 Constructive Positive Closure
+
+Define:
+
+```text
+CPC(W+ | Q)
+```
+
+iff:
+
+```text
+WellFormed(W+)
+∧ ProvenanceValid(W+)
+∧ Applicable(W+,Q)
+∧ SatisfiesPositiveDecisionCondition(W+,D+)
+```
+
+Canonical proof rule:
+
+```text
+Γ ⊢ W+ : PositiveWitness
+Γ ⊢ Applicable(W+,Q)
+Γ ⊢ ProvenanceValid(W+)
+Γ ⊢ W+ satisfies d+
+d+ ∈ D+
+--------------------------------
+Γ ⊢ VALID
+```
+
+No premise requires:
+
+```text
+absence of negative evidence
+elimination of negative alternatives
+proof that D- is false
+complete traversal of the resolution space
+```
+
+Thus:
+
+```text
+constructive proof of sufficient positive condition
+-> VALID
+```
+
+without reductive negative exhaustion.
+
+A constructive positive closure carries a provenance-bearing certificate:
+
+```text
+PositiveClosureCertificate =
+<
+  decision_scope,
+  decisive_condition,
+  witness_set,
+  rule_basis,
+  provenance,
+  resolution_record
+>
+```
+
+## 27.5 Decisive conflict
+
+When both closures are present:
+
+```text
+D+ ∧ D-
+```
+
+the calculus first tests material scope overlap.
+
+Let:
+
+```text
+S+ = scope of positive closure
+S- = scope of negative closure
+Ω  = S+ ∩ S-
+```
+
+Then:
+
+```text
+Conflict(ρ,Q)
+iff
+D+
+∧ D-
+∧ Ω != ∅
+```
+
+No overlap means the two decisive conclusions may remain valid in distinct scopes.
+
+A conflict object is:
+
+```text
+Γc =
+<
+  W+,
+  W-,
+  Ω,
+  O_conflict,
+  provenance,
+  admissible_rules
+>
+```
+
+The conflict-resolution operator is:
+
+```text
+κ_Q(Γc)
+∈ {
+  POSITIVE_RESOLVED,
+  NEGATIVE_RESOLVED,
+  PARTIALLY_RESOLVED,
+  UNRESOLVED_CONFLICT
+}
+```
+
+Projection is:
+
+```text
+POSITIVE_RESOLVED   -> VALID
+NEGATIVE_RESOLVED   -> INVALID
+PARTIALLY_RESOLVED  -> PARTIAL
+UNRESOLVED_CONFLICT -> UNRESOLVED
+```
+
+Conflict resolution acts on the relation between decisive witnesses, not polarity itself.
+
+## 27.6 Admissible tie-break rules
+
+A tie-break rule `r` is admissible only if:
+
+```text
+AdmissibleTieBreak(r,Γc)
+iff
+Applicable(r,Γc)
+∧ ProvenanceValid(r)
+∧ ScopeExplicit(r)
+∧ PolarityNeutral(r)
+∧ EvidencePreserving(r)
+∧ DeterministicUnderSameInputs(r)
+∧ NoHiddenRequirement(r)
+```
+
+Canonical tie-break classes are:
+
+```text
+scope applicability
+identity applicability
+authority validity
+provenance validity
+requirement specificity
+requirement strength / entailment
+explicit valid supersession
+dependency invalidation
+```
+
+A tie-break may resolve only the scope justified by its proof.
+
+```text
+local resolution
+!-> global resolution
+```
+
+No admissible tie-break yields:
+
+```text
+UNRESOLVED_CONFLICT
+```
+
+rather than an invented positive or negative result.
+
+## 27.7 Tie-break precedence relation
+
+Define:
+
+```text
+r1 ≻t r2
+```
+
+to mean that `r1` has justified precedence over `r2` for the current conflict.
+
+The precedence relation is partial rather than globally total.
+
+Canonical structural precedence strata:
+
+```text
+1. scope applicability
+2. dependency integrity
+3. provenance integrity
+4. explicit valid supersession
+5. specificity
+```
+
+The earlier criteria determine whether later criteria may even participate.
+
+Key laws:
+
+```text
+out of scope
+-> excluded from the contest
+
+failed dependency
+-> later specificity cannot repair it
+
+invalid provenance
+-> specificity cannot rehabilitate it
+
+valid supersession
+-> may govern over specificity
+
+newer
+!-> superseding
+```
+
+Rules may remain incomparable:
+
+```text
+r1 ∥t r2
+iff
+¬(r1 ≻t r2)
+∧
+¬(r2 ≻t r1)
+```
+
+Define maximal rules:
+
+```text
+MaxΩ(R*) =
+{
+  r ∈ R*
+  |
+  ¬∃s ∈ R* : s ≻t r
+}
+```
+
+If one maximal rule exists, it governs.
+
+If several maximal rules agree, their shared conclusion governs.
+
+If several maximal rules disagree and no higher-order rule resolves them:
+
+```text
+UNRESOLVED_CONFLICT
+```
+
+## 27.8 Proof-theoretic metarules
+
+### Soundness
+
+```text
+AdmissibleTieBreak(r,Γc)
+∧ PremisesValid(r,Γc)
+∧ r(Γc) = κ
+----------------------
+Sound(κ,Γc)
+```
+
+A conclusion may not exceed the scope or force of its premises.
+
+### Non-retraction of provenance
+
+```text
+ProvBefore(Γc)
+⊆
+ProvAfter(κ)
+```
+
+Therefore:
+
+```text
+resolution changes governing status,
+not historical existence
+```
+
+A losing witness remains preserved.
+
+### Monotonicity of justified information
+
+If:
+
+```text
+Γ1 ⪯ Γ2
+```
+
+then previously justified proof objects remain in the record unless a provenance-bearing defeat or supersession relation is introduced.
+
+Public classification may change; proof history may not disappear.
+
+### Partial resolution
+
+Let:
+
+```text
+O_conflict =
+O_resolved ∪ O_unresolved
+```
+
+with disjoint parts.
+
+Then:
+
+```text
+O_resolved != ∅
+∧
+O_unresolved != ∅
+∧
+¬GlobalClosureAvailable
+------------------------
+PARTIALLY_RESOLVED
+```
+
+### Global resolution
+
+Global positive or negative resolution requires coverage of every materially conflicting obligation:
+
+```text
+Covered(r,O_conflict)
+iff
+∀o ∈ O_conflict :
+ResolvedBy(r,o)
+∨ ValidlyDischargedBy(r,o)
+```
+
+Thus:
+
+```text
+resolved scope = full conflict scope
+-> global resolution
+
+resolved scope is nonempty proper subset
+-> partial resolution
+
+resolved scope empty
+-> unresolved conflict
+```
+
+## 27.9 Tie-break sequent calculus
+
+The canonical conflict sequent has the form:
+
+```text
+Γ ; Q ⊢Ω κ
+```
+
+meaning:
+
+> under evidence/context `Γ` and rule profile `Q`, conflict scope `Ω` resolves to `κ`.
+
+### Conflict introduction
+
+```text
+Γ ⊢ D+
+Γ ⊢ D-
+Overlap(S+,S-) = Ω
+Ω != ∅
+-------------------------------- CONFLICT
+Γ ; Q ⊢ Conflict(W+,W-,Ω)
+```
+
+### Admissible rule
+
+```text
+Applicable(r,Ω)
+ProvenanceValid(r)
+ScopeExplicit(r)
+PolarityNeutral(r)
+EvidencePreserving(r)
+DependenciesValid(r)
+-------------------------------- ADM-RULE
+Γ ; Q ⊢Ω admissible(r)
+```
+
+### Sound conclusion
+
+```text
+Γ ; Q ⊢Ω admissible(r)
+Γ ⊢ Premises(r)
+Premises(r) ⊢ Result(r,Ω)
+-------------------------------- SOUND
+Γ ; Q ⊢Ω Result(r,Ω)
+```
+
+### Precedence
+
+```text
+Γ ; Q ⊢Ω admissible(r1)
+Γ ; Q ⊢Ω admissible(r2)
+Γ ; Q ⊢Ω r1 ≻t r2
+-------------------------------- PRECEDENCE
+Γ ; Q ⊢Ω governing(r1,r2)
+```
+
+### Global positive resolution
+
+```text
+∀o ∈ O_conflict :
+  ∃r ∈ MaxΩ(R*) :
+    r ⊢ PositiveResolved(o)
+
+NoMaterialObligationUnresolved(O_conflict)
+-------------------------------- GLOBAL+
+Γ ; Q ⊢Ω POSITIVE_RESOLVED
+```
+
+### Global negative resolution
+
+```text
+∀o ∈ O_conflict :
+  ∃r ∈ MaxΩ(R*) :
+    r ⊢ NegativeResolved(o)
+
+NoMaterialObligationUnresolved(O_conflict)
+-------------------------------- GLOBAL-
+Γ ; Q ⊢Ω NEGATIVE_RESOLVED
+```
+
+### Partial resolution
+
+```text
+O_resolved != ∅
+O_unresolved != ∅
+∀o ∈ O_resolved :
+  ∃r ∈ MaxΩ(R*) : r resolves o
+¬GlobalClosureAvailable(O_unresolved)
+-------------------------------- PARTIAL
+Γ ; Q ⊢Ω PARTIALLY_RESOLVED
+```
+
+### Unresolved conflict
+
+```text
+r1,r2 ∈ MaxΩ(R*)
+r1 ⊢ POSITIVE_RESOLVED
+r2 ⊢ NEGATIVE_RESOLVED
+¬(r1 ≻t r2)
+¬(r2 ≻t r1)
+-------------------------------- UNRESOLVED-CONFLICT
+Γ ; Q ⊢Ω UNRESOLVED_CONFLICT
+```
+
+### Public projection
+
+```text
+Γ ; Q ⊢Ω POSITIVE_RESOLVED
+-------------------------- PROJECT+
+Γ ; Q ⊢Ω VALID
+
+Γ ; Q ⊢Ω NEGATIVE_RESOLVED
+-------------------------- PROJECT-
+Γ ; Q ⊢Ω INVALID
+
+Γ ; Q ⊢Ω PARTIALLY_RESOLVED
+--------------------------- PROJECT-P
+Γ ; Q ⊢Ω PARTIAL
+
+Γ ; Q ⊢Ω UNRESOLVED_CONFLICT
+----------------------------- PROJECT-U
+Γ ; Q ⊢Ω UNRESOLVED
+```
+
+## 27.10 Checkpoint laws
+
+The current resolution layer is anchored by:
+
+```text
+ρ = <P,N,C>
+
+support
+!=
+contradiction
+!=
+coverage
+
+DecisivePositive
+!=
+¬DecisiveNegative
+
+DecisiveNegative
+!=
+¬DecisivePositive
+
+constructive positive closure
+!-> negative exhaustion
+
+D+ ∧ D-
+-> scope-aware conflict reconciliation
+
+precedence determines governance
+only where justified
+
+projection
+!-> provenance deletion
+
+local proof
+!-> global closure
+
+known resolved structure
+must survive unresolved remainder
+```
+
+Current epistemic status:
+
+- Three-axis resolution lattice: **working formal structure**
+- Four-state projection: **working formal projection**
+- Decisive Positive / Decisive Negative: **working proof predicates**
+- Constructive Positive Closure: **working proof rule**
+- Decisive Conflict operator: **working conflict formalization**
+- Admissible tie-break rules: **working metarules**
+- Tie-break precedence: **working partial order**
+- Tie-break sequent calculus: **working proof calculus**
+- External equivalence or novelty claims: **not established**
+
+This checkpoint supersedes earlier assumptions that positive closure requires negative exhaustion or that a single one-dimensional status order is sufficient to represent resolution.
