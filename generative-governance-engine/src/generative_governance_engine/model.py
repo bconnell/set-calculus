@@ -104,7 +104,19 @@ class Transform:
     effects: Mapping[str, Any]
     preconditions: tuple[Requirement, ...] = ()
     depends_on: tuple[str, ...] = ()
+    base_cost: float = 1.0
+    risk_penalty: float = 0.0
     description: str = ""
+
+    def __post_init__(self) -> None:
+        if self.base_cost < 0:
+            raise ValueError("Transform base_cost must be non-negative.")
+        if self.risk_penalty < 0:
+            raise ValueError("Transform risk_penalty must be non-negative.")
+
+    @property
+    def effective_cost(self) -> float:
+        return self.base_cost + self.risk_penalty
 
 
 @dataclass(frozen=True)
