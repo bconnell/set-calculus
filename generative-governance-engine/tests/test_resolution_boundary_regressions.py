@@ -112,6 +112,100 @@ class ResolutionBoundaryRegressionTests(unittest.TestCase):
             result.trace,
         )
 
+    def test_run_honors_widened_planner_depth_during_execution(self):
+        intent = self.simple_intent()
+        transforms = []
+        for index in range(1, 14):
+            transform_id = f"T-RUN-{index:02d}"
+            effects = {"ready": True} if index == 13 else {f"run_step_{index}": True}
+            depends_on = () if index == 1 else (f"T-RUN-{index - 1:02d}",)
+            transforms.append(
+                Transform(
+                    transform_id,
+                    "agent",
+                    f"run-step-{index}",
+                    "feature",
+                    effects=effects,
+                    depends_on=depends_on,
+                )
+            )
+
+        result = run(
+            intent,
+            self.authority(),
+            State({"ready": False}),
+            tuple(transforms),
+            max_steps=13,
+            planner_max_depth=13,
+        )
+
+        self.assertEqual(Resolution.COMPLETED, result.resolution)
+        self.assertEqual(13, result.state.version)
+        self.assertTrue(result.state.facts["ready"])
+        self.assertEqual(
+            frozenset(transform.transform_id for transform in transforms),
+            result.state.completed_transforms,
+        )
+
+    def test_post_budget_resolution_honors_widened_planner_depth(self):
+        intent = Intent(
+            intent_id="INT-POST-BUDGET-DEPTH",
+            version=1,
+            objective="Satisfy A, then retain a deep viable path to B.",
+            acceptance_criteria=(
+                Requirement("AC-A", "a", True),
+                Requirement("AC-B", "b", True),
+            ),
+        )
+        direct_a = Transform(
+            "T-A",
+            "agent",
+            "set-a",
+            "feature",
+            effects={"a": True},
+            base_cost=0.0,
+        )
+
+        chain = []
+        for index in range(1, 14):
+            transform_id = f"T-B-{index:02d}"
+            effects = {"b": True} if index == 13 else {f"b_step_{index}": True}
+            depends_on = () if index == 1 else (f"T-B-{index - 1:02d}",)
+            chain.append(
+                Transform(
+                    transform_id,
+                    "agent",
+                    f"b-step-{index}",
+                    "feature",
+                    effects=effects,
+                    depends_on=depends_on,
+                )
+            )
+
+        result = run(
+            intent,
+            self.authority(),
+            State({"a": False, "b": False}),
+            (direct_a, *chain),
+            max_steps=1,
+            planner_max_depth=13,
+        )
+
+        self.assertEqual(Resolution.INCOMPLETE, result.resolution)
+        self.assertEqual(1, result.state.version)
+        self.assertTrue(result.state.facts["a"])
+        self.assertFalse(result.state.facts["b"])
+        self.assertEqual(
+            (
+                "state:0 resolution:INCOMPLETE",
+                "plan:T-A cost:0.000",
+                "apply:T-A cost:0.000 risk:0.000",
+                "state:1 resolution:INCOMPLETE",
+                "max steps exhausted",
+            ),
+            result.trace,
+        )
+
     def test_resolution_probe_honors_requested_planner_depth(self):
         intent = self.simple_intent()
         state = State({"ready": False})
