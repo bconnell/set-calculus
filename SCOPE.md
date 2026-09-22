@@ -2,7 +2,7 @@
 
 ## Objective
 
-Establish the smallest rigorous foundation needed to develop Set Calculus as both an executable transformation system and a reconstruction of calculus around dependency, state, relationship, and resolution.
+Establish the smallest rigorous foundation needed to develop Set Calculus as an executable transformation system, a provenance-preserving mathematical corpus for human and model use, and a student-centered reconstruction of calculus around dependency, state, relationship, and resolution.
 
 ## v0.1 research questions
 
