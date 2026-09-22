@@ -349,10 +349,7 @@ class VerificationContractTests(unittest.TestCase):
         self.assertIs(result.state, initial)
         self.assertEqual((), result.evidence)
         self.assertEqual(
-            (
-                "state:0 resolution:INCOMPLETE",
-                "no admissible recovery/progress path",
-            ),
+            ("state:0 resolution:BLOCKED",),
             result.trace,
         )
 

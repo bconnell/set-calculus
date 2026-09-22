@@ -317,7 +317,7 @@ class FormalLawRegressionTests(unittest.TestCase):
             resolve(intent, self.wildcard_authority(), state),
         )
 
-    def test_run_reports_blocked_when_runtime_depth_is_tighter_than_resolution_probe(self):
+    def test_run_respects_zero_planner_depth_during_resolution(self):
         intent = self.base_intent()
         state = State({"ready": False, "data_preserved": True})
         transform = Transform(
@@ -337,7 +337,10 @@ class FormalLawRegressionTests(unittest.TestCase):
         )
 
         self.assertEqual(Resolution.BLOCKED, result.resolution)
-        self.assertIn("no admissible recovery/progress path", result.trace)
+        self.assertEqual(
+            ("state:0 resolution:BLOCKED",),
+            result.trace,
+        )
 
     def test_zero_step_run_is_explicitly_unresolved(self):
         intent = self.base_intent()
