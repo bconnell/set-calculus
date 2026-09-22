@@ -253,6 +253,15 @@ class EngineContractTests(unittest.TestCase):
         self.assertEqual("max steps exhausted", result.trace[-1])
 
     def test_step_budget_final_state_can_be_blocked(self):
+        intent = Intent(
+            intent_id="INT-PARTIAL",
+            version=1,
+            objective="Complete both partial progress and ready.",
+            acceptance_criteria=(
+                Requirement("AC-PARTIAL", "partial", True),
+                Requirement("AC-READY", "ready", True),
+            ),
+        )
         make_partial_progress = Transform(
             "T-PARTIAL",
             "agent",
@@ -260,10 +269,16 @@ class EngineContractTests(unittest.TestCase):
             "feature",
             effects={"partial": True},
         )
-        initial = State({"ready": False, "data_preserved": True})
+        initial = State(
+            {
+                "partial": False,
+                "ready": False,
+                "data_preserved": True,
+            }
+        )
 
         result = run(
-            self.intent(),
+            intent,
             self.authority(),
             initial,
             (make_partial_progress,),
@@ -276,7 +291,9 @@ class EngineContractTests(unittest.TestCase):
             frozenset({"T-PARTIAL"}),
             result.state.completed_transforms,
         )
-        self.assertEqual((), result.evidence)
+        self.assertEqual(1, len(result.evidence))
+        self.assertEqual("AC-PARTIAL", result.evidence[0].claim_id)
+        self.assertEqual(1, result.evidence[0].state_version)
         self.assertEqual("state:1 resolution:BLOCKED", result.trace[-1])
         self.assertNotIn("max steps exhausted", result.trace)
 
