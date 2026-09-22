@@ -1,0 +1,831 @@
+schema_version: "set-calculus-core-checklist/v1"
+checklist_id: "set-calculus-core-0.1"
+title: "Set Calculus Core 0.1 Completeness Checklist"
+branch: "causal-reality-calculus"
+human_readable_source: "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+
+release_rule:
+  expression: "SPECIFICATION_PASS && IMPLEMENTATION_PASS && CONFORMANCE_PASS && CONVENTIONAL_CALCULUS_PASS && PROVENANCE_PASS"
+  final_item_id: "H6"
+
+status_values:
+  - pending
+  - pass
+  - fail
+  - blocked
+  - not_applicable
+
+item_schema:
+  required_fields:
+    - id
+    - gate
+    - title
+    - required
+    - owner
+    - artifact_paths
+    - evidence
+    - status
+  fields:
+    id:
+      type: string
+      description: "Stable checklist item identifier."
+    gate:
+      type: string
+      description: "Parent gate identifier."
+    title:
+      type: string
+      description: "Human-readable release requirement."
+    required:
+      type: boolean
+      description: "Whether the item is mandatory for Core 0.1."
+    owner:
+      type: string
+      description: "Person or role accountable for closure."
+    artifact_paths:
+      type: array
+      items: string
+      description: "Canonical repository paths expected to contain the implementation or evidence."
+    evidence:
+      type: object
+      required_fields:
+        - pass
+        - fail
+      fields:
+        pass:
+          type: array
+          items: string
+        fail:
+          type: array
+          items: string
+        observed:
+          type: array
+          items: string
+          description: "Concrete evidence already observed for the current status."
+    status:
+      type: enum
+      values:
+        - pending
+        - pass
+        - fail
+        - blocked
+        - not_applicable
+    depends_on:
+      type: array
+      items: string
+      description: "Checklist item IDs that must pass before this item may pass."
+    notes:
+      type: array
+      items: string
+
+owners:
+  core_specification:
+    owner: "Chad Coulter"
+    responsibility: "Canonical definitions, architecture consistency, formal release decision."
+  provenance:
+    owner: "Chad Coulter"
+    responsibility: "Provenance preservation, historical trace, and non-retraction requirements."
+  reference_implementation:
+    owner: "Chad Coulter unless explicitly delegated"
+    responsibility: "Executable reference semantics and deterministic resolver."
+  conformance_suite:
+    owner: "Chad Coulter unless explicitly delegated"
+    responsibility: "Canonical executable fixtures and release-test integrity."
+  conventional_calculus_validation:
+    owner: "Chad Coulter"
+    responsibility: "Round-trip compatibility examples and dependency validation."
+  independent_review:
+    owner: "TBD"
+    responsibility: "Optional pre-release adversarial review; does not replace required evidence."
+
+gates:
+  A:
+    name: "Specification Gate"
+  B:
+    name: "Reference Implementation Gate"
+  C:
+    name: "Conformance Test Gate"
+  D:
+    name: "Conventional-Calculus Validation Gate"
+  E:
+    name: "Dependency / Curriculum Gate"
+  F:
+    name: "Provenance Gate"
+  G:
+    name: "Repository Consistency Gate"
+  H:
+    name: "Core 0.1 Release Gate"
+
+items:
+  - id: "A1"
+    gate: "A"
+    title: "Canonical primitive vocabulary"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/README.md"
+      - "docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md"
+    evidence:
+      pass:
+        - "Exactly one active canonical definition exists for Set, Member, Relationship, Identity, State, Transform, Resolution, and Provenance."
+        - "Aliases are explicitly identified."
+        - "Identity != State is explicit."
+        - "Repository-wide terminology audit finds no incompatible active definitions."
+      fail:
+        - "Any primitive remains undefined."
+        - "Two active canonical sections define the same primitive incompatibly."
+        - "Identity remains embedded in State as the canonical model."
+      observed:
+        - "Canonical terminology ledger exists."
+    status: pending
+
+  - id: "A2"
+    gate: "A"
+    title: "Three-axis resolution state and four public states"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md"
+      - "docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md"
+    evidence:
+      pass:
+        - "P, N, and C have explicit construction semantics."
+        - "Product partial order, join, meet, and incomparability are defined."
+        - "Projection from rho=<P,N,C> to VALID, PARTIAL, UNRESOLVED, INVALID is deterministic under the active rule profile."
+        - "PARTIAL != UNRESOLVED everywhere."
+        - "Obsolete three-state sections are removed, rewritten, or explicitly marked historical."
+      fail:
+        - "Any active canonical rule still assumes only VALID/UNRESOLVED/INVALID."
+        - "The same normalized evidence state can produce multiple public states without an explicit conflict-resolution rule."
+      observed:
+        - "Three-axis resolution and four-state projection are anchored in the working formalization."
+        - "Legacy three-state material remains in earlier active sections."
+    status: blocked
+
+  - id: "A3"
+    gate: "A"
+    title: "Independent decisive closure"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md"
+    evidence:
+      pass:
+        - "DecisivePositive and DecisiveNegative are independently defined."
+        - "Constructive Positive Closure can derive VALID from sufficient positive witnesses."
+        - "No premise requires exhaustive elimination of negative alternatives."
+        - "Overlapping D+ and D- creates a decisive conflict object rather than silently preferring polarity."
+      fail:
+        - "VALID requires proving that no decisive-negative alternative exists."
+        - "INVALID is defined merely as absence of positive proof."
+        - "One polarity wins by default."
+      observed:
+        - "Independent D+ and D- predicates and Constructive Positive Closure are anchored."
+    status: pass
+
+  - id: "A4"
+    gate: "A"
+    title: "Six typed boundary witnesses"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md"
+    evidence:
+      pass:
+        - "Identity, State, Context, Authority, Invariant, and Provenance each have a typed witness payload."
+        - "Cardinality, nullability, and relation-specific evidence are defined."
+        - "VALID/PARTIAL/UNRESOLVED/INVALID outcomes are defined."
+        - "Aggregate boundary validation includes all six witnesses."
+      fail:
+        - "Any active section still says there are five witness types."
+        - "Identity is represented as a State relation."
+        - "A required witness lacks validation semantics."
+      observed:
+        - "Six-witness model is anchored."
+        - "Earlier active sections still contain five-witness definitions."
+    status: blocked
+
+  - id: "A5"
+    gate: "A"
+    title: "Transform semantics"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/README.md"
+      - "docs/set-calculus-core/"
+    evidence:
+      pass:
+        - "Applicability, input requirements, output guarantees, preserved properties, changed properties, provenance effect, failure state, composition, identity transform, reversibility classes, and closure-producing behavior are explicit."
+        - "Two independent implementers can determine whether T2 o T1 is legal from the specification alone."
+        - "Transform-produced properties are never projected backward without an explicit rule."
+      fail:
+        - "Transform composition depends on undocumented convention."
+        - "Reversibility or preservation behavior is implicit."
+      observed: []
+    status: pending
+
+  - id: "A6"
+    gate: "A"
+    title: "Trajectory and boundary semantics"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md"
+    evidence:
+      pass:
+        - "Trajectory pi=<s0,T1,s1,...,Tn,sn> is canonical."
+        - "Concatenation requires boundary validation."
+        - "Boundary validation uses all six witness dimensions."
+        - "Local admissibility does not imply concatenated admissibility."
+        - "Partial trajectory resolution preserves known resolved structure."
+      fail:
+        - "Active trajectory algebra still uses the obsolete three-state table as canonical."
+        - "Boundary compatibility omits Identity."
+      observed:
+        - "Trajectory and concatenation semantics exist."
+        - "Earlier active sections remain three-state and omit Identity."
+    status: blocked
+
+  - id: "A7"
+    gate: "A"
+    title: "Tie-break sequent calculus"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md"
+    evidence:
+      pass:
+        - "Admissible-rule formation is defined."
+        - "Scope, dependency, provenance, supersession, and specificity precedence are defined."
+        - "Maximal-rule selection is defined."
+        - "Global positive, global negative, partial, and unresolved conflict rules are defined."
+        - "Losing rules and witnesses remain preserved in provenance."
+      fail:
+        - "A tie-break may select a result without a sound rule."
+        - "Unresolved maximal-rule disagreement is forced into VALID or INVALID."
+      observed:
+        - "Tie-break sequent calculus is anchored as a working proof calculus."
+    status: pass
+
+  - id: "A8"
+    gate: "A"
+    title: "Structural proof rules"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/"
+    evidence:
+      pass:
+        - "Weakening, contraction, exchange, cut, and substitution each have exactly one declared status: ADMISSIBLE, RESTRICTED, NOT_ADMISSIBLE, or UNRESOLVED."
+        - "Restricted rules have explicit conditions."
+        - "Unresolved metatheory is labeled rather than silently assumed."
+      fail:
+        - "An implementation must guess whether a structural proof operation is legal."
+      observed: []
+    status: pending
+
+  - id: "A9"
+    gate: "A"
+    title: "Resolution transition semantics"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/"
+    evidence:
+      pass:
+        - "Legal transitions among UNRESOLVED, PARTIAL, VALID, and INVALID are stated."
+        - "Reopening, reclassification, supersession, and new-material-evidence conditions are explicit."
+        - "Conclusion change never deletes proof history."
+      fail:
+        - "A final classification can change without a recorded material cause."
+      observed: []
+    status: pending
+
+  - id: "B1"
+    gate: "B"
+    title: "Executable core types"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "src/"
+    evidence:
+      pass:
+        - "Reference runtime represents Identity, State, Relationship, Transform, Witness, BoundaryEvidence, ResolutionEvidenceState<P,N,C>, ResolutionStatus, Trajectory, and Provenance."
+        - "Valid canonical fixtures construct successfully."
+        - "Malformed required structures fail explicitly."
+      fail:
+        - "A required formal object has no executable representation."
+      observed:
+        - "No src/ reference runtime currently exists on the branch."
+    status: blocked
+
+  - id: "B2"
+    gate: "B"
+    title: "Deterministic resolver"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "src/"
+    evidence:
+      pass:
+        - "normalize, validateWitness, validateBoundary, applyTransform, resolve, composeTrajectory, and trace semantics are implemented."
+        - "Identical normalized input plus identical rule set produces identical result and trace."
+        - "Unresolved requirements are never silently guessed."
+      fail:
+        - "Formal resolution depends on nondeterministic language-model output."
+        - "Missing evidence is silently converted into a resolved value."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B1"
+
+  - id: "B3"
+    gate: "B"
+    title: "Four-state executable behavior"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "src/"
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "At least one executable fixture each returns VALID, PARTIAL, UNRESOLVED, and INVALID."
+        - "PARTIAL retains resolved substructure that UNRESOLVED does not possess."
+      fail:
+        - "PARTIAL is only a renamed UNRESOLVED."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B1"
+      - "B2"
+
+  - id: "B4"
+    gate: "B"
+    title: "Constructive positive closure execution"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "A fixture demonstrates sufficient positive witness plus unresolved unrelated negative alternatives -> VALID."
+        - "The trace contains no negative-exhaustion prerequisite."
+      fail:
+        - "Runtime waits for or synthesizes elimination of all negative alternatives before returning VALID."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B2"
+      - "C1"
+
+  - id: "B5"
+    gate: "B"
+    title: "Decisive conflict execution"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "Overlapping D+ and D- creates a conflict."
+        - "Fixtures demonstrate positive, negative, partial, and unresolved conflict outcomes under different admissible rule sets."
+      fail:
+        - "Runtime hardcodes positive-first or negative-first behavior."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B2"
+      - "C1"
+
+  - id: "B6"
+    gate: "B"
+    title: "Reconstructible trace"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "src/"
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "Trace exposes inputs, active rules, witnesses, transforms, intermediate states, rho=<P,N,C>, final projection, conflicts, tie-breaks, supersessions/reclassifications, and provenance."
+        - "Another program can reconstruct why the resolver returned its result."
+      fail:
+        - "Final result cannot be reconstructed from retained trace data."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B2"
+
+  - id: "C1"
+    gate: "C"
+    title: "Canonical conformance suite"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "Fixture families cover primitive validity, Identity vs State, transform applicability, all six boundary witnesses, PARTIAL vs UNRESOLVED, Decisive Positive, Decisive Negative, decisive conflict, precedence, provenance preservation, and legal reclassification."
+        - "Every canonical fixture passes."
+        - "No flaky or probabilistic fixture defines formal semantics."
+      fail:
+        - "Any required canonical fixture fails or lacks an expected result."
+      observed:
+        - "No tests/conformance/ directory currently exists on the branch."
+    status: blocked
+
+  - id: "C2"
+    gate: "C"
+    title: "Precedence conformance"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - "tests/conformance/tie-break/"
+    evidence:
+      pass:
+        - "Out-of-scope rule loses regardless of specificity."
+        - "Failed dependency defeats otherwise eligible rule."
+        - "Invalid provenance cannot win through specificity."
+        - "Valid supersession can govern over specificity."
+        - "Incomparable maximal rules with conflicting conclusions -> UNRESOLVED."
+        - "Incomparable maximal rules with the same conclusion -> shared conclusion."
+      fail:
+        - "Rule precedence depends on insertion order or polarity."
+      observed: []
+    status: blocked
+    depends_on:
+      - "C1"
+
+  - id: "C3"
+    gate: "C"
+    title: "CI release gate"
+    required: true
+    owner: "Chad Coulter unless explicitly delegated"
+    artifact_paths:
+      - ".github/workflows/"
+    evidence:
+      pass:
+        - "Canonical conformance suite runs automatically."
+        - "Any nonzero conformance failure blocks the Core 0.1 release path."
+      fail:
+        - "Core 0.1 can be released with failing canonical tests."
+      observed: []
+    status: pending
+    depends_on:
+      - "C1"
+
+  - id: "D1"
+    gate: "D"
+    title: "Derivative round trip"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/examples/derivative/"
+    evidence:
+      pass:
+        - "f(x)=x^2 maps through Set Calculus and back to f'(x)=2x."
+        - "The round trip includes conventional statement, conventional result, Set Calculus representation, transforms/resolution, mapped result, and provenance."
+      fail:
+        - "Set Calculus changes the valid conventional result without an explicitly demonstrated reason."
+      observed: []
+    status: pending
+
+  - id: "D2"
+    gate: "D"
+    title: "Definite-integral round trip"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/examples/integral/"
+    evidence:
+      pass:
+        - "integral_0^1 x dx maps through Set Calculus and back to 1/2."
+        - "Accumulation and resolution steps are traceable."
+        - "Provenance survives the round trip."
+      fail:
+        - "Mapped result differs without a proven defect in the conventional statement."
+      observed: []
+    status: pending
+
+  - id: "D3"
+    gate: "D"
+    title: "First-order ODE round trip"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/examples/ode-first-order/"
+    evidence:
+      pass:
+        - "dy/dt=ky with an initial condition is represented before the state is fully resolved."
+        - "Added conditions produce the conventional solution."
+        - "Mapped conventional result agrees and provenance remains reconstructible."
+      fail:
+        - "The unresolved differential relationship is treated as unknown or structureless."
+        - "The valid conventional result changes without justification."
+      observed: []
+    status: pending
+
+  - id: "D4"
+    gate: "D"
+    title: "Compatibility law"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/COMPATIBILITY_REPORT.md"
+    evidence:
+      pass:
+        - "Every Core 0.1 conventional example satisfies: ordinary calculus valid -> Set Calculus preserves valid result."
+      fail:
+        - "Any discrepancy remains unexplained or unclassified."
+      observed: []
+    status: blocked
+    depends_on:
+      - "D1"
+      - "D2"
+      - "D3"
+
+  - id: "E1"
+    gate: "E"
+    title: "Dependency graph coverage"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md"
+    evidence:
+      pass:
+        - "Major Calc I, Calc II, Calc III/multivariable, and ODE concept families are represented."
+      fail:
+        - "A major concept family required by the Core 0.1 compatibility examples is absent."
+      observed:
+        - "Initial prerequisite graph covers the major requested concept families."
+    status: pass
+
+  - id: "E2"
+    gate: "E"
+    title: "Dependency-edge classification"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md"
+    evidence:
+      pass:
+        - "Every dependency edge used to justify the Core 0.1 teaching order is classified HARD, STRONG, SUPPORTING, or HISTORICAL/CURRICULAR with rationale."
+      fail:
+        - "A course-order assumption is used as mathematical dependency evidence without classification."
+      observed:
+        - "Classification vocabulary exists and some provisional edges are classified, but full edge coverage is not yet evidenced."
+    status: pending
+
+  - id: "E3"
+    gate: "E"
+    title: "Dependency-derived teaching sequence"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md"
+      - "docs/textbook/README.md"
+    evidence:
+      pass:
+        - "Proposed ordering cites graph dependencies."
+        - "Hypotheses are labeled as hypotheses where the mathematics does not force one unique order."
+      fail:
+        - "Inherited Calc I/II/III packaging is treated as dependency proof."
+      observed:
+        - "An initial dependency-derived teaching hypothesis is documented."
+    status: pass
+
+  - id: "F1"
+    gate: "F"
+    title: "Provenance preservation"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "PROVENANCE.md"
+      - "docs/set-calculus-core/"
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "Transform lineage is retained."
+        - "Losing conflict witnesses are retained."
+        - "Superseded rules are retained."
+        - "Reclassification records prior state and material cause."
+      fail:
+        - "A prior material witness, rule, state, or resolution disappears from the reconstructible record."
+      observed:
+        - "Repository provenance policy explicitly requires preservation."
+        - "Executable trace evidence is not yet available."
+    status: pending
+
+  - id: "F2"
+    gate: "F"
+    title: "Source/interpretation separation"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/provenance/SOURCE_CATALOG.json"
+      - "docs/provenance/PROVENANCE_SCHEMA.json"
+      - "docs/provenance/generated/"
+    evidence:
+      pass:
+        - "DIRECT, GENERALIZED, and INFERRED distinctions remain machine-readable and auditable."
+      fail:
+        - "Inferred interpretation is stored as source provenance."
+      observed:
+        - "Machine-readable provenance graph and schema exist."
+    status: pass
+
+  - id: "F3"
+    gate: "F"
+    title: "End-to-end provenance round trip"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/examples/"
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "At least one conventional example reconstructs source -> normalized structure -> witnesses -> transforms -> rho -> public resolution -> conventional mapped result."
+      fail:
+        - "Any material link in the chain is missing or invented."
+      observed: []
+    status: blocked
+    depends_on:
+      - "D1"
+      - "B6"
+
+  - id: "G1"
+    gate: "G"
+    title: "Legacy-state cleanup"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/set-calculus-core/"
+      - "docs/philosophy-of-set-calculus/"
+    evidence:
+      pass:
+        - "Repository audit finds zero unresolved active contradictions involving three-state admissibility, five-witness boundaries, IDENTITY inside StateRelation, negative-exhaustion assumptions, obsolete boundary aggregation, or three-valued witness validation."
+        - "Historical material is clearly marked historical."
+      fail:
+        - "An independent implementer can reasonably choose two incompatible active rules from the repository."
+      observed:
+        - "Known legacy three-state and five-witness material remains active in the main trajectory formalization."
+    status: fail
+
+  - id: "G2"
+    gate: "G"
+    title: "Canonical path index"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "README.md"
+      - "SCOPE.md"
+      - "docs/set-calculus-core/README.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+    evidence:
+      pass:
+        - "A new implementer can locate the canonical specification, release checklist, conformance fixtures, compatibility examples, and provenance model without searching commit history."
+      fail:
+        - "Current canonical material is discoverable only through historical anchors or prior conversation context."
+      observed:
+        - "SCOPE.md links the human-readable release checklist."
+        - "Machine-readable checklist companion is present."
+    status: pending
+
+  - id: "H1"
+    gate: "H"
+    title: "SPECIFICATION PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+    evidence:
+      pass:
+        - "A1-A9 and G1-G2 all have status pass."
+      fail:
+        - "Any required specification or consistency item is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "A1"
+      - "A2"
+      - "A3"
+      - "A4"
+      - "A5"
+      - "A6"
+      - "A7"
+      - "A8"
+      - "A9"
+      - "G1"
+      - "G2"
+
+  - id: "H2"
+    gate: "H"
+    title: "IMPLEMENTATION PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "src/"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+    evidence:
+      pass:
+        - "B1-B6 all have status pass."
+      fail:
+        - "Any required implementation item is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "B1"
+      - "B2"
+      - "B3"
+      - "B4"
+      - "B5"
+      - "B6"
+
+  - id: "H3"
+    gate: "H"
+    title: "CONFORMANCE PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "tests/conformance/"
+      - ".github/workflows/"
+    evidence:
+      pass:
+        - "C1-C3 all have status pass and CI evidence exists."
+      fail:
+        - "Any required conformance item is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "C1"
+      - "C2"
+      - "C3"
+
+  - id: "H4"
+    gate: "H"
+    title: "CONVENTIONAL-CALCULUS PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "docs/conventional-calculus/"
+      - "docs/dependency-map/"
+      - "docs/textbook/"
+    evidence:
+      pass:
+        - "D1-D4 and E1-E3 all have status pass."
+      fail:
+        - "Any required conventional-calculus or dependency item is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "D1"
+      - "D2"
+      - "D3"
+      - "D4"
+      - "E1"
+      - "E2"
+      - "E3"
+
+  - id: "H5"
+    gate: "H"
+    title: "PROVENANCE PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "PROVENANCE.md"
+      - "docs/provenance/"
+      - "tests/conformance/"
+    evidence:
+      pass:
+        - "F1-F3 all have status pass."
+      fail:
+        - "Any required provenance item is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "F1"
+      - "F2"
+      - "F3"
+
+  - id: "H6"
+    gate: "H"
+    title: "CORE 0.1 PASS"
+    required: true
+    owner: "Chad Coulter"
+    artifact_paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+    evidence:
+      pass:
+        - "H1-H5 all have status pass."
+      fail:
+        - "Any required parent release gate is not pass."
+      observed: []
+    status: blocked
+    depends_on:
+      - "H1"
+      - "H2"
+      - "H3"
+      - "H4"
+      - "H5"
