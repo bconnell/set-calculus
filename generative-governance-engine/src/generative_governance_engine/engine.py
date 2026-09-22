@@ -277,6 +277,8 @@ def resolve(
     state: State,
     evidence: Iterable[Evidence] = (),
     transforms: Iterable[Transform] | None = None,
+    *,
+    planner_max_depth: int = 12,
 ) -> Resolution:
     evidence = tuple(evidence)
 
@@ -307,7 +309,16 @@ def resolve(
 
     if transforms is not None:
         transforms = tuple(transforms)
-        if plan_next(intent, authority, state, transforms) is None:
+        if (
+            plan_next(
+                intent,
+                authority,
+                state,
+                transforms,
+                max_depth=planner_max_depth,
+            )
+            is None
+        ):
             return Resolution.BLOCKED
 
     return Resolution.INCOMPLETE
@@ -328,7 +339,14 @@ def run(
 
     for _ in range(max_steps):
         evidence = observe(intent, state)
-        resolution = resolve(intent, authority, state, evidence, transforms)
+        resolution = resolve(
+            intent,
+            authority,
+            state,
+            evidence,
+            transforms,
+            planner_max_depth=planner_max_depth,
+        )
         trace.append(f"state:{state.version} resolution:{resolution.value}")
 
         if resolution is not Resolution.INCOMPLETE:
@@ -369,9 +387,24 @@ def run(
         state = apply_transform(intent, authority, state, transform)
 
     evidence = observe(intent, state)
+    resolution = resolve(
+        intent,
+        authority,
+        state,
+        evidence,
+        transforms,
+        planner_max_depth=planner_max_depth,
+    )
+    trace.append(f"state:{state.version} resolution:{resolution.value}")
+
+    if resolution is Resolution.INCOMPLETE:
+        trace.append("max steps exhausted")
+    elif resolution is Resolution.BLOCKED:
+        trace.append("no admissible recovery/progress path")
+
     return GovernanceResult(
-        resolution=Resolution.UNRESOLVED,
+        resolution=resolution,
         state=state,
         evidence=evidence,
-        trace=tuple(trace + ["max steps exceeded"]),
+        trace=tuple(trace),
     )
