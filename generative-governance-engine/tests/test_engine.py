@@ -19,9 +19,11 @@ from generative_governance_engine import (
     Transform,
     admissible,
     observe,
+    plan_next,
     resolve,
     run,
 )
+from generative_governance_engine.engine import plan_path
 
 
 class EngineTests(unittest.TestCase):
@@ -138,6 +140,184 @@ class EngineTests(unittest.TestCase):
             Resolution.COMPLETED,
             resolve(intent, self.authority(), state, current),
         )
+
+    def test_dependency_aware_planner_executes_prerequisite_first(self):
+        intent = self.base_intent()
+        authority = Authority((
+            AuthorityRule("agent", "prepare", "feature"),
+            AuthorityRule("agent", "set-ready", "feature"),
+        ))
+        prepare = Transform(
+            "T-PREPARE",
+            "agent",
+            "prepare",
+            "feature",
+            effects={"prepared": True},
+        )
+        ready = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+            depends_on=("T-PREPARE",),
+        )
+        path = plan_path(
+            intent,
+            authority,
+            State({"ready": False, "data_preserved": True}),
+            (ready, prepare),
+        )
+        self.assertEqual(("T-PREPARE", "T-READY"), tuple(t.transform_id for t in path))
+
+    def test_blocked_precondition_recovers_through_non_goal_transform(self):
+        intent = self.base_intent()
+        authority = Authority((
+            AuthorityRule("agent", "repair", "feature"),
+            AuthorityRule("agent", "set-ready", "feature"),
+        ))
+        recover = Transform(
+            "T-RECOVER",
+            "agent",
+            "repair",
+            "feature",
+            effects={"dependency_ok": True},
+        )
+        ready = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+            preconditions=(Requirement("P-1", "dependency_ok", True),),
+        )
+        result = run(
+            intent,
+            authority,
+            State({
+                "ready": False,
+                "data_preserved": True,
+                "dependency_ok": False,
+            }),
+            (ready, recover),
+        )
+        self.assertEqual(Resolution.COMPLETED, result.resolution)
+        self.assertIn("apply:T-RECOVER", result.trace)
+        self.assertIn("apply:T-READY", result.trace)
+
+    def test_no_recovery_path_remains_blocked(self):
+        ready = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+            preconditions=(Requirement("P-1", "dependency_ok", True),),
+        )
+        result = run(
+            self.base_intent(),
+            self.authority(),
+            State({
+                "ready": False,
+                "data_preserved": True,
+                "dependency_ok": False,
+            }),
+            (ready,),
+        )
+        self.assertEqual(Resolution.BLOCKED, result.resolution)
+
+    def test_tie_breaking_prefers_shorter_path(self):
+        intent = self.base_intent()
+        authority = Authority((
+            AuthorityRule("agent", "*", "feature"),
+        ))
+        direct = Transform(
+            "T-Z-DIRECT",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+        prep = Transform(
+            "T-A-PREP",
+            "agent",
+            "prepare",
+            "feature",
+            effects={"prepared": True},
+        )
+        indirect = Transform(
+            "T-A-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+            depends_on=("T-A-PREP",),
+        )
+        path = plan_path(
+            intent,
+            authority,
+            State({"ready": False, "data_preserved": True}),
+            (prep, indirect, direct),
+        )
+        self.assertEqual(("T-Z-DIRECT",), tuple(t.transform_id for t in path))
+
+    def test_tie_breaking_prefers_greater_delta_reduction(self):
+        intent = Intent(
+            intent_id="INT-MULTI",
+            version=1,
+            objective="Satisfy two requirements.",
+            acceptance_criteria=(
+                Requirement("AC-1", "a", True),
+                Requirement("AC-2", "b", True),
+            ),
+        )
+        authority = Authority((AuthorityRule("agent", "*", "feature"),))
+        one = Transform(
+            "T-A",
+            "agent",
+            "one",
+            "feature",
+            effects={"a": True},
+        )
+        two = Transform(
+            "T-Z",
+            "agent",
+            "two",
+            "feature",
+            effects={"a": True, "b": True},
+        )
+        selected = plan_next(
+            intent,
+            authority,
+            State({"a": False, "b": False}),
+            (one, two),
+        )
+        self.assertEqual("T-Z", selected.transform_id)
+
+    def test_tie_breaking_is_lexicographic_after_equal_cost_and_gain(self):
+        intent = self.base_intent()
+        authority = Authority((AuthorityRule("agent", "*", "feature"),))
+        alpha = Transform(
+            "T-ALPHA",
+            "agent",
+            "set-ready-a",
+            "feature",
+            effects={"ready": True},
+        )
+        beta = Transform(
+            "T-BETA",
+            "agent",
+            "set-ready-b",
+            "feature",
+            effects={"ready": True},
+        )
+        selected = plan_next(
+            intent,
+            authority,
+            State({"ready": False, "data_preserved": True}),
+            (beta, alpha),
+        )
+        self.assertEqual("T-ALPHA", selected.transform_id)
 
 
 if __name__ == "__main__":
