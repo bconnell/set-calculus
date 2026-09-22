@@ -33,6 +33,8 @@ It provides:
 - invariant-preserving Transform admission
 - dependency-aware Transform selection
 - blocked-state recovery through admissible prerequisite/precondition-enabling Transforms
+- cost-aware path planning
+- explicit transform base cost and risk penalty
 - deterministic planner tie-breaking
 - Transform execution with state versioning and completed-Transform history
 - current-state Evidence generation
@@ -44,19 +46,39 @@ It provides:
   - SUPERSEDED
   - FAILED
 - an end-to-end governance loop
-- conformance tests for Resolution, invariants, planner dependencies, recovery, and tie-breaking
+- conformance tests for Resolution, invariants, planner dependencies, recovery, cost, risk, and tie-breaking
 
 ## Planner semantics
 
-`plan_path()` searches for the shortest admissible Transform sequence that reduces semantic Intent-State delta.
+Each Transform has:
 
-A path may contain intermediate Transforms that do not directly satisfy Intent. Those steps are valid when they unlock a dependency or precondition required by a later advancing Transform.
+```text
+effective_cost = base_cost + risk_penalty
+```
 
-Deterministic ordering is:
+A path has:
 
-1. fewest Transforms;
-2. greatest semantic-delta reduction at the reached State;
-3. lexicographically smallest Transform-ID path.
+```text
+path_cost = sum(effective_cost(T_i))
+```
+
+`plan_path()` searches admissible dependency/recovery paths that reduce semantic Intent-State delta. A path may contain intermediate Transforms that do not directly satisfy Intent when those steps unlock a dependency or precondition required by a later advancing Transform.
+
+Candidate success paths are ordered deterministically by:
+
+1. lowest total effective path cost;
+2. greatest semantic-delta reduction;
+3. fewest Transforms;
+4. lexicographically smallest Transform-ID path.
+
+This means a longer low-cost safe path may outrank a shorter expensive or high-risk path.
+
+Costs and risk penalties must be non-negative. The default Transform has:
+
+```text
+base_cost = 1.0
+risk_penalty = 0.0
+```
 
 If no admissible path can reduce delta within the configured search depth, the current Resolution becomes `BLOCKED`.
 
