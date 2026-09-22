@@ -274,6 +274,7 @@ jobs:
               sys.exit(1)
 
       - name: Show surviving mutant diffs
+        if: always()
         working-directory: generative-governance-engine
         shell: bash
         run: |
