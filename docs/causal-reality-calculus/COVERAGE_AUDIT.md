@@ -46,6 +46,62 @@ The current provenance system is strong for the Causal Temporal Economics merge,
 
 ---
 
+# Architecture Alignment Audit
+
+This audit now also checks CRC against the canonical Set Calculus architecture.
+
+Canonical references:
+
+- `docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md`
+- `docs/philosophy-of-set-calculus/FOUR_BODY_KNOWLEDGE_ARCHITECTURE.md`
+
+## Alignment checks
+
+| Check | Result | Notes |
+|---|---|---|
+| CRC treated as a new foundational branch | **PASS** | CRC is explicitly placed inside the Computer Science application domain of Causal Relations. |
+| Monadic Relational Structure represented | **PASS** | Core now records `M=<E,R,S,T,P>` as the shared foundational object. |
+| Domain Function distinction represented | **PASS** | CRC is expressed as a domain view `D_crc : M -> M_crc`. |
+| Local Closure distinguished from Relational Closure | **PASS** | Core records `LocalClosure(D_crc(M)) !-> RelationalClosure(M)`. |
+| Cross-Domain Relations survive local omission | **PASS** | Core records `not represented in CRC != not relationally present`. |
+| Cause incorrectly promoted to root primitive | **PASS** | Cause remains a typed Relationship, not a root primitive. |
+| Causal Relations incorrectly treated as peer discipline | **PASS** | Causal Relations is classified as a Computer Science application domain. |
+| Canonical terminology source identified | **PASS** | Core points to the Canonical Terminology Ledger. |
+| External source provenance separated from architecture provenance | **PASS** | Provenance Matrix now distinguishes source-law support from internal architecture placement. |
+
+## Alignment conclusion
+
+The CRC formalism remains unchanged in its core specialization:
+
+```text
+CRC = SC + <Context, Carrier, Metric, Temporal, Authority>
+```
+
+The update changes its architectural interpretation and scope boundary:
+
+```text
+Monadic Relational Structure
+        ↕
+Mathematics / Logic / Computer Science
+                          |
+                          +-- Causal Relations
+                                  |
+                                  +-- CRC
+```
+
+This placement is a functional map, not a hierarchy.
+
+The principal closure guard is:
+
+```text
+LocalClosure(D_crc(M))
+!-> RelationalClosure(M)
+```
+
+Therefore a locally complete CRC result may still be reopened by a materially relevant Cross-Domain Relation.
+
+---
+
 # A. Source Passages With No CRC Mapping
 
 ## A.1 Fully unmapped registered passages
