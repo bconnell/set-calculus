@@ -159,6 +159,77 @@ class VerificationContractTests(unittest.TestCase):
         self.assertEqual(Resolution.COMPLETED, extended_result.resolution)
         self.assertEqual(101, extended_result.state.version)
 
+    def test_resolve_with_catalog_uses_requested_planner_depth(self):
+        chain = self.dependency_chain(13)
+        state = State({"ready": False, "data_preserved": True})
+
+        default_resolution = __import__(
+            "generative_governance_engine",
+            fromlist=["resolve"],
+        ).resolve(
+            self.intent(),
+            self.authority(),
+            state,
+            (),
+            chain,
+        )
+        self.assertEqual(Resolution.BLOCKED, default_resolution)
+
+        widened_resolution = __import__(
+            "generative_governance_engine",
+            fromlist=["resolve"],
+        ).resolve(
+            self.intent(),
+            self.authority(),
+            state,
+            (),
+            chain,
+            planner_max_depth=13,
+        )
+        self.assertEqual(Resolution.INCOMPLETE, widened_resolution)
+
+    def test_step_exhaustion_can_finish_in_blocked_state(self):
+        intent = Intent(
+            intent_id="INT-PARTIAL",
+            version=1,
+            objective="Satisfy both requirements.",
+            acceptance_criteria=(
+                Requirement("AC-A", "a", True),
+                Requirement("AC-B", "b", True),
+            ),
+        )
+        transform = Transform(
+            "T-A",
+            "agent",
+            "set-a",
+            "feature",
+            effects={"a": True},
+        )
+        initial = State({"a": False, "b": False})
+
+        result = run(
+            intent,
+            self.authority(),
+            initial,
+            (transform,),
+            max_steps=1,
+        )
+
+        self.assertEqual(Resolution.BLOCKED, result.resolution)
+        self.assertEqual(1, result.state.version)
+        self.assertTrue(result.state.facts["a"])
+        self.assertFalse(result.state.facts["b"])
+        self.assertEqual(
+            (
+                "state:0 resolution:INCOMPLETE",
+                "plan:T-A cost:1.000",
+                "apply:T-A cost:1.000 risk:0.000",
+                "state:1 resolution:BLOCKED",
+                "no admissible recovery/progress path",
+            ),
+            result.trace,
+        )
+
     def test_negative_cost_diagnostics_are_exact_and_actionable(self):
         with self.assertRaisesRegex(
             ValueError,
