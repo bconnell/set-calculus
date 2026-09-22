@@ -51,16 +51,25 @@ class State:
     facts: Mapping[str, Any]
     version: int = 0
     uncertain: frozenset[str] = frozenset()
+    completed_transforms: frozenset[str] = frozenset()
 
-    def with_effects(self, effects: Mapping[str, Any]) -> "State":
+    def with_effects(
+        self,
+        effects: Mapping[str, Any],
+        transform_id: str | None = None,
+    ) -> "State":
         updated = dict(self.facts)
         updated.update(effects)
         uncertainty = set(self.uncertain)
         uncertainty.difference_update(effects.keys())
+        completed = set(self.completed_transforms)
+        if transform_id is not None:
+            completed.add(transform_id)
         return State(
             facts=updated,
             version=self.version + 1,
             uncertain=frozenset(uncertainty),
+            completed_transforms=frozenset(completed),
         )
 
 
@@ -94,6 +103,7 @@ class Transform:
     scope: str
     effects: Mapping[str, Any]
     preconditions: tuple[Requirement, ...] = ()
+    depends_on: tuple[str, ...] = ()
     description: str = ""
 
 
