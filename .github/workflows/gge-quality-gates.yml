@@ -26,10 +26,10 @@ jobs:
       PYTHONPATH: ${{ github.workspace }}/generative-governance-engine/src
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -61,10 +61,10 @@ jobs:
         python-version: ["3.11", "3.14"]
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
 
@@ -141,17 +141,17 @@ jobs:
 
           print(f"repository integrity scan passed for {len(tracked)} tracked paths")
 
-  coverage-measure:
-    name: GGE branch coverage measurement
+  coverage-gate:
+    name: GGE coverage gate
     runs-on: ubuntu-latest
     env:
       PYTHONPATH: ${{ github.workspace }}/generative-governance-engine/src
     steps:
       - name: Check out exact candidate
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.14"
 
@@ -163,3 +163,49 @@ jobs:
 
       - name: Report core coverage
         run: python -m coverage report --show-missing --include="*/generative_governance_engine/__init__.py,*/generative_governance_engine/engine.py,*/generative_governance_engine/model.py"
+
+      - name: Export machine-readable coverage
+        run: python -m coverage json -o coverage.json --include="*/generative_governance_engine/__init__.py,*/generative_governance_engine/engine.py,*/generative_governance_engine/model.py"
+
+      - name: Enforce statement and branch thresholds independently
+        shell: python
+        run: |
+          import json
+          import sys
+
+          with open("coverage.json", "r", encoding="utf-8") as handle:
+              totals = json.load(handle)["totals"]
+
+          statements = totals["num_statements"]
+          covered_statements = totals["covered_lines"]
+          branches = totals["num_branches"]
+          covered_branches = totals["covered_branches"]
+
+          statement_pct = 100.0 if statements == 0 else covered_statements * 100.0 / statements
+          branch_pct = 100.0 if branches == 0 else covered_branches * 100.0 / branches
+
+          required_statement_pct = 100.0
+          required_branch_pct = 98.0
+
+          print(
+              f"statements: {covered_statements}/{statements} = {statement_pct:.2f}% "
+              f"(required {required_statement_pct:.2f}%)"
+          )
+          print(
+              f"branches: {covered_branches}/{branches} = {branch_pct:.2f}% "
+              f"(required {required_branch_pct:.2f}%)"
+          )
+
+          failures = []
+          if statement_pct < required_statement_pct:
+              failures.append("statement coverage threshold not met")
+          if branch_pct < required_branch_pct:
+              failures.append("branch coverage threshold not met")
+
+          if failures:
+              print("\n".join(failures))
+              sys.exit(1)
+
+      - name: Remove transient coverage evidence
+        shell: bash
+        run: rm -f .coverage coverage.json
