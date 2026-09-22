@@ -4,7 +4,9 @@
 
 Causal Reality Calculus (CRC) is a specialization of Set Calculus for representing, transforming, and resolving causally related states of reality.
 
-It inherits the general Set Calculus:
+Within the canonical architecture, **Causal Relations is a Computer Science application domain**. CRC is a formal calculus used inside that application domain. It is not a new foundational branch and does not sit above Mathematics, Logic, or Computer Science.
+
+CRC inherits the general Set Calculus:
 
 ```text
 SC =
@@ -19,7 +21,7 @@ CRC adds the minimum causal structure required to distinguish:
 - how measurable structure is attached to it;
 - whether one realization may validly project into another.
 
-The initial specialization is:
+The formal specialization remains:
 
 ```text
 CRC =
@@ -33,6 +35,101 @@ CRC =
 <Set, Member, Relationship, State, Transform, Resolution, Provenance,
  Context, Carrier, Metric, Temporal, Authority>
 ```
+
+This specialization is a domain formalism, not an architectural hierarchy.
+
+## 1.1 Canonical Architectural Placement
+
+The canonical foundational object is the **Monadic Relational Structure**:
+
+```text
+M = <E, R, S, T, P>
+```
+
+where:
+
+```text
+E = entities / members
+R = relations
+S = relational state
+T = admissible transforms
+P = provenance
+```
+
+Mathematics, Logic, and Computer Science act as domain functions over this shared object rather than as ontologically separate structures.
+
+CRC is situated within the Computer Science application of Causal Relations:
+
+```text
+Foundational Monadic Relational Structure M
+        ↕
+Mathematics     Logic     Computer Science
+                              |
+                              +-- Causal Relations
+                                      |
+                                      +-- CRC
+```
+
+The diagram describes functional placement, not hierarchy.
+
+A CRC representation is therefore a domain-resolved view:
+
+```text
+D_crc : M -> M_crc
+```
+
+with:
+
+```text
+M_crc != M
+```
+
+CRC may obtain a valid **Local Closure** for the causal-relations question under examination, but that closure does not imply that the complete Monadic Relational Structure has reached **Relational Closure**:
+
+```text
+LocalClosure(D_crc(M))
+!-> RelationalClosure(M)
+```
+
+Therefore:
+
+```text
+not represented in CRC
+!=
+not relationally present
+```
+
+and:
+
+```text
+valid causal-domain resolution
+!=
+global cross-domain resolution
+```
+
+A mathematically, logically, or computationally relevant Cross-Domain Relation may reopen a CRC Local Closure when the omitted relation is material to the larger object.
+
+This is an architectural scope rule. It does not weaken CRC's internal causal rules; it prevents a locally valid causal model from being mistaken for the whole relational object.
+
+## 1.2 Canonical Terminology Alignment
+
+Terminology in this document follows:
+
+```text
+docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md
+```
+
+In particular:
+
+- **Foundational Structure** is more abstract than any single mathematical, logical, or computational application.
+- **Domain Function** is a projection or operation over the Monadic Relational Structure.
+- **Local Closure** is closure valid within one domain function.
+- **Relational Closure** includes materially relevant cross-domain relations.
+- **Cross-Domain Relation** remains present even when omitted from a domain-local representation.
+- **Causal Relations** is an application domain within Computer Science.
+- **Cause** remains a typed Relationship in CRC, not a new root primitive.
+
+The canonical architecture is stable unless explicitly changed. CRC terminology may be refined without silently changing that architecture.
 
 ---
 
