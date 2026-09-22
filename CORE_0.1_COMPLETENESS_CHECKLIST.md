@@ -2,6 +2,7 @@
 
 **Status:** Active release gate  
 **Branch:** `causal-reality-calculus`  
+**Machine-readable companion:** `CORE_0.1_COMPLETENESS_CHECKLIST.yaml`  
 **Release rule:** Core 0.1 is complete only when every REQUIRED gate below is checked and has linked pass evidence.
 
 ```text
