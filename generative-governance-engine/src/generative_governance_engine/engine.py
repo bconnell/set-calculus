@@ -122,6 +122,21 @@ def plan_path(
       3. fewest transforms;
       4. lexicographically smallest transform-id path.
     """
+    transforms = tuple(transforms)
+    seen_transform_ids: set[str] = set()
+    duplicate_transform_ids: set[str] = set()
+    for transform in transforms:
+        if transform.transform_id in seen_transform_ids:
+            duplicate_transform_ids.add(transform.transform_id)
+        seen_transform_ids.add(transform.transform_id)
+
+    if duplicate_transform_ids:
+        duplicates = ", ".join(repr(item) for item in sorted(duplicate_transform_ids))
+        raise ValueError(
+            f"Transform IDs must be unique within a planner catalog; "
+            f"duplicate IDs: {duplicates}."
+        )
+
     transforms = tuple(sorted(transforms, key=lambda item: item.transform_id))
     initial_delta = _delta_size(intent, state)
     if initial_delta == 0:

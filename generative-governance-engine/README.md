@@ -80,6 +80,8 @@ base_cost = 1.0
 risk_penalty = 0.0
 ```
 
+Within one GGE planner catalog, `transform_id` values must be unique. GGE uses Transform IDs for dependency references and completed-Transform history, so duplicate IDs are rejected as ambiguous input rather than resolved by insertion order.
+
 If no admissible path can reduce delta within the configured search depth, the current Resolution becomes `BLOCKED`.
 
 ## Reference resource bounds

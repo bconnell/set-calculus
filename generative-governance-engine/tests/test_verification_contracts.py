@@ -415,6 +415,34 @@ class VerificationContractTests(unittest.TestCase):
         self.assertIsNotNone(selected)
         self.assertEqual("T-B-VIABLE", selected.transform_id)
 
+    def test_duplicate_transform_ids_are_rejected_as_ambiguous_catalog(self):
+        first = Transform(
+            "T-DUP",
+            "agent",
+            "first",
+            "feature",
+            effects={"a": True},
+        )
+        second = Transform(
+            "T-DUP",
+            "agent",
+            "second",
+            "feature",
+            effects={"ready": True},
+        )
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"^Transform IDs must be unique within a planner catalog; "
+            r"duplicate IDs: 'T-DUP'\.$",
+        ):
+            plan_path(
+                self.intent(),
+                self.authority(),
+                State({"ready": False, "data_preserved": True}),
+                (first, second),
+            )
+
     def test_equal_cost_convergent_paths_preserve_deterministic_choice(self):
         set_a = Transform(
             "T-A",
