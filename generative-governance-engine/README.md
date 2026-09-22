@@ -99,7 +99,7 @@ These defaults are part of the v0.1 reference behavior. Callers may override the
 
 ## Verification contract
 
-The GGE verification workflow checks the executable kernel at several independent boundaries:
+The GGE verification workflow checks the executable kernel at several independent boundaries. Changes to the executable GGE tree, its governing IDGM documents, the inherited Set Calculus Core documents, or the workflow itself trigger these checks.
 
 - source tests on Ubuntu and Windows across Python 3.11, 3.12, 3.13, and 3.14;
 - installed-package smoke tests outside the repository tree on Python 3.11 and 3.14;
@@ -107,6 +107,7 @@ The GGE verification workflow checks the executable kernel at several independen
 - 100 percent statement coverage on the core package;
 - 100 percent branch coverage on the core package;
 - mutation testing with a blocking kill-rate threshold of at least 98 percent, plus survivor review as adversarial evidence about test strength.
+- one aggregate final gate that succeeds only when every blocking GGE job succeeds.
 
 Coverage and mutation results are evidence about the executable implementation. They do not prove the formal mathematics, replace provenance review, or authorize changes to the governing specification.
 

@@ -4,10 +4,14 @@ on:
   pull_request:
     paths:
       - "generative-governance-engine/**"
+      - "docs/intent-driven-generative-math/**"
+      - "docs/set-calculus-core/**"
       - ".github/workflows/gge-quality-gates.yml"
   push:
     paths:
       - "generative-governance-engine/**"
+      - "docs/intent-driven-generative-math/**"
+      - "docs/set-calculus-core/**"
       - ".github/workflows/gge-quality-gates.yml"
 
 permissions:
@@ -283,3 +287,37 @@ jobs:
             mutmut show "$mutant"
             echo "::endgroup::"
           done < surviving-mutants.txt
+
+  final-gate:
+    name: GGE final gate
+    runs-on: ubuntu-latest
+    needs:
+      - source-tests
+      - installed-package
+      - repository-integrity
+      - coverage-gate
+      - mutation-measure
+    if: ${{ always() }}
+    steps:
+      - name: Require every blocking gate
+        shell: python
+        env:
+          NEEDS_JSON: ${{ toJson(needs) }}
+        run: |
+          import json
+          import os
+          import sys
+
+          needs = json.loads(os.environ["NEEDS_JSON"])
+          failures = {
+              name: result.get("result")
+              for name, result in needs.items()
+              if result.get("result") != "success"
+          }
+
+          if failures:
+              for name, result in sorted(failures.items()):
+                  print(f"{name}: {result}")
+              sys.exit(1)
+
+          print("all blocking GGE quality gates passed")
