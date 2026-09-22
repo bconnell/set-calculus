@@ -20,6 +20,45 @@ This matrix maps each Causal Temporal Economics-derived CRC law to its exact sou
 
 ---
 
+## Canonical Architecture Provenance
+
+The Causal Temporal Economics rows below remain the provenance matrix for source-derived CRC laws.
+
+CRC also has an internal architectural provenance boundary. The following terms are not imported from Causal Temporal Economics; they are canonical Set Calculus architecture definitions used to place CRC correctly inside the current model.
+
+| CRC architectural object | Canonical source | Interpretation | Status | Notes |
+|---|---|---|---|---|
+| **Monadic Relational Structure** | `docs/philosophy-of-set-calculus/FOUR_BODY_KNOWLEDGE_ARCHITECTURE.md`; `CANONICAL_TERMINOLOGY_LEDGER.md` | **CANONICAL / ASSERTED** | **FOUNDATIONAL** | Shared relational object `M=<E,R,S,T,P>`; domain views do not become independent realities. |
+| **Domain Function** | Same canonical architecture sources | **CANONICAL / ASSERTED** | **CROSS-DOMAIN INTERFACE** | A disciplinary projection or operation `D_i : M -> M_i`. |
+| **Causal Relations placement** | Same canonical architecture sources | **CANONICAL / ASSERTED** | **COMPUTER SCIENCE APPLICATION** | Causal Relations is an application domain; CRC is a formal calculus used within it. |
+| **Local Closure** | Same canonical architecture sources | **CANONICAL / ASSERTED** | **DOMAIN-SCOPED** | A valid closure within one domain function. |
+| **Relational Closure** | Same canonical architecture sources | **CANONICAL / ASSERTED** | **CROSS-DOMAIN** | Closure of the larger relational object after materially relevant cross-domain relations resolve. |
+| **Cross-Domain Relation** | Same canonical architecture sources | **CANONICAL / ASSERTED** | **CROSS-DOMAIN** | A material relation that survives omission from a local domain projection. |
+| **CRC domain view** | `CORE_PRIMITIVES_AND_AXIOMS.md` §1.1 | **DERIVED PLACEMENT** | **DOMAIN-SCOPED** | `D_crc : M -> M_crc`; `M_crc != M`. |
+| **CRC closure boundary** | `CORE_PRIMITIVES_AND_AXIOMS.md` §1.1 | **DERIVED PLACEMENT** | **DOMAIN-SCOPED** | `LocalClosure(D_crc(M)) !-> RelationalClosure(M)`. |
+
+These architecture rows must not be represented as external empirical validation. They record the repository's current canonical structure and the placement of CRC within it.
+
+### Interpretation boundary
+
+```text
+external source provenance
+!=
+internal architecture provenance
+```
+
+The first answers:
+
+> Which source passage supports this causal law?
+
+The second answers:
+
+> Where does this CRC object sit in the stable Set Calculus architecture?
+
+Both forms of provenance are retained without collapsing one into the other.
+
+---
+
 ## Matrix
 
 | CRC law | Source passage | Source location | Interpretation | Calibration status | Notes |
