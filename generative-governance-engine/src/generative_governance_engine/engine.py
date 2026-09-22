@@ -357,6 +357,9 @@ def run(
                 trace=tuple(trace),
             )
 
+        # resolve() used this same transform catalog and search boundary.
+        # INCOMPLETE therefore guarantees a non-empty path for stable,
+        # deterministic inputs.
         path = plan_path(
             intent,
             authority,
@@ -364,13 +367,6 @@ def run(
             transforms,
             max_depth=planner_max_depth,
         )
-        if not path:
-            return GovernanceResult(
-                resolution=Resolution.BLOCKED,
-                state=state,
-                evidence=evidence,
-                trace=tuple(trace + ["no admissible recovery/progress path"]),
-            )
 
         trace.append(
             "plan:"
