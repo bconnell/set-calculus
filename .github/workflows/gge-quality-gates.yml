@@ -140,3 +140,26 @@ jobs:
               sys.exit(1)
 
           print(f"repository integrity scan passed for {len(tracked)} tracked paths")
+
+  coverage-measure:
+    name: GGE branch coverage measurement
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/generative-governance-engine/src
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install coverage tool
+        run: python -m pip install --disable-pip-version-check coverage==7.16.1
+
+      - name: Measure branch coverage
+        run: python -m coverage run --branch --source=generative_governance_engine -m unittest discover -s generative-governance-engine/tests -v
+
+      - name: Report core coverage
+        run: python -m coverage report --show-missing --include="*/generative_governance_engine/__init__.py,*/generative_governance_engine/engine.py,*/generative_governance_engine/model.py"
