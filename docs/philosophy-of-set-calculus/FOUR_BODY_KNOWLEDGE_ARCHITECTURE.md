@@ -1,4 +1,4 @@
-# Source Structure, Triadic Resolution Path, and the Four-Body Knowledge Architecture
+# Foundational Structures and the Cross-Disciplinary Resolution Circuit
 
 ## Philosophy Anchor
 
@@ -22,48 +22,195 @@ Triadic Resolution Path
 
 The purpose of this distinction is de-idolization: the source remains credited and traceable, while the mathematics is named for the structure rather than the person associated with one historical formulation.
 
-## Four-Body Knowledge Architecture
+## Foundational Structures and Disciplinary Interfaces
 
-The source structure and the three disciplinary modes form a four-body architecture:
+The architecture is not a hierarchy.
 
-```text
-                 SOURCE STRUCTURE
-        Collatz / observed source dynamics
-                         |
-                         v
-              Triadic Resolution Path
-                         |
-          +--------------+--------------+
-          |              |              |
-          v              v              v
-     Mathematics        Logic     Computer Science
-```
-
-The four bodies are:
-
-1. **Source Structure**
-2. **Mathematics**
-3. **Logic**
-4. **Computer Science**
-
-The Triadic Resolution Path is the structural abstraction that allows the source behavior to be examined across the three disciplines.
-
-## Body 1: Source Structure
-
-Role:
+Foundational structures provide a common substrate from which Mathematics, Logic, and Computer Science examine and operate on the same relational reality through different domain functions.
 
 ```text
-observe
-preserve provenance
-expose recurring behavior
-provide a structure for abstraction
+                 FOUNDATIONAL STRUCTURES
+                 /         |          \
+                /          |           \
+       Mathematics       Logic     Computer Science
+                \          |           /
+                 \         |          /
+                  relational circuit
 ```
 
-The source structure answers:
+The disciplines are not treated as independent realities.
 
-> Where was the pattern observed?
+They are interfaces through which a shared relational structure can be represented, resolved, validated, or applied.
 
-The source is evidence and provenance. It is not the sole authority for the generalized structure.
+The same object may therefore appear in more than one discipline without being duplicated, because each discipline exposes a different function of the same underlying relation.
+
+## The Academic Separation Problem
+
+One problem Set Calculus attempts to resolve is not only the idolatry produced when academic authority becomes attached to names, institutions, disciplines, or inherited classifications.
+
+A deeper problem arises when the academic hierarchy separates a fundamentally relational structure into isolated disciplinary domains and then allows each domain function to close over its own representation.
+
+The working philosophical claim is:
+
+```text
+monadic relational structure
+        ↓
+partition into academic domains
+        ↓
+domain-specific function
+        ↓
+local closure
+        ↓
+cross-domain boundary becomes difficult to breach
+```
+
+The separation is useful for specialization, but it can become structurally misleading when the domain boundary is mistaken for a boundary in the object being studied.
+
+A mathematical representation, logical resolution, and computational application may be different views or operations on the same relational state.
+
+When they are treated as independent objects, information that should remain relational can become trapped inside a local academic closure.
+
+This creates a cross-domain problem:
+
+```text
+local disciplinary closure
+!=
+global relational closure
+```
+
+A domain may appear internally complete while still omitting relations visible from another disciplinary interface.
+
+Set Calculus therefore treats disciplinary separation as a useful functional partition, not as evidence that the underlying structure itself is separated.
+
+## Monadic Relational State
+
+The common object is treated as relational before it is disciplinary.
+
+```text
+shared relational state
+    ↕
+Mathematics
+    ↕
+Logic
+    ↕
+Computer Science
+```
+
+The arrows are intentionally bidirectional.
+
+A mathematical abstraction may expose a logical problem.
+
+A logical contradiction may expose a foundational insufficiency.
+
+A computational application may reveal behavior that requires mathematical reformulation.
+
+A newly exposed foundational structure may then change all three disciplinary views.
+
+The circuit remains open to re-resolution.
+
+## Foundational Structures
+
+Foundational structures are more abstract than any single mathematical, logical, or computational application.
+
+Their role is to expose the structural substrate that the disciplines operate upon.
+
+Examples under current study include historically sourced structures associated with Collatz, Fermat, Riemann, paradox, and other relational problems whose significance may cross disciplinary boundaries.
+
+Historical names remain provenance anchors. They are not treated as terminal authority.
+
+## Mathematics
+
+Mathematics defines abstract mathematical structure and mathematical application.
+
+Its role includes:
+
+```text
+define structure
+represent relationships
+measure
+transform
+identify bounds
+characterize invariants
+formalize abstract applications
+```
+
+Mathematics asks:
+
+> What mathematical structure is present, and how can it be calculated?
+
+## Logic
+
+Logic defines structures of resolution.
+
+Its role includes:
+
+```text
+determine admissibility
+evaluate contradiction
+preserve unresolved states
+identify closure
+test inference
+define reachability
+filter classification
+track resolution provenance
+```
+
+Logical structures currently include such objects as:
+
+```text
+State
+Theory
+Data
+Simulation
+Management
+Planning
+Alignment
+Paradox
+Discriminated Union / Filter
+```
+
+A logical structure may also have a foundational form when the object exposes a limitation in the structure required for logic itself.
+
+Paradox is a current example:
+
+```text
+Logical Paradox
+= unresolved incompatibility within a structure
+
+Foundational Paradox
+= discovery that the available structure itself is insufficient
+```
+
+## Computer Science
+
+Computer Science concerns application: how mathematical and logical structures are represented, executed, simulated, tested, managed, and used.
+
+Its role includes:
+
+```text
+represent computationally
+apply
+execute
+simulate
+compare paths
+preserve state
+test
+operate on data
+```
+
+Application areas may include:
+
+```text
+Cause
+Relation
+Causal Relations
+Game Theory
+Data
+AI
+other executable or applied domains
+```
+
+These applications may depend on mathematical and logical structures without making Mathematics or Logic subordinate to Computer Science.
 
 ## Structural Abstraction: Triadic Resolution Path
 
@@ -81,122 +228,137 @@ Its role is:
 source observation
         ↓
 structural abstraction
-        ↓
-cross-disciplinary study
+        ↕
+cross-disciplinary examination
 ```
 
 It answers:
 
 > What reusable structure has been identified?
 
-The abstraction may later be supported, revised, constrained, or rejected as it is tested against additional systems. Its provenance remains attached to the source observations that contributed to it.
+The abstraction may later be supported, revised, constrained, or rejected as it is tested across disciplinary interfaces.
 
-## Body 2: Mathematics
+Its provenance remains attached to the source observations that contributed to it.
 
-Role:
+## Circuit Rather Than Hierarchy
 
-```text
-define structure
-represent relationships
-measure
-transform
-identify bounds
-characterize invariants
-```
-
-Mathematics asks:
-
-> What is the structure?
-
-## Body 3: Logic
-
-Role:
+The architecture should not be read as:
 
 ```text
-determine admissible resolution
-evaluate contradiction
-preserve unresolved states
-identify closure
-test inference
-track resolution provenance
+Foundation
+-> Mathematics
+-> Logic
+-> Computer Science
 ```
 
-Logic asks:
+That would reproduce the same artificial separation the framework is attempting to examine.
 
-> What can validly resolve from the structure?
-
-## Body 4: Computer Science
-
-Role:
+Instead:
 
 ```text
-represent computationally
-execute
-simulate
-compare paths
-preserve state
-plan
-test
+             Foundational Structure
+             ↙        ↓         ↘
+      Mathematics ↔ Logic ↔ Computer Science
+             ↖        ↑         ↗
+               relational state
 ```
 
-Computer Science asks:
-
-> What happens when the structure is executed?
-
-Application areas may include Game Theory, Causal Reality Calculus, simulation, planning, multi-actor systems, state management, and other executable resolution domains.
-
-## Layer Distinction
-
-```text
-source phenomenon
-    ↓
-structural abstraction
-    ↓
-disciplinary examination
-    ↓
-application
-```
+Any interface may expose information that causes another interface to reopen a previously closed result.
 
 Therefore:
 
 ```text
-Collatz
-!=
-Triadic Resolution Path
+disciplinary closure
+is local and provisional
 
-Triadic Resolution Path
-!=
-Mathematics / Logic / Computer Science
-
-Mathematics / Logic / Computer Science
-!=
-their applications
+relational resolution
+may require cross-domain reopening
 ```
 
-Compactly:
+The system is circuit-like rather than hierarchical.
+
+## Cross-Domain Closure Problem
+
+Academic specialization often creates powerful domain functions.
+
+The risk appears when those functions become self-sealing.
 
 ```text
-Collatz
-= where the pattern was historically observed
-
-Triadic Resolution Path
-= the generalized pattern
-
-Mathematics / Logic / Computer Science
-= three disciplinary modes for studying and using the pattern
-
-Applications
-= domains in which those structures and resolutions are exercised
+domain function
+-> local language
+-> local assumptions
+-> local validation
+-> local closure
 ```
 
-## De-idolization Principle
+Once a domain achieves internal closure, a cross-domain challenge may be rejected because it is expressed in another domain's language, relies on another domain's evidence, or requires reopening assumptions already treated as settled locally.
 
-Set Calculus should preserve historical names as provenance where they are useful for tracing prior work, while preferring structural names for reusable mathematical concepts.
+The result is not necessarily false knowledge.
+
+The result may instead be a valid local resolution that is difficult to reconcile with the larger relational state.
+
+Set Calculus therefore preserves the distinction:
+
+```text
+valid within domain
+!=
+globally resolved across relation
+```
+
+This is one reason provenance, unresolved states, contradiction, and reversible examination remain central to the framework.
+
+They provide routes back across domain boundaries.
+
+## De-idolization and De-separation
+
+The philosophical problem therefore has at least two related forms.
+
+### Idolatry
+
+```text
+historical source
+-> name / authority
+-> inherited acceptance
+```
+
+Correction:
 
 ```text
 credit the source
 preserve the provenance
 name the structure for what it does
+test the structure independently
 ```
 
-The historical source remains part of the record without becoming the authority of the mathematics.
+### Artificial Separation
+
+```text
+relational whole
+-> disciplinary partition
+-> domain closure
+-> loss of cross-domain visibility
+```
+
+Correction:
+
+```text
+preserve disciplinary function
+preserve relational identity
+allow cross-domain reopening
+resolve across the circuit
+```
+
+The goal is not to abolish disciplines.
+
+The goal is to prevent the useful abstraction of a discipline from being mistaken for an ontological separation in the thing being studied.
+
+## Core Principle
+
+```text
+separate functions
+without severing relations
+```
+
+Or stated more fully:
+
+> Academic domains may provide different functions over the same relational state. Their local closures are useful, but they must remain permeable when cross-domain relations show that the larger structure is unresolved.
