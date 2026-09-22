@@ -67,6 +67,10 @@ Reorganization alone is not evidence that conventional mathematics is incorrect.
 - probabilistic inference hidden behind deterministic terminology
 - coupling the formal system to a particular LLM
 
+## v0.1 release gate
+
+The executable release checklist is maintained in `CORE_0.1_COMPLETENESS_CHECKLIST.md`. That file is the canonical pass/fail gate for Core 0.1 and expands the criteria below into artifact, ownership, and evidence requirements.
+
 ## v0.1 exit criteria
 
 v0.1 is ready to advance when the repository contains:
