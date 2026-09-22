@@ -252,6 +252,34 @@ class EngineContractTests(unittest.TestCase):
         self.assertEqual("state:1 resolution:INCOMPLETE", result.trace[-2])
         self.assertEqual("max steps exhausted", result.trace[-1])
 
+    def test_step_budget_final_state_can_be_blocked(self):
+        make_partial_progress = Transform(
+            "T-PARTIAL",
+            "agent",
+            "partial",
+            "feature",
+            effects={"partial": True},
+        )
+        initial = State({"ready": False, "data_preserved": True})
+
+        result = run(
+            self.intent(),
+            self.authority(),
+            initial,
+            (make_partial_progress,),
+            max_steps=1,
+        )
+
+        self.assertEqual(Resolution.BLOCKED, result.resolution)
+        self.assertEqual(1, result.state.version)
+        self.assertEqual(
+            frozenset({"T-PARTIAL"}),
+            result.state.completed_transforms,
+        )
+        self.assertEqual((), result.evidence)
+        self.assertEqual("state:1 resolution:BLOCKED", result.trace[-1])
+        self.assertNotIn("max steps exhausted", result.trace)
+
     def test_last_allowed_transform_can_complete(self):
         finish = Transform(
             "T-FINISH",
