@@ -129,4 +129,31 @@ Highest-priority remaining work:
 2. extract every IDGM axiom and derived law into machine-readable object and passage records;
 3. capture the canonical Set Calculus core documents under `docs/set-calculus-core/`;
 4. map executable GGE model/engine behavior back to the formal IDGM laws;
-5. generate the markdown source ledger, provenance matrix, reverse index, and coverage audit from the JSON graph rather than maintaining four independent truth stores.
+5. expand passage-level coverage until the generated audit reports the desired repository-wide coverage.
+
+
+## Generated views
+
+The four human-readable provenance views are generated from the machine-readable graph and must not be edited independently:
+
+```text
+docs/provenance/generated/SOURCE_LEDGER.md
+docs/provenance/generated/PROVENANCE_MATRIX.md
+docs/provenance/generated/REVERSE_SOURCE_INDEX.md
+docs/provenance/generated/COVERAGE_AUDIT.md
+```
+
+The generator validates controlled enums, record IDs, source/passage/object references, derived-mapping references, audit references, and duplicate provenance edges before writing output.
+
+### Reproducible regeneration command
+
+From the repository root, run exactly:
+
+```cmd
+python scripts/generate_provenance_views.py
+```
+
+The generator uses only the Python standard library. With an unchanged `SOURCE_CATALOG.json`, repeated runs produce byte-identical generated Markdown files.
+
+`SOURCE_CATALOG.json` is the source of truth. The generated Markdown files are read-only views of that graph.
+
