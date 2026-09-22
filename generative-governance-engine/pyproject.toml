@@ -14,3 +14,8 @@ where = ["src"]
 
 [project.scripts]
 gge-example = "generative_governance_engine.example:main"
+
+[tool.mutmut]
+source_paths = ["src/generative_governance_engine"]
+pytest_add_cli_args_test_selection = ["tests/"]
+mutate_only_covered_lines = true

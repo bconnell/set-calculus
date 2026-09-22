@@ -209,3 +209,30 @@ jobs:
       - name: Remove transient coverage evidence
         shell: bash
         run: rm -f .coverage coverage.json
+
+  mutation-measure:
+    name: GGE mutation measurement
+    runs-on: ubuntu-latest
+    env:
+      PYTHONHASHSEED: "0"
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+
+      - name: Install mutation tester
+        run: python -m pip install --disable-pip-version-check mutmut==3.8.0
+
+      - name: Run bounded mutation measurement
+        working-directory: generative-governance-engine
+        run: |
+          rm -rf mutants
+          mutmut run
+
+      - name: Report mutation results
+        working-directory: generative-governance-engine
+        run: mutmut results
