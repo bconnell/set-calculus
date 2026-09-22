@@ -726,3 +726,369 @@ SC + Context + Carrier + Metric + Temporal + Authority
 ```
 
 The important boundary is that Cause is not a primitive. Cause is a typed Relationship supported by Context, Temporal ordering, Authority, Provenance, and whatever domain conditions establish that causal relationship.
+
+
+---
+
+# 12. Source-Derived CRC Extensions
+
+The following extensions are merged from **SRC-CTE-V6-20260909**. They are generalized into CRC form while preserving source provenance.
+
+## Axiom 16: Residual Primacy
+
+**Source: SRC-CTE-V6-20260909, V3 §3; V6 §3**
+
+A causal problem may be represented by a typed residual:
+
+```text
+R_i : X_i -> R_i_carrier
+```
+
+A Transform is productive relative to target residual `R_i` when it contracts that residual without violating protected boundaries:
+
+```text
+R_i(T(x)) < R_i(x)
+```
+
+Residual reduction in one Carrier does not authorize arithmetic with another Carrier.
+
+## Axiom 17: Unknown Is Not Zero
+
+**Source: SRC-CTE-V6-20260909, V6 §§15-19**
+
+```text
+UNKNOWN != 0
+```
+
+A parameter, bridge, floor, coefficient, or causal quantity that has not been established remains unresolved rather than silently receiving a neutral numeric value.
+
+## Axiom 18: Unbridged Is Not Commensurable
+
+**Source: SRC-CTE-V6-20260909, V6 §6**
+
+For quantities in distinct Carriers:
+
+```text
+no certified bridge => no arithmetic combination
+```
+
+Semantic resemblance alone does not establish commensurability.
+
+## Axiom 19: Protected-Floor Admissibility
+
+**Source: SRC-CTE-V6-20260909, V5 §21; V6 §5**
+
+A local causal improvement is admissible only when:
+
+1. the target residual contracts;
+2. no protected domain crosses below its declared floor;
+3. no new externalized residual is created without explicit representation;
+4. accepted loss remains visible under non-erasure.
+
+## Axiom 20: Stage Conservation
+
+**Source: SRC-CTE-V6-20260909, V5 §19; V6 §12**
+
+If a mechanism or Carrier performs a necessary function for a live residual and no certified substitute exists:
+
+```text
+m |= R
+R > 0
+no certified substitute
+=> m remains functionally necessary
+```
+
+Removing it transfers or externalizes the residual rather than closing it.
+
+## Axiom 21: Stage Extinction
+
+**Source: SRC-CTE-V6-20260909, V5 §20; V6 §12**
+
+If:
+
+```text
+R = 0
+```
+
+and a mechanism carries no other live residual, continued compulsory extraction or exclusive claim through that mechanism creates a new residual.
+
+The mechanism must extinguish, transform, or migrate to an explicit live function.
+
+## Axiom 22: Causal History Non-Erasure
+
+**Source: SRC-CTE-V6-20260909, V3 §§8-10**
+
+```text
+active residual -> 0
+historical provenance != 0
+```
+
+Closure of an obligation and erasure of causal history are distinct.
+
+## Axiom 23: Witness Requires Causal Participation
+
+**Source: SRC-CTE-V6-20260909, V3 §§8-9**
+
+```text
+Witness(A,T) => CausalLoad(A,T) > 0
+```
+
+Proximity, prestige, ownership, funding alone, or later declaration do not establish causal participation.
+
+## Axiom 24: Resource Authority Is Not Truth Authority
+
+**Source: SRC-CTE-V6-20260909, V3 §7**
+
+Resources may alter the feasible Transform set, but do not alter the admissible truth set merely by being supplied.
+
+```text
+Resources -> capability
+Resources !-> truth sovereignty
+```
+
+## Axiom 25: Global Result / Local Realization Distinction
+
+**Source: SRC-CTE-V6-20260909, V3 §§4-5**
+
+```text
+GeneralResult != LocalInstantiation
+```
+
+A globally reusable informational result may still require local matter, energy, compute, time, data, or labor for realization.
+
+## Axiom 26: Calibration Provenance
+
+**Source: SRC-CTE-V6-20260909, V6 §15**
+
+Every empirical quantity used in causal resolution should carry:
+
+```text
+variable
+unit
+source
+method
+interval
+date
+domain
+version
+```
+
+Uncalibrated quantities remain UNKNOWN.
+
+---
+
+# 13. Typed Board Construct
+
+**Source: SRC-CTE-V6-20260909, V6 §2**
+
+A bounded measurable causal domain may be represented as:
+
+```text
+TypedBoard =
+<StateSpace,
+ AdmissibleSet,
+ Capacity,
+ AbsorbedLoad,
+ Leakage,
+ Margin,
+ ProtectedFloor,
+ Observables,
+ NativeUnitSystem>
+```
+
+A Typed Board is a derived CRC construct, not a primitive.
+
+A board may not borrow units from another board merely to manufacture a scalar score.
+
+---
+
+# 14. Active Need Construct
+
+**Source: SRC-CTE-V6-20260909, V6 §4**
+
+For a scalar floor/margin board:
+
+```text
+Need_i(x) = positive_part(Floor_i - Margin_i(x))
+```
+
+```text
+Need_i = 0
+```
+
+means only that this specific floor is not breached. It does not imply global closure.
+
+---
+
+# 15. Causal Leverage
+
+**Source: SRC-CTE-V6-20260909, V3 §15; V6 §7**
+
+For an admissible intervention `T_i^u` with resource amount `E_i(u) > 0`:
+
+```text
+L_(j<-i)(x;u) =
+  [R_j(x) - R_j(T_i^u(x))] / E_i(u)
+```
+
+when measurements are commensurable in the same Carrier or validly bridged.
+
+A graph-level leverage profile may remain vector-valued. A universal scalar is not required.
+
+---
+
+# 16. Reliability Profile
+
+**Source: SRC-CTE-V6-20260909, V6 §8**
+
+Reliability is represented as a profile:
+
+```text
+q_i =
+<delivery,
+ durability,
+ repair,
+ truth,
+ closure,
+ externalization,
+ ...>
+```
+
+A domain-specific scalar projection is permitted only when the projection preserves information required by that decision.
+
+---
+
+# 17. Conditional Closure Laws
+
+## Finite Strict-Descent Closure
+
+**Source: SRC-CTE-V6-20260909, V6 §10**
+
+For residuals already placed in a common nonnegative Carrier by certified bridges:
+
+```text
+V(x) = sum(w_j * R_j(x))
+w_j > 0
+```
+
+If every accepted Transform preserves protected floors and:
+
+```text
+V(T(x)) <= V(x) - epsilon
+```
+
+for fixed `epsilon > 0` whenever `V(x) > V_floor`, then the process reaches `V <= V_floor` after finitely many accepted strict-decrease steps.
+
+The theorem is conditional on the validity of bridges, floors, weights, and decrement assumptions.
+
+## Lyapunov-Type Residual Contraction
+
+**Source: SRC-CTE-V6-20260909, V6 §11**
+
+If:
+
+```text
+V(x_(t+1)) - V(x_t) <= -alpha(V(x_t))
+```
+
+with `alpha(r) > 0` above the floor and zero on the admitted floor, the process cannot remain indefinitely in a compact region strictly above that floor.
+
+This is a stability template, not a universal empirical claim.
+
+---
+
+# 18. Causal Stage Classification
+
+**Source: SRC-CTE-V6-20260909, V5 §§14-18; V6 §14**
+
+A Stage is a falsifiable classification over an explicitly scoped Context.
+
+A valid Stage assignment includes:
+
+```text
+supporting evidence
+live residual
+current Carrier/mechanism
+exit condition
+falsifier
+scope
+time horizon
+capacity layer
+```
+
+A Stage may move forward or backward when evidence changes.
+
+---
+
+# 19. Formal / Empirical Boundary
+
+**Source: SRC-CTE-V6-20260909, V6 §§16-19**
+
+CRC distinguishes:
+
+```text
+FORMAL-CLOSED
+EMPIRICAL-CALIBRATION-PENDING
+BRIDGE-REQUIRED
+CONDITIONAL-THEOREM
+UNKNOWN
+```
+
+A formally valid relation may still require empirical calibration before application to reality.
+
+Missing values must not become invented constants. Missing Bridges must not become implicit conversions.
+
+---
+
+# 20. Source-Derived Operational Cycle
+
+**Source: SRC-CTE-V6-20260909, V6 §17**
+
+A measured CRC intervention may use:
+
+```text
+identify active Context / board
+-> identify exact target residual
+-> declare Carrier / unit / Metric
+-> record floor, margin, uncertainty
+-> identify protected neighboring domains
+-> reject unsupported cross-carrier arithmetic
+-> propose smallest admissible Transform
+-> measure before
+-> execute
+-> measure after
+-> compute supported local leverage
+-> audit externalization and protected floors
+-> certify contraction, reopen, or return UNKNOWN
+-> update Stage only from evidence
+-> preserve witness and calibration Provenance
+```
+
+This is a specialized measurable-intervention profile of the general CRC pipeline.
+
+---
+
+# 21. Provenance Note
+
+Sections 12-20 incorporate generalized laws extracted from:
+
+```text
+SRC-CTE-V6-20260909
+Causal Temporal Economics
+Version 6 - Cumulative Edition
+S. D. Bolduc
+September 9, 2026
+```
+
+See `SOURCE_LEDGER.md` for source anchors.
+
+The merge preserves the distinction among:
+
+```text
+source statement
+generalized CRC law
+CRC inference
+empirical calibration
+```
+
+No generalized CRC form should be represented as a verbatim theorem of the source unless the source states it in that form.
