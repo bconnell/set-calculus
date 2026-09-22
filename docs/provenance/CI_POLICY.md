@@ -48,3 +48,132 @@ Before committing a provenance update:
 - [ ] Record explicit human approval before commit.
 - [ ] Commit only the changes that the maintainer has approved.
 
+## Human-submitted data preservation
+
+AI and automation have a preservation duty over human-submitted material.
+
+The default rule is:
+
+```text
+human-submitted data
+  -> preserve
+
+AI / automation
+  -> may add
+  -> may annotate
+  -> may classify
+  -> may propose correction
+  -> may propose redaction or reduction
+  -> must not delete human-submitted data
+
+human maintainer
+  -> may authorize removal
+```
+
+Only a human maintainer may authorize permanent removal of human-submitted data from the provenance corpus.
+
+AI must not silently:
+
+- delete;
+- overwrite with a reduced version;
+- redact in place;
+- summarize away source detail;
+- collapse contradictory human submissions;
+- replace original material with a normalized interpretation;
+- remove provenance because a later representation appears cleaner or more complete.
+
+Preservation applies to source records, passages, mappings, annotations, submitted files, human-authored corrections, dissenting records, superseded material, and unresolved attribution.
+
+A transformed or improved representation may coexist with the original, but it does not replace the original unless a human explicitly approves that replacement.
+
+## Segregation of redacted or reduced representations
+
+If AI or automation produces, proposes, or encounters a representation that redacts, reduces, compresses, omits, masks, or otherwise contains less information than the preserved whole, the reduced representation must be segregated from the canonical preserved source.
+
+Use:
+
+```text
+docs/provenance/segregated/
+```
+
+for provenance records describing such reductions.
+
+The segregation record must identify:
+
+```text
+original source or record
+reduced / redacted representation
+type of reduction
+reason for reduction
+who or what proposed the reduction
+whether the reduction was human-requested
+date / version when known
+information categories affected
+whether the original remains preserved
+human approval status
+```
+
+The segregation area is a record of transformation, not a deletion queue.
+
+A segregated record must never be interpreted as authorization to remove the original.
+
+## Reduction trace requirement
+
+Any AI-produced redaction or reduction should be representable as:
+
+```text
+original whole
+  -> reduction operation
+  -> reduced representation
+```
+
+with the operation and reason recorded.
+
+Examples of reduction types include:
+
+```text
+REDACTION
+OMISSION
+SUMMARY
+COMPRESSION
+NORMALIZATION
+DEDUPLICATION_PROPOSAL
+PRIVACY_MASKING
+SENSITIVITY_MASKING
+SCOPE_REDUCTION
+OTHER
+```
+
+When the reason is unknown, record:
+
+```text
+reason = UNKNOWN
+```
+
+rather than inventing one.
+
+## Human removal authority
+
+Permanent removal is a distinct human-authorized operation.
+
+```text
+AI may recommend removal
+AI may segregate a reduced representation
+AI may flag sensitive or duplicative material
+
+AI must not authorize permanent deletion
+
+human approval
+  -> required before removal
+```
+
+If a human approves removal, the provenance record should retain, when appropriate and safe:
+
+- that a removal occurred;
+- what record or source was affected;
+- the human authorization boundary;
+- the stated reason;
+- the date or version of removal.
+
+This does not require preserving content that a human has explicitly ordered to be deleted when retaining that content would defeat the deletion itself.
+
