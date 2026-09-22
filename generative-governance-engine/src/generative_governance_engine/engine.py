@@ -366,13 +366,6 @@ def run(
             transforms,
             max_depth=planner_max_depth,
         )
-        if not path:
-            return GovernanceResult(
-                resolution=Resolution.BLOCKED,
-                state=state,
-                evidence=evidence,
-                trace=tuple(trace + ["no admissible recovery/progress path"]),
-            )
 
         trace.append(
             "plan:"
