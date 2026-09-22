@@ -1345,3 +1345,699 @@ Status:
 - Relationship to external standard mathematical frameworks: **not established by this document**
 
 No claim of external novelty or equivalence to a standard formal system is made here.
+
+
+---
+
+# 18. Admissible Concatenation Closure Theorem
+
+## Theorem
+
+Given trajectory segments `π1` and `π2`:
+
+```text
+Adm(π1 | C,A) = ADMISSIBLE
+Adm(π2 | C,A) = ADMISSIBLE
+BoundaryCompatible(π1,π2 | C,A) = ADMISSIBLE
+```
+
+then:
+
+```text
+Adm(π1 ⊕ π2 | C,A) = ADMISSIBLE
+```
+
+Compactly:
+
+```text
+ADMISSIBLE
+⊕
+ADMISSIBLE
++
+ADMISSIBLE boundary
+=>
+ADMISSIBLE concatenation
+```
+
+Using the admissibility composition algebra:
+
+```text
+Adm(π1 ⊕ π2 | C,A)
+=
+Adm(π1 | C,A)
+⊗A
+BoundaryCompatible(π1,π2 | C,A)
+⊗A
+Adm(π2 | C,A)
+```
+
+and:
+
+```text
+ADMISSIBLE ⊗A ADMISSIBLE = ADMISSIBLE
+```
+
+the final reduction follows once the proof obligations are discharged.
+
+## 18.1 Proof obligations
+
+Define:
+
+```text
+PO(π1,π2 | C,A)
+=
+<
+  PO_segment1,
+  PO_segment2,
+  PO_state,
+  PO_context,
+  PO_authority,
+  PO_invariant,
+  PO_provenance,
+  PO_transform
+>
+```
+
+Required obligations:
+
+1. `Adm(π1 | C,A) = ADMISSIBLE`
+2. `Adm(π2 | C,A) = ADMISSIBLE` under its entry conditions
+3. `StateCompat = ADMISSIBLE`
+4. `ContextCompat = ADMISSIBLE`
+5. `AuthorityCompat = ADMISSIBLE`
+6. `InvariantCompat = ADMISSIBLE`
+7. `ProvenanceCompat = ADMISSIBLE`
+8. the first Transform of `π2` is applicable to the actual boundary State
+
+Inference rule:
+
+```text
+Adm(π1) = ADMISSIBLE
+Adm(π2) = ADMISSIBLE
+StateCompat = ADMISSIBLE
+ContextCompat = ADMISSIBLE
+AuthorityCompat = ADMISSIBLE
+InvariantCompat = ADMISSIBLE
+ProvenanceCompat = ADMISSIBLE
+CrossBoundaryTransformApplicable = ADMISSIBLE
+---------------------------------------------------
+Adm(π1 ⊕ π2) = ADMISSIBLE
+```
+
+## 18.2 Failure and unresolved counterparts
+
+If any required proof obligation is INADMISSIBLE:
+
+```text
+∃p ∈ PO : p = INADMISSIBLE
+=>
+Adm(π1 ⊕ π2) = INADMISSIBLE
+```
+
+If no proof obligation is INADMISSIBLE and at least one is UNRESOLVED:
+
+```text
+∀p ∈ PO : p != INADMISSIBLE
+∧
+∃p ∈ PO : p = UNRESOLVED
+=>
+Adm(π1 ⊕ π2) = UNRESOLVED
+```
+
+## 18.3 Finite concatenation closure
+
+For:
+
+```text
+Π = π1 ⊕ π2 ⊕ ... ⊕ πn
+```
+
+if all segments are ADMISSIBLE and every accumulated-prefix boundary is ADMISSIBLE, then:
+
+```text
+Adm(Π | C,A) = ADMISSIBLE
+```
+
+The accumulated-prefix qualification matters because earlier segments may contribute materially relevant invariants, authority history, Context transitions, or provenance dependencies.
+
+---
+
+# 19. Boundary Evidence Object
+
+Define the minimum boundary evidence bundle:
+
+```text
+E_B(π1,π2)
+=
+<
+  E_state,
+  E_context,
+  E_authority,
+  E_invariant,
+  E_provenance
+>
+```
+
+A boundary may resolve ADMISSIBLE only when all required evidence components are sufficient and valid.
+
+Minimal object shape:
+
+```text
+BoundaryEvidence = {
+    source_segment,
+    target_segment,
+    boundary_state,
+    state_evidence,
+    context_evidence,
+    authority_evidence,
+    invariant_evidence,
+    provenance_evidence,
+    evidence_status
+}
+```
+
+with:
+
+```text
+evidence_status
+∈ {
+  COMPLETE,
+  INCOMPLETE,
+  CONTRADICTED
+}
+```
+
+Evidence status is distinct from admissibility status.
+
+```text
+evidence status
+!=
+admissibility status
+```
+
+## 19.1 State evidence
+
+```text
+E_state = {
+    terminal_state_of_π1,
+    initial_state_requirement_of_π2,
+    relation_between_them,
+    witness
+}
+```
+
+The witness establishes IDENTITY, COMPATIBILITY, or authorized PROJECTION.
+
+## 19.2 Context evidence
+
+```text
+E_context = {
+    source_context,
+    target_context,
+    context_relation,
+    transition_witness
+}
+```
+
+The transition witness establishes sameness or an authorized Context transition and records the materially relevant scope that survives.
+
+## 19.3 Authority evidence
+
+```text
+E_authority = {
+    source_authority,
+    target_authority,
+    accepted_output,
+    authorized_next_transform,
+    authority_transition_witness
+}
+```
+
+It must establish outgoing validity, target acceptance, and authorization of the next Transform.
+
+## 19.4 Invariant evidence
+
+```text
+E_invariant = {
+    required_boundary_invariants,
+    observed_or_derived_values,
+    preservation_witnesses,
+    authorized_changes
+}
+```
+
+For every `i ∈ I_boundary`, evidence must establish preservation or authorized change.
+
+## 19.5 Provenance evidence
+
+```text
+E_provenance = {
+    source_provenance,
+    boundary_evidence_provenance,
+    target_provenance_requirements,
+    composition_witness
+}
+```
+
+It must establish traceability, target acceptance, and defined provenance composition.
+
+---
+
+# 20. Minimal Typed Boundary Witness Schemas
+
+## 20.1 State Witness
+
+```text
+StateWitness = {
+    source_state,
+    target_state_requirement,
+    relation_type,
+    relation_evidence
+}
+```
+
+where:
+
+```text
+relation_type ∈ {
+  IDENTITY,
+  COMPATIBILITY,
+  PROJECTION
+}
+```
+
+Valid iff the witness refers to the actual terminal and entry States and the evidence establishes the declared relation, including required bridge conditions for projection.
+
+## 20.2 Context Witness
+
+```text
+ContextWitness = {
+    source_context,
+    target_context,
+    transition_type,
+    transition_evidence,
+    preserved_scope
+}
+```
+
+where:
+
+```text
+transition_type ∈ {
+  SAME_CONTEXT,
+  CONTEXT_TRANSITION
+}
+```
+
+Valid iff the actual trajectory Contexts are identified, sameness or authorized transition is established, and every materially required State, Relationship, invariant, and provenance dependency survives.
+
+## 20.3 Authority Witness
+
+```text
+AuthorityWitness = {
+    source_authority,
+    target_authority,
+    output_validity_evidence,
+    acceptance_evidence,
+    next_transform,
+    transform_authorization
+}
+```
+
+Valid iff:
+
+```text
+ValidUnder(TerminalState(π1),source_authority)
+∧
+Accepts(target_authority,TerminalState(π1))
+∧
+Authorized(next_transform,target_authority)
+```
+
+and any Authority transition is explicitly supported.
+
+## 20.4 Invariant Witness
+
+```text
+InvariantWitness = {
+    invariant,
+    requirement_source,
+    boundary_value_or_state,
+    disposition,
+    evidence
+}
+```
+
+where:
+
+```text
+disposition ∈ {
+  PRESERVED,
+  AUTHORIZED_CHANGE
+}
+```
+
+and:
+
+```text
+InvariantWitnessSet
+=
+{ witness_i | i ∈ I_boundary }
+```
+
+The set is valid only if every required invariant has a valid witness.
+
+## 20.5 Provenance Witness
+
+```text
+ProvenanceWitness = {
+    source_lineage,
+    terminal_state_reference,
+    boundary_evidence_reference,
+    target_provenance_requirements,
+    composition_rule,
+    composition_result
+}
+```
+
+Valid iff required lineage is traceable, accepted by the target segment, and composable into a provenance result that preserves all materially required lineage.
+
+---
+
+# 21. Common Witness Envelope
+
+All five witness types share a common outer form:
+
+```text
+WitnessEnvelope<W> = {
+    witness_type,
+    claim,
+    subject,
+    boundary_reference,
+    evidence,
+    evidence_provenance,
+    rule_basis,
+    dependencies,
+    contradictions,
+    status,
+    resolution_record,
+    payload : W
+}
+```
+
+where:
+
+```text
+witness_type ∈ {
+  STATE,
+  CONTEXT,
+  AUTHORITY,
+  INVARIANT,
+  PROVENANCE
+}
+```
+
+and:
+
+```text
+status ∈ {
+  VALID,
+  INVALID,
+  UNRESOLVED
+}
+```
+
+The envelope is uniform; the typed payload preserves the specific mathematics of each compatibility relation.
+
+## 21.1 Common envelope semantics
+
+`claim` is the exact proposition the witness attempts to establish.
+
+`subject` identifies the concrete objects referenced by that claim.
+
+`boundary_reference` identifies the actual concatenation boundary and prevents witness reuse against an unrelated boundary.
+
+`evidence` stores the material supporting the claim.
+
+`evidence_provenance` records source, method, version/time, and producing rule or Authority.
+
+`rule_basis` records the formal rule under which the evidence is supposed to establish the claim.
+
+`dependencies` records prerequisite witnesses or propositions.
+
+`contradictions` records known evidence against the claim.
+
+`resolution_record` records how validation was performed and why the resulting status was assigned.
+
+---
+
+# 22. Uniform Witness Validation Algorithm
+
+Define:
+
+```text
+ValidateWitness(W)
+-> {
+  VALID,
+  INVALID,
+  UNRESOLVED
+}
+```
+
+Validation proceeds uniformly until typed payload validation.
+
+## Step 1: Schema validity
+
+```text
+if !SchemaValid(W):
+    return INVALID
+```
+
+Malformed evidence is not the same as absent evidence.
+
+## Step 2: Boundary applicability
+
+If the witness positively refers to the wrong boundary or wrong subjects:
+
+```text
+return INVALID
+```
+
+If applicability cannot yet be established:
+
+```text
+return UNRESOLVED
+```
+
+## Step 3: Claim completeness
+
+A precise typed claim must be present.
+
+Missing claim:
+
+```text
+return INVALID
+```
+
+Unresolved identity or typing required by the claim:
+
+```text
+return UNRESOLVED
+```
+
+## Step 4: Provenance validity
+
+Known broken, false, or disallowed provenance:
+
+```text
+return INVALID
+```
+
+Incomplete but potentially recoverable provenance:
+
+```text
+return UNRESOLVED
+```
+
+Thus:
+
+```text
+missing provenance
+!=
+invalid provenance
+```
+
+## Step 5: Dependency resolution
+
+For every dependency:
+
+```text
+INVALID dependency
+-> INVALID
+
+no INVALID dependency
++ at least one UNRESOLVED dependency
+-> UNRESOLVED
+```
+
+otherwise validation continues.
+
+## Step 6: Contradiction check
+
+A valid contradiction that disproves the claim:
+
+```text
+return INVALID
+```
+
+An unresolved contradiction:
+
+```text
+return UNRESOLVED
+```
+
+Supporting evidence cannot silently erase contradictory evidence.
+
+## Step 7: Typed payload validation
+
+Dispatch by `witness_type`:
+
+```text
+STATE
+-> identity / compatibility / authorized projection
+
+CONTEXT
+-> same Context / authorized transition + preserved scope
+
+AUTHORITY
+-> outgoing validity + target acceptance + next-Transform authorization
+
+INVARIANT
+-> preserved / authorized change
+
+PROVENANCE
+-> traceability + acceptance + composability
+```
+
+The typed validator returns VALID, INVALID, or UNRESOLVED.
+
+## Step 8: Resolution record
+
+The validator records the boundary, claim, examined dependencies, contradiction results, typed validation result, final status, and validator provenance.
+
+Validation itself is therefore reconstructible.
+
+## 22.1 Universal witness validity law
+
+For any boundary witness `W`:
+
+```text
+Valid(W)
+iff
+SchemaValid(W)
+∧ BoundaryApplicable(W)
+∧ ClaimSpecified(W)
+∧ ProvenanceValid(W)
+∧ DependenciesValid(W)
+∧ NoValidContradiction(W)
+∧ TypedPayloadProvesClaim(W)
+```
+
+INCOMPLETE required evidence produces UNRESOLVED unless a positive violation has already been established.
+
+## 22.2 Aggregate boundary validation
+
+Let:
+
+```text
+E_B =
+<
+  W_state,
+  W_context,
+  W_authority,
+  W_invariant,
+  W_provenance
+>
+```
+
+Then:
+
+```text
+ValidateBoundary(E_B)
+=
+ValidateWitness(W_state)
+⊗A
+ValidateWitness(W_context)
+⊗A
+ValidateWitness(W_authority)
+⊗A
+ValidateWitness(W_invariant)
+⊗A
+ValidateWitness(W_provenance)
+```
+
+under the mapping:
+
+```text
+VALID       -> ADMISSIBLE
+INVALID     -> INADMISSIBLE
+UNRESOLVED  -> UNRESOLVED
+```
+
+Therefore:
+
+```text
+all five VALID
+-> BoundaryCompatible = ADMISSIBLE
+
+any INVALID
+-> BoundaryCompatible = INADMISSIBLE
+
+otherwise
+-> BoundaryCompatible = UNRESOLVED
+```
+
+---
+
+# 23. Anchor Checkpoint: Boundary-Proof Layer
+
+At this checkpoint the Set Math thread has moved from path validity into explicit proof-carrying boundary composition.
+
+The current dependency chain is:
+
+```text
+Trajectory
+-> Trajectory Admissibility
+-> Boundary Compatibility
+-> Boundary Evidence
+-> Typed Boundary Witnesses
+-> Common Witness Envelope
+-> Uniform Witness Validation
+-> Admissible Concatenation Closure
+-> Reachability
+-> Resolution Depth
+```
+
+The current minimum proof principle is:
+
+```text
+no admissible concatenation
+without admissible segments
++ admissible boundary
+
+no admissible boundary
+without sufficient typed evidence
+
+no sufficient typed evidence
+without valid provenance-bearing witnesses
+```
+
+Epistemic status:
+
+- Concatenation closure theorem: **working theorem**
+- Closure proof obligations: **working proof obligations**
+- Boundary Evidence Object: **working formal definition**
+- Typed witness schemas: **working formal definitions**
+- Common Witness Envelope: **working formal definition**
+- Uniform validation algorithm: **working validation procedure**
+- External novelty/equivalence claims: **not established**
