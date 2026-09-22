@@ -22,6 +22,108 @@ It also records:
 
 ---
 
+# Internal Architecture Sources
+
+This reverse index now tracks two provenance classes:
+
+```text
+external source provenance
+internal architecture provenance
+```
+
+External source provenance records where CRC laws were derived or supported by source documents.
+
+Internal architecture provenance records where CRC's placement, naming, and closure boundaries are defined inside the Set Calculus architecture.
+
+## ARCH-SC-001: Canonical Terminology Ledger
+
+**Source:** `docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md`
+
+### CRC mappings
+
+1. **Monadic Relational Structure**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **FOUNDATIONAL**
+   - Definition: one underlying relational object may expose different Domain Functions without becoming multiple independent realities.
+
+2. **Domain Function**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **CROSS-DOMAIN INTERFACE**
+   - CRC use: establishes that CRC is a domain-resolved view rather than the whole relational object.
+
+3. **Causal Relations**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **COMPUTER SCIENCE APPLICATION**
+   - CRC use: places CRC inside the Causal Relations application domain.
+
+4. **Local Closure**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **DOMAIN-SCOPED**
+   - CRC use: permits a valid causal-domain result without claiming whole-object closure.
+
+5. **Relational Closure**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **CROSS-DOMAIN**
+   - CRC use: identifies the larger closure condition beyond a single domain projection.
+
+6. **Cross-Domain Relation**
+   - Interpretation: **CANONICAL / ASSERTED**
+   - Role: **CROSS-DOMAIN**
+   - CRC use: preserves materially relevant relations omitted from the local CRC representation.
+
+### Mapping cardinality
+
+```text
+one architecture source
+-> multiple CRC placement / scope rules
+```
+
+---
+
+## ARCH-SC-002: Foundational Structures and Cross-Disciplinary Resolution Circuit
+
+**Source:** `docs/philosophy-of-set-calculus/FOUR_BODY_KNOWLEDGE_ARCHITECTURE.md`
+
+### CRC mappings
+
+1. **Monadic Relational Structure**
+   - Interpretation: **DIRECT INTERNAL ARCHITECTURE SUPPORT**
+   - Mapping: `M=<E,R,S,T,P>`
+
+2. **CRC Domain View**
+   - Interpretation: **DERIVED PLACEMENT**
+   - Mapping:
+
+```text
+D_crc : M -> M_crc
+M_crc != M
+```
+
+3. **CRC Local Closure Guard**
+   - Interpretation: **DERIVED PLACEMENT**
+   - Mapping:
+
+```text
+LocalClosure(D_crc(M))
+!-> RelationalClosure(M)
+```
+
+4. **Cross-Domain Reopening**
+   - Interpretation: **GENERALIZED INTERNAL SUPPORT**
+   - Meaning: a materially relevant cross-domain relation may reopen a CRC result that was locally valid.
+
+5. **Cause**
+   - Interpretation: **TERMINOLOGY ALIGNMENT**
+   - Meaning: Cause remains an application-level causal study and a typed Relationship inside CRC, not a new foundational primitive.
+
+### Mapping note
+
+These mappings do not provide empirical evidence for CRC laws.
+
+They define CRC's architectural location and scope inside Set Calculus.
+
+---
+
 # Source
 
 ```text
