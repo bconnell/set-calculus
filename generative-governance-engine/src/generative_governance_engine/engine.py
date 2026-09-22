@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import deque
+import heapq
 from collections.abc import Iterable
 
 from .model import (
@@ -84,7 +84,9 @@ def _delta_size(intent: Intent, state: State) -> int:
     return len(semantic_delta(intent, state))
 
 
-def _state_signature(state: State) -> tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]]:
+def _state_signature(
+    state: State,
+) -> tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]]:
     facts = tuple(sorted((key, repr(value)) for key, value in state.facts.items()))
     return (
         facts,
@@ -97,6 +99,10 @@ def _simulate(state: State, transform: Transform) -> State:
     return state.with_effects(transform.effects, transform.transform_id)
 
 
+def path_cost(path: Iterable[Transform]) -> float:
+    return sum(transform.effective_cost for transform in path)
+
+
 def plan_path(
     intent: Intent,
     authority: Authority,
@@ -105,63 +111,103 @@ def plan_path(
     *,
     max_depth: int = 12,
 ) -> tuple[Transform, ...]:
-    """Return the deterministic shortest admissible path that reduces semantic delta.
+    """Return the deterministic lowest-cost admissible path that reduces delta.
 
-    The path may contain dependency or recovery transforms that do not directly
-    reduce Intent-State delta themselves. Deterministic ordering is:
+    Intermediate dependency or recovery transforms may be selected even when
+    they do not directly reduce Intent-State delta.
 
-    1. fewest transforms;
-    2. greatest semantic-delta reduction at the reached state;
-    3. lexicographically smallest transform-id path.
+    Candidate success paths are ordered by:
+      1. lowest total effective cost (base cost + risk penalty);
+      2. greatest semantic-delta reduction;
+      3. fewest transforms;
+      4. lexicographically smallest transform-id path.
     """
     transforms = tuple(sorted(transforms, key=lambda item: item.transform_id))
     initial_delta = _delta_size(intent, state)
     if initial_delta == 0:
         return ()
 
-    queue: deque[tuple[State, tuple[Transform, ...]]] = deque([(state, ())])
-    best_depth: dict[
+    # Queue items:
+    # (path_cost, path_length, path_ids, state, path)
+    queue: list[
+        tuple[
+            float,
+            int,
+            tuple[str, ...],
+            State,
+            tuple[Transform, ...],
+        ]
+    ] = [(0.0, 0, (), state, ())]
+
+    # Lowest discovered cost for a concrete state signature. Equal-cost states
+    # may still compete deterministically through path ids in the queue.
+    best_cost: dict[
         tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]],
-        int,
-    ] = {_state_signature(state): 0}
+        float,
+    ] = {_state_signature(state): 0.0}
 
-    for depth in range(1, max_depth + 1):
-        successes: list[tuple[int, tuple[str, ...], tuple[Transform, ...]]] = []
-        level_count = len(queue)
+    successes: list[
+        tuple[
+            float,
+            int,
+            int,
+            tuple[str, ...],
+            tuple[Transform, ...],
+        ]
+    ] = []
 
-        for _ in range(level_count):
-            current_state, path = queue.popleft()
+    while queue:
+        current_cost, current_depth, path_ids, current_state, path = heapq.heappop(queue)
 
-            for transform in transforms:
-                if transform.transform_id in current_state.completed_transforms:
-                    continue
-                if not admissible(intent, authority, current_state, transform):
-                    continue
+        if current_depth >= max_depth:
+            continue
 
-                next_state = _simulate(current_state, transform)
-                next_path = (*path, transform)
-                next_delta = _delta_size(intent, next_state)
+        for transform in transforms:
+            if transform.transform_id in current_state.completed_transforms:
+                continue
+            if not admissible(intent, authority, current_state, transform):
+                continue
 
-                if next_delta < initial_delta:
-                    reduction = initial_delta - next_delta
-                    ids = tuple(item.transform_id for item in next_path)
-                    successes.append((-reduction, ids, next_path))
-                    continue
+            next_state = _simulate(current_state, transform)
+            next_path = (*path, transform)
+            next_ids = (*path_ids, transform.transform_id)
+            next_cost = current_cost + transform.effective_cost
+            next_depth = current_depth + 1
+            next_delta = _delta_size(intent, next_state)
 
-                signature = _state_signature(next_state)
-                prior_depth = best_depth.get(signature)
-                if prior_depth is None or depth < prior_depth:
-                    best_depth[signature] = depth
-                    queue.append((next_state, next_path))
+            if next_delta < initial_delta:
+                reduction = initial_delta - next_delta
+                successes.append(
+                    (
+                        next_cost,
+                        -reduction,
+                        next_depth,
+                        next_ids,
+                        next_path,
+                    )
+                )
+                continue
 
-        if successes:
-            successes.sort(key=lambda item: (item[0], item[1]))
-            return successes[0][2]
+            signature = _state_signature(next_state)
+            prior_cost = best_cost.get(signature)
+            if prior_cost is None or next_cost <= prior_cost:
+                best_cost[signature] = next_cost
+                heapq.heappush(
+                    queue,
+                    (
+                        next_cost,
+                        next_depth,
+                        next_ids,
+                        next_state,
+                        next_path,
+                    ),
+                )
 
-        if not queue:
-            break
+    if not successes:
+        return ()
 
-    return ()
+    successes.sort(key=lambda item: (item[0], item[1], item[2], item[3]))
+    return successes[0][4]
 
 
 def plan_next(
@@ -308,13 +354,18 @@ def run(
                 trace=tuple(trace + ["no admissible recovery/progress path"]),
             )
 
-        if len(path) > 1:
-            trace.append(
-                "plan:" + "->".join(transform.transform_id for transform in path)
-            )
+        trace.append(
+            "plan:"
+            + "->".join(transform.transform_id for transform in path)
+            + f" cost:{path_cost(path):.3f}"
+        )
 
         transform = path[0]
-        trace.append(f"apply:{transform.transform_id}")
+        trace.append(
+            f"apply:{transform.transform_id} "
+            f"cost:{transform.base_cost:.3f} "
+            f"risk:{transform.risk_penalty:.3f}"
+        )
         state = apply_transform(intent, authority, state, transform)
 
     evidence = observe(intent, state)
