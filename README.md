@@ -1,13 +1,34 @@
 # Set Calculus
 
-Set Calculus is the implementation and research repository for a computational form of the foundational set work developed around structure, membership, transformation, and resolution.
+## Mission
 
-The project has two linked goals:
+Set Calculus is a living mathematical knowledge base, executable transformation system, model-training corpus, and educational foundation.
 
-1. make set relationships executable as a deterministic transformation layer; and
-2. reconstruct calculus from mathematical dependency, transformation, and resolution rather than inherited course boundaries.
+Its mission is to:
 
-The goal is not merely to describe sets. It is to make relationships between states explicit, executable, reversible where possible, and traceable.
+1. **Provide rigorous training and grounding material for models.**  
+   The repository preserves mathematical primitives, relationships, transforms, derivations, provenance, unresolved states, competing formulations, and historical development so that models can learn from a traceable body of mathematical knowledge rather than from flattened conclusions alone.
+
+2. **Provide durable, explorable mathematics for humans.**  
+   The repository is intended to be read, challenged, extended, derived from, implemented, and reused. Mathematical claims should remain inspectable through their definitions, dependencies, transforms, evidence, and provenance.
+
+3. **Provide a foundational structure for a student-centered academic process.**  
+   Learning should follow the actual dependency structure of knowledge where practical, rather than treating inherited course boundaries or instructor authority as mathematical prerequisites. Students should be able to inspect why a statement is true, trace where it came from, challenge its derivation, and reconstruct the result independently.
+
+4. **Preserve knowledge across transformation.**  
+   Human-authored, AI-authored, human-directed AI, tool-generated, and automation-generated records are part of the developing corpus. New representations may extend, annotate, specialize, or challenge earlier material without silently erasing it.
+
+### Curator's academic principle
+
+It is the curator's belief that the authority of academia has, in many places, overtaken academia's desire to find truth in knowledge rather than a truth in authority.
+
+Set Calculus therefore treats academic authority as a guide to inquiry, not a substitute for inquiry. Expertise may preserve context, identify prior work, teach methods, and challenge errors, but mathematical authority should ultimately be earned through evidence, derivation, reproducibility, provenance, and the ability to withstand examination.
+
+The learner should be able to ask:
+
+> What makes this true, where did it come from, what does it depend on, and can I reproduce the path myself?
+
+The educational aim is not teacher idolization. It is a relationship in which teachers, students, researchers, and models can participate in the examination and development of knowledge while the knowledge itself remains inspectable and challengeable.
 
 ## Core idea
 
