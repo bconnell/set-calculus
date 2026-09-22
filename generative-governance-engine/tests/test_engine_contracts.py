@@ -253,7 +253,7 @@ class EngineContractTests(unittest.TestCase):
         self.assertEqual((), result.evidence)
         self.assertIsInstance(result.resolution, Resolution)
         self.assertIsInstance(result.trace, tuple)
-        self.assertEqual("max steps exceeded", result.trace[-1])
+        self.assertEqual("max steps exhausted", result.trace[-1])
 
     def test_run_default_step_budget_is_100(self):
         self.assertEqual(

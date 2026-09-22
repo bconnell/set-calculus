@@ -350,6 +350,8 @@ def run(
         trace.append(f"state:{state.version} resolution:{resolution.value}")
 
         if resolution is not Resolution.INCOMPLETE:
+            if resolution is Resolution.BLOCKED:
+                trace.append("no admissible recovery/progress path")
             return GovernanceResult(
                 resolution=resolution,
                 state=state,
