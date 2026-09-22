@@ -236,3 +236,21 @@ jobs:
       - name: Report mutation results
         working-directory: generative-governance-engine
         run: mutmut results
+
+      - name: Export mutation statistics
+        working-directory: generative-governance-engine
+        shell: bash
+        run: |
+          mutmut export-cicd-stats
+          cat mutants/mutmut-cicd-stats.json
+
+      - name: Show surviving mutant diffs
+        working-directory: generative-governance-engine
+        shell: bash
+        run: |
+          mutmut results | sed -n 's/^[[:space:]]*\([^:]*\): survived$/\1/p' > surviving-mutants.txt
+          while IFS= read -r mutant; do
+            echo "::group::$mutant"
+            mutmut show "$mutant"
+            echo "::endgroup::"
+          done < surviving-mutants.txt
