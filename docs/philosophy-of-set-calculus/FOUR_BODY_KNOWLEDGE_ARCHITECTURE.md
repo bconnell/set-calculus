@@ -82,21 +82,90 @@ A domain may appear internally complete while still omitting relations visible f
 
 Set Calculus therefore treats disciplinary separation as a useful functional partition, not as evidence that the underlying structure itself is separated.
 
-## Monadic Relational State
+## Monadic Relational Structure
 
-The common object is treated as relational before it is disciplinary.
+The monadic relational structure is part of the foundational structure itself. It is not an additional branch, discipline, or layer.
+
+It describes a single underlying relational object that may expose different domain functions without becoming multiple independent realities.
+
+A minimal working form is:
 
 ```text
-shared relational state
-    ↕
-Mathematics
-    ↕
-Logic
-    ↕
-Computer Science
+M = <E, R, S, T, P>
 ```
 
-The arrows are intentionally bidirectional.
+where:
+
+```text
+E = entities / members
+R = relations
+S = relational state
+T = admissible transforms
+P = provenance
+```
+
+The defining principle is:
+
+```text
+M remains one relational object
+even when examined through different domain functions
+```
+
+Mathematics, Logic, and Computer Science therefore operate as domain functions over the same foundational relational structure:
+
+```text
+D_math(M)
+D_logic(M)
+D_cs(M)
+```
+
+Each produces a domain-resolved view:
+
+```text
+D_i : M -> M_i
+```
+
+but:
+
+```text
+M_i != M
+```
+
+The projection is not the whole object.
+
+A domain function may achieve local closure over its own representation without eliminating the relations that connect that representation to the larger monadic object.
+
+```text
+DomainClosure(D_i(M))
+!-> RelationalClosure(M)
+```
+
+Or compactly:
+
+```text
+projection may close
+while relation remains open
+```
+
+This means a mathematical result may be locally complete, a logical result may be internally valid, or a computational implementation may be operationally closed while the larger cross-domain relation remains unresolved.
+
+The cross-domain relation survives because each domain view retains a common origin:
+
+```text
+M_math <- M -> M_logic
+             \
+              -> M_cs
+```
+
+Therefore:
+
+```text
+not represented locally
+!=
+not relationally present
+```
+
+The common object is relational before it is disciplinary.
 
 A mathematical abstraction may expose a logical problem.
 
@@ -113,6 +182,8 @@ The circuit remains open to re-resolution.
 Foundational structures are more abstract than any single mathematical, logical, or computational application.
 
 Their role is to expose the structural substrate that the disciplines operate upon.
+
+The monadic relational structure belongs here as a foundational condition: the disciplines are functional views over a shared relational state, not ontologically separate objects.
 
 Examples under current study include historically sourced structures associated with Collatz, Fermat, Riemann, paradox, and other relational problems whose significance may cross disciplinary boundaries.
 
