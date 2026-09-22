@@ -95,6 +95,8 @@ run.planner_max_depth = 12
 
 These defaults are part of the v0.1 reference behavior. Callers may override them explicitly. A change to a default is therefore a behavioral change and must be reviewed and tested as such.
 
+When a caller sets `planner_max_depth` on `run()`, that same search boundary is used for the feasibility check that distinguishes `INCOMPLETE` from `BLOCKED`. The runtime therefore does not classify a state with a known path as blocked merely because an earlier feasibility probe used a smaller default depth.
+
 ## Verification contract
 
 The GGE verification workflow checks the executable kernel at several independent boundaries:

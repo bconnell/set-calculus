@@ -18,6 +18,7 @@ from generative_governance_engine import (
     Transform,
     plan_next,
     plan_path,
+    resolve,
     run,
 )
 from generative_governance_engine.engine import apply_transform
@@ -45,9 +46,86 @@ class VerificationContractTests(unittest.TestCase):
             12,
             inspect.signature(plan_next).parameters["max_depth"].default,
         )
+        self.assertEqual(
+            12,
+            inspect.signature(resolve).parameters["planner_max_depth"].default,
+        )
         run_parameters = inspect.signature(run).parameters
         self.assertEqual(100, run_parameters["max_steps"].default)
         self.assertEqual(12, run_parameters["planner_max_depth"].default)
+
+    def dependency_chain(self, length: int) -> tuple[Transform, ...]:
+        transforms = []
+        for index in range(1, length + 1):
+            transform_id = f"T-{index:02d}"
+            effects = {"ready": True} if index == length else {f"step_{index}": True}
+            depends_on = () if index == 1 else (f"T-{index - 1:02d}",)
+            transforms.append(
+                Transform(
+                    transform_id,
+                    "agent",
+                    f"step-{index}",
+                    "feature",
+                    effects=effects,
+                    depends_on=depends_on,
+                )
+            )
+        return tuple(transforms)
+
+    def test_resolve_uses_requested_planner_depth_for_feasibility(self):
+        chain = self.dependency_chain(13)
+        state = State({"ready": False, "data_preserved": True})
+
+        self.assertEqual(
+            Resolution.BLOCKED,
+            resolve(
+                self.intent(),
+                self.authority(),
+                state,
+                (),
+                chain,
+            ),
+        )
+        self.assertEqual(
+            Resolution.INCOMPLETE,
+            resolve(
+                self.intent(),
+                self.authority(),
+                state,
+                (),
+                chain,
+                planner_max_depth=13,
+            ),
+        )
+
+    def test_run_planner_depth_override_reaches_thirteen_step_path(self):
+        chain = self.dependency_chain(13)
+        state = State({"ready": False, "data_preserved": True})
+
+        blocked = run(
+            self.intent(),
+            self.authority(),
+            state,
+            chain,
+            max_steps=14,
+        )
+        self.assertEqual(Resolution.BLOCKED, blocked.resolution)
+        self.assertEqual(0, blocked.state.version)
+
+        completed = run(
+            self.intent(),
+            self.authority(),
+            state,
+            chain,
+            max_steps=14,
+            planner_max_depth=13,
+        )
+        self.assertEqual(Resolution.COMPLETED, completed.resolution)
+        self.assertEqual(13, completed.state.version)
+        self.assertEqual(
+            frozenset(transform.transform_id for transform in chain),
+            completed.state.completed_transforms,
+        )
 
     def test_negative_cost_diagnostics_are_exact_and_actionable(self):
         with self.assertRaisesRegex(
