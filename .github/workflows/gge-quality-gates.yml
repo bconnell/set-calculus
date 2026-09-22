@@ -244,6 +244,35 @@ jobs:
           mutmut export-cicd-stats
           cat mutants/mutmut-cicd-stats.json
 
+      - name: Enforce mutation kill-rate threshold
+        working-directory: generative-governance-engine
+        shell: python
+        run: |
+          import json
+          import sys
+
+          with open("mutants/mutmut-cicd-stats.json", "r", encoding="utf-8") as handle:
+              stats = json.load(handle)
+
+          killed = int(stats["killed"])
+          total = int(stats["total"])
+          survived = int(stats["survived"])
+          required_kill_rate = 96.0
+
+          if total <= 0:
+              print("mutation gate has no measured mutants")
+              sys.exit(1)
+
+          kill_rate = killed * 100.0 / total
+          print(
+              f"mutation kill rate: {killed}/{total} = {kill_rate:.2f}% "
+              f"(required {required_kill_rate:.2f}%; survived {survived})"
+          )
+
+          if kill_rate < required_kill_rate:
+              print("mutation kill-rate threshold not met")
+              sys.exit(1)
+
       - name: Show surviving mutant diffs
         working-directory: generative-governance-engine
         shell: bash

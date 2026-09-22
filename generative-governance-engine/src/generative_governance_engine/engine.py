@@ -55,7 +55,7 @@ def _dependencies_hold(transform: Transform, state: State) -> bool:
 
 
 def _preserves_invariants(intent: Intent, state: State, transform: Transform) -> bool:
-    projected = state.with_effects(transform.effects, transform.transform_id)
+    projected = state.with_effects(transform.effects)
     for invariant in intent.invariants:
         before = invariant.evaluate(state)
         after = invariant.evaluate(projected)
@@ -141,6 +141,9 @@ def plan_path(
 
     # Lowest discovered cost for a concrete state signature. Equal-cost states
     # may still compete deterministically through path ids in the queue.
+    # Because the signature includes the completed-transform set and Transform
+    # costs are fixed, repeated identical signatures normally have equal cost;
+    # the higher-cost rejection arm is defensive rather than expected behavior.
     best_cost: dict[
         tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]],
         float,
@@ -352,7 +355,6 @@ def run(
     for _ in range(max_steps):
         evidence = observe(intent, state)
         resolution = _resolve_state(intent, state, evidence)
-        path: tuple[Transform, ...] = ()
 
         if resolution is Resolution.INCOMPLETE:
             path = plan_path(

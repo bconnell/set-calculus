@@ -104,9 +104,11 @@ The GGE verification workflow checks the executable kernel at several independen
 - repository-integrity checks for whitespace errors, tracked cache/build artifacts, and unresolved merge markers;
 - 100 percent statement coverage on the core package;
 - at least 98 percent branch coverage on the core package;
-- mutation testing as adversarial evidence about test strength.
+- mutation testing with a blocking kill-rate threshold of at least 96 percent, plus survivor review as adversarial evidence about test strength.
 
 Coverage and mutation results are evidence about the executable implementation. They do not prove the formal mathematics, replace provenance review, or authorize changes to the governing specification.
+
+The branch-coverage threshold is intentionally below 100 percent because the current planner retains a defensive higher-cost same-signature rejection arm. Under the present model, a state signature includes the completed-Transform set and Transform costs are fixed, so repeated identical signatures are expected to have equal summed cost. We preserve that defensive branch without fabricating a synthetic test for behavior that the current model does not produce.
 
 The runtime package remains zero-dependency. Coverage and mutation tools are development-only verification dependencies.
 

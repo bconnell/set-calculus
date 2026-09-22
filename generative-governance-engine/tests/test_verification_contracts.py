@@ -230,6 +230,58 @@ class VerificationContractTests(unittest.TestCase):
             result.trace,
         )
 
+    def test_post_budget_recheck_honors_widened_planner_depth(self):
+        acceptance = (
+            Requirement("AC-A", "a", True),
+            Requirement("AC-B", "b", True),
+        )
+        intent = Intent(
+            intent_id="INT-POST-BUDGET-DEPTH",
+            version=1,
+            objective="Satisfy A directly, then retain a 13-step path to B.",
+            acceptance_criteria=acceptance,
+        )
+
+        direct_a = Transform(
+            "T-00-A",
+            "agent",
+            "set-a",
+            "feature",
+            effects={"a": True},
+            base_cost=0.0,
+        )
+
+        chain = []
+        for index in range(1, 14):
+            transform_id = f"T-B-{index:02d}"
+            effects = {"b": True} if index == 13 else {f"b_step_{index}": True}
+            depends_on = () if index == 1 else (f"T-B-{index - 1:02d}",)
+            chain.append(
+                Transform(
+                    transform_id,
+                    "agent",
+                    f"b-step-{index}",
+                    "feature",
+                    effects=effects,
+                    depends_on=depends_on,
+                )
+            )
+
+        result = run(
+            intent,
+            self.authority(),
+            State({"a": False, "b": False}),
+            (direct_a, *chain),
+            max_steps=1,
+            planner_max_depth=13,
+        )
+
+        self.assertEqual(Resolution.INCOMPLETE, result.resolution)
+        self.assertEqual(1, result.state.version)
+        self.assertTrue(result.state.facts["a"])
+        self.assertFalse(result.state.facts["b"])
+        self.assertEqual("max steps exhausted", result.trace[-1])
+
     def test_negative_cost_diagnostics_are_exact_and_actionable(self):
         with self.assertRaisesRegex(
             ValueError,
