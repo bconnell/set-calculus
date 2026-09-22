@@ -1,0 +1,521 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chadcoulter/set-calculus/docs/provenance/PROVENANCE_SCHEMA.json",
+  "title": "Set Calculus Provenance Graph Schema",
+  "description": "Machine-readable provenance model for Set Calculus, IDGM, CRC, and future specializations.",
+  "type": "object",
+  "required": [
+    "format",
+    "sources",
+    "passages",
+    "objects",
+    "mappings",
+    "audit_findings"
+  ],
+  "properties": {
+    "format": {
+      "const": "set-calculus-provenance/v1"
+    },
+    "generated_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source_record"
+      }
+    },
+    "passages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/passage_record"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object_record"
+      }
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mapping_record"
+      }
+    },
+    "audit_findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/audit_finding"
+      }
+    }
+  },
+  "$defs": {
+    "interpretation_level": {
+      "type": "string",
+      "enum": [
+        "DIRECT",
+        "GENERALIZED",
+        "INFERRED"
+      ]
+    },
+    "mapping_role": {
+      "type": "string",
+      "enum": [
+        "PRIMARY",
+        "SUPPORT",
+        "DEPENDENCY",
+        "COMPLEMENT",
+        "STATUS"
+      ]
+    },
+    "calibration_status": {
+      "type": "string",
+      "enum": [
+        "NOT_APPLICABLE",
+        "FORMAL_CLOSED",
+        "FORMAL_DERIVED",
+        "EMPIRICAL_CALIBRATION_PENDING",
+        "BRIDGE_REQUIRED",
+        "CONDITIONAL_THEOREM",
+        "PROVENANCE_REQUIRED",
+        "DOMAIN_SCOPED",
+        "UNKNOWN"
+      ]
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": [
+        "OBSERVED",
+        "ASSERTED",
+        "INFERRED",
+        "HYPOTHESIZED",
+        "DISPUTED",
+        "UNRESOLVED",
+        "VERIFIED"
+      ]
+    },
+    "source_kind": {
+      "type": "string",
+      "enum": [
+        "REPOSITORY_ARTIFACT",
+        "EXTERNAL_ARTIFACT",
+        "CONVERSATION",
+        "PERSON",
+        "DATASET",
+        "CODE",
+        "UNKNOWN"
+      ]
+    },
+    "object_kind": {
+      "type": "string",
+      "enum": [
+        "PRIMITIVE",
+        "AXIOM",
+        "LAW",
+        "THEOREM",
+        "CONSTRUCT",
+        "OPERATOR",
+        "RESOLUTION_STATE",
+        "PIPELINE",
+        "PROTOCOL",
+        "DEFINITION",
+        "SOURCE_RULE",
+        "AUDIT_RULE"
+      ]
+    },
+    "mapping_status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "REVIEW",
+        "REJECTED"
+      ]
+    },
+    "audit_class": {
+      "type": "string",
+      "enum": [
+        "UNMAPPED_SOURCE",
+        "UNSOURCED_OBJECT",
+        "DUPLICATE_MAPPING",
+        "OVERLAPPING_PASSAGE",
+        "INTERPRETATION_INCONSISTENCY",
+        "LOCATION_QUALITY",
+        "CALIBRATION_INCONSISTENCY"
+      ]
+    },
+    "audit_severity": {
+      "type": "string",
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ]
+    },
+    "source_record": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "locator",
+        "epistemic_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^gr-ai-gamma:artifact:[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kind": {
+          "$ref": "#/$defs/source_kind"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "epistemic_status": {
+          "$ref": "#/$defs/epistemic_status"
+        },
+        "capture_status": {
+          "type": "string",
+          "enum": [
+            "FULL",
+            "PARTIAL",
+            "METADATA_ONLY",
+            "PENDING"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "passage_record": {
+      "type": "object",
+      "required": [
+        "id",
+        "source_id",
+        "label",
+        "location",
+        "capture",
+        "epistemic_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^gr-ai-gamma:artifact:[a-z0-9-]+-passage-[a-z0-9-]+$"
+        },
+        "source_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "section": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "page_start": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "page_end": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "line_start": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "line_end": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "heading": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "capture": {
+          "type": "string",
+          "enum": [
+            "QUOTED",
+            "PARAPHRASED",
+            "STRUCTURAL",
+            "METADATA_ONLY"
+          ]
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "epistemic_status": {
+          "$ref": "#/$defs/epistemic_status"
+        },
+        "calibration_status": {
+          "$ref": "#/$defs/calibration_status"
+        },
+        "unmapped_remainder": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "object_record": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "calculus",
+        "kind",
+        "epistemic_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^gr-ai-gamma:(concept|protocol|transform|discovery|invention):[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "calculus": {
+          "type": "string",
+          "enum": [
+            "SET_CALCULUS",
+            "IDGM",
+            "CRC",
+            "GGE",
+            "CROSS_CUTTING"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/object_kind"
+        },
+        "epistemic_status": {
+          "$ref": "#/$defs/epistemic_status"
+        },
+        "calibration_status": {
+          "$ref": "#/$defs/calibration_status"
+        },
+        "definition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repo_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "section": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "mapping_record": {
+      "type": "object",
+      "required": [
+        "id",
+        "passage_id",
+        "object_id",
+        "interpretation_level",
+        "mapping_role",
+        "calibration_status",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^map:[a-z0-9-]+$"
+        },
+        "passage_id": {
+          "type": "string"
+        },
+        "object_id": {
+          "type": "string"
+        },
+        "interpretation_level": {
+          "$ref": "#/$defs/interpretation_level"
+        },
+        "mapping_role": {
+          "$ref": "#/$defs/mapping_role"
+        },
+        "calibration_status": {
+          "$ref": "#/$defs/calibration_status"
+        },
+        "status": {
+          "$ref": "#/$defs/mapping_status"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "derived_from_mapping_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "audit_finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "audit_class",
+        "severity",
+        "status",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^audit:[a-z0-9-]+$"
+        },
+        "audit_class": {
+          "$ref": "#/$defs/audit_class"
+        },
+        "severity": {
+          "$ref": "#/$defs/audit_severity"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "OPEN",
+            "RESOLVED",
+            "ACCEPTED",
+            "DEFERRED"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "passage_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapping_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended_action": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
