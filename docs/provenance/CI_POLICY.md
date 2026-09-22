@@ -48,15 +48,22 @@ Before committing a provenance update:
 - [ ] Record explicit human approval before commit.
 - [ ] Commit only the changes that the maintainer has approved.
 
-## Human-submitted data preservation
+## Submitted and captured data preservation
 
-AI and automation have a preservation duty over human-submitted material.
+AI and automation have a preservation duty over all submitted or captured material, regardless of whether it originated with a human, an AI system, a tool, or a human-directed AI workflow.
 
 The default rule is:
 
 ```text
-human-submitted data
+submitted or captured data
   -> preserve
+
+human-authored data
+AI-authored data
+human-directed AI output
+tool-generated records
+automation-generated records
+  -> all preserved under the same rule
 
 AI / automation
   -> may add
@@ -64,13 +71,13 @@ AI / automation
   -> may classify
   -> may propose correction
   -> may propose redaction or reduction
-  -> must not delete human-submitted data
+  -> must not delete preserved data
 
 human maintainer
   -> may authorize removal
 ```
 
-Only a human maintainer may authorize permanent removal of human-submitted data from the provenance corpus.
+Only a human maintainer may authorize permanent removal of preserved data from the provenance corpus. Origin does not change the preservation duty.
 
 AI must not silently:
 
@@ -78,13 +85,13 @@ AI must not silently:
 - overwrite with a reduced version;
 - redact in place;
 - summarize away source detail;
-- collapse contradictory human submissions;
+- collapse contradictory submissions or generated records;
 - replace original material with a normalized interpretation;
 - remove provenance because a later representation appears cleaner or more complete.
 
-Preservation applies to source records, passages, mappings, annotations, submitted files, human-authored corrections, dissenting records, superseded material, and unresolved attribution.
+Preservation applies to source records, passages, mappings, annotations, submitted files, human-authored corrections, AI-authored outputs, human-directed AI outputs, tool-generated records, automation-generated records, dissenting records, superseded material, and unresolved attribution.
 
-A transformed or improved representation may coexist with the original, but it does not replace the original unless a human explicitly approves that replacement.
+A transformed or improved representation may coexist with the original, but it does not replace the original unless a human explicitly approves that replacement. AI provenance must remain distinguishable from human provenance, but both are retained.
 
 ## Segregation of redacted or reduced representations
 
@@ -161,7 +168,7 @@ AI may recommend removal
 AI may segregate a reduced representation
 AI may flag sensitive or duplicative material
 
-AI must not authorize permanent deletion
+AI must not authorize permanent deletion of human-authored, AI-authored, tool-generated, or automation-generated preserved records
 
 human approval
   -> required before removal
