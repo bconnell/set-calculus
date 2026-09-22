@@ -2,7 +2,7 @@
 
 ## Objective
 
-Establish the smallest rigorous foundation needed to develop Set Calculus as both an executable transformation system and a reconstruction of calculus around dependency, state, relationship, and resolution.
+Establish the smallest rigorous foundation needed to develop Set Calculus as an executable transformation system, a provenance-preserving mathematical corpus for human and model use, and a student-centered reconstruction of calculus around dependency, state, relationship, and resolution.
 
 ## v0.1 research questions
 
@@ -66,6 +66,10 @@ Reorganization alone is not evidence that conventional mathematics is incorrect.
 - every downstream application of Set Calculus
 - probabilistic inference hidden behind deterministic terminology
 - coupling the formal system to a particular LLM
+
+## v0.1 release gate
+
+The executable release checklist is maintained in `CORE_0.1_COMPLETENESS_CHECKLIST.md`. That file is the canonical pass/fail gate for Core 0.1 and expands the criteria below into artifact, ownership, and evidence requirements.
 
 ## v0.1 exit criteria
 

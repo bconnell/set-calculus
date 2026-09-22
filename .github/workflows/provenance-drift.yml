@@ -1,0 +1,51 @@
+name: Provenance Drift Report
+
+on:
+  pull_request:
+    paths:
+      - "docs/provenance/SOURCE_CATALOG.json"
+      - "docs/provenance/PROVENANCE_SCHEMA.json"
+      - "docs/provenance/generated/**"
+      - "scripts/generate_provenance_views.py"
+      - ".github/workflows/provenance-drift.yml"
+  push:
+    paths:
+      - "docs/provenance/SOURCE_CATALOG.json"
+      - "docs/provenance/PROVENANCE_SCHEMA.json"
+      - "docs/provenance/generated/**"
+      - "scripts/generate_provenance_views.py"
+      - ".github/workflows/provenance-drift.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  provenance-drift:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Regenerate provenance views locally for comparison
+        run: python scripts/generate_provenance_views.py
+
+      - name: Report generated provenance drift
+        shell: bash
+        run: |
+          if git diff --quiet --             docs/provenance/generated/SOURCE_LEDGER.md             docs/provenance/generated/PROVENANCE_MATRIX.md             docs/provenance/generated/REVERSE_SOURCE_INDEX.md             docs/provenance/generated/COVERAGE_AUDIT.md
+          then
+            echo "Generated provenance views are synchronized."
+          else
+            echo "::warning::Generated provenance views differ from SOURCE_CATALOG.json."
+            echo "This is advisory only. No files are modified or committed by CI."
+            echo "A human may regenerate them with:"
+            echo "  python scripts/generate_provenance_views.py"
+            git diff --               docs/provenance/generated/SOURCE_LEDGER.md               docs/provenance/generated/PROVENANCE_MATRIX.md               docs/provenance/generated/REVERSE_SOURCE_INDEX.md               docs/provenance/generated/COVERAGE_AUDIT.md
+          fi

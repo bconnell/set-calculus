@@ -1,0 +1,859 @@
+{
+  "format": "set-calculus-provenance/v1",
+  "generated_from": [
+    "README.md",
+    "docs/intent-driven-generative-math/README.md",
+    "docs/intent-driven-generative-math/PRIMITIVES.md",
+    "docs/intent-driven-generative-math/INTENT.md",
+    "docs/intent-driven-generative-math/AXIOMS_AND_LAWS.md",
+    "docs/causal-reality-calculus/CORE_PRIMITIVES_AND_AXIOMS.md",
+    "docs/causal-reality-calculus/SOURCE_LEDGER.md",
+    "docs/causal-reality-calculus/PROVENANCE_MATRIX.md",
+    "docs/causal-reality-calculus/REVERSE_SOURCE_INDEX.md",
+    "docs/causal-reality-calculus/COVERAGE_AUDIT.md"
+  ],
+  "sources": [
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-readme",
+      "name": "Set Calculus README",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "README.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "4ab3be5567cef7d1ef47bea44512a1218d2e207b",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Repository-level statement of purpose, core pipeline, and milestone direction."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-readme",
+      "name": "Intent-Driven Generative Math README",
+      "aliases": [
+        "IDGM README"
+      ],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/intent-driven-generative-math/README.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "3bf8c42a32f79710a76e8ec22dc53c9ad676d835",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Defines IDGM as a specialization of Set Calculus."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-primitives",
+      "name": "IDGM Primitive Boundary",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/intent-driven-generative-math/PRIMITIVES.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "fabaf5223d423d491f191d9f74143afffc0371c2",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Primary repository source for the inherited Set Calculus primitive tuple and IDGM specialization primitives."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-intent",
+      "name": "Intent and Intent Delta",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/intent-driven-generative-math/INTENT.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "b6e7a2004ec2cc8fd83370af82510f0d272572ca",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Primary source for Intent identity, versioning, semantic delta, and supersession."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-axioms-laws",
+      "name": "IDGM Axioms and Laws",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/intent-driven-generative-math/AXIOMS_AND_LAWS.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "9530d3a3d32df8b5651422826e550e95d81ec70a",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "PARTIAL",
+      "notes": [
+        "Primary source for IDGM formal axioms and derived laws. Passage-level extraction still pending."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:crc-core-primitives-axioms",
+      "name": "Causal Reality Calculus Core Primitives and Axioms",
+      "aliases": [
+        "CRC Core"
+      ],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/causal-reality-calculus/CORE_PRIMITIVES_AND_AXIOMS.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "2b56d72682bb67d5f7e6bac3e74b0d1e1a816e24",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Contains initial CRC synthesis plus source-derived CTE extensions."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:causal-temporal-economics-v6",
+      "name": "Causal Temporal Economics Version 6",
+      "aliases": [
+        "CTE V6",
+        "ct_temporal_economics_en_v6.pdf"
+      ],
+      "kind": "EXTERNAL_ARTIFACT",
+      "locator": "ct_temporal_economics_en_v6.pdf",
+      "repository_ref": null,
+      "content_sha": null,
+      "version": "6 - Cumulative Edition",
+      "author": "S. D. Bolduc",
+      "date": "2026-09-09",
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "External source currently used by CRC provenance records."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:causal-cartesian-plane-bundle",
+      "name": "Causal Cartesian Plane ALL-IN-ONE V2",
+      "aliases": [
+        "CAUSAL_CARTESIAN_PLANE_ALL_IN_ONE_V2_20260921.zip"
+      ],
+      "kind": "EXTERNAL_ARTIFACT",
+      "locator": "CAUSAL_CARTESIAN_PLANE_ALL_IN_ONE_V2_20260921.zip",
+      "repository_ref": null,
+      "content_sha": null,
+      "version": "V2",
+      "author": null,
+      "date": "2026-09-21",
+      "epistemic_status": "OBSERVED",
+      "capture_status": "PARTIAL",
+      "notes": [
+        "Earlier CRC extraction source for problem-local grids, identity boundaries, metric/address firewall, certified bridges, mirror/inverse distinction, and fail-closed behavior.",
+        "Exact passage-level records still need to be registered."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-plan",
+      "name": "Set Calculus Working Plan",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "PLAN.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "e14dcdfd56d2972a56d4bc5b0161afb7270f088f",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Working implementation direction; not a frozen specification."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-scope-v0-1",
+      "name": "Set Calculus v0.1 Scope",
+      "aliases": [
+        "SCOPE.md"
+      ],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "SCOPE.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "99dcb23249b18f16044deedf234f54f473ffbd11",
+      "version": "0.1",
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Defines objective, implementation scope, compatibility requirement, and v0.1 exit criteria."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-provenance",
+      "name": "Set Calculus Provenance",
+      "aliases": [
+        "PROVENANCE.md"
+      ],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "PROVENANCE.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "9e1d9ae473a1cebb88780c72fb39c0365466fac0",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Repository-level provenance policy and historical attribution boundary."
+      ]
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-core-readme",
+      "name": "Set Calculus Core README",
+      "aliases": [],
+      "kind": "REPOSITORY_ARTIFACT",
+      "locator": "docs/set-calculus-core/README.md",
+      "repository_ref": "causal-reality-calculus",
+      "content_sha": "88a43d51c74a28b0cda4312b8de55c434b7c8c21",
+      "version": null,
+      "author": null,
+      "date": null,
+      "epistemic_status": "OBSERVED",
+      "capture_status": "FULL",
+      "notes": [
+        "Canonical working source for primitive candidates and initial Set Calculus invariants."
+      ]
+    }
+  ],
+  "passages": [
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-readme-passage-core-pipeline",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-readme",
+      "label": "Set Calculus core transformation pipeline",
+      "location": {
+        "section": "Core idea",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Core idea"
+      },
+      "capture": "STRUCTURAL",
+      "summary": "input structure -> normalize -> resolve membership/relationship -> apply transform -> resolved state -> provenance",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-primitives-passage-sc-tuple",
+      "source_id": "gr-ai-gamma:artifact:idgm-primitives",
+      "label": "General Set Calculus primitive tuple",
+      "location": {
+        "section": "General Set Calculus primitives",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "General Set Calculus primitives"
+      },
+      "capture": "QUOTED",
+      "summary": "SC = <Set, Member, Relationship, State, Transform, Resolution, Provenance>",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-primitives-passage-specialization",
+      "source_id": "gr-ai-gamma:artifact:idgm-primitives",
+      "label": "IDGM specialization primitive tuple",
+      "location": {
+        "section": "Added specialization primitives",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Added specialization primitives"
+      },
+      "capture": "QUOTED",
+      "summary": "IDGM = SC + <Intent, Authority, Evidence>",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:idgm-intent-passage-semantics",
+      "source_id": "gr-ai-gamma:artifact:idgm-intent",
+      "label": "Intent-State semantic distinction",
+      "location": {
+        "section": "Intent semantics",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Intent semantics"
+      },
+      "capture": "QUOTED",
+      "summary": "Intent = what should become true; State = what is true; D(I,S) is the unresolved semantic delta.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-residual-primacy",
+      "source_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6",
+      "label": "Residual primacy and closure",
+      "location": {
+        "section": "V3 §3",
+        "page_start": 8,
+        "page_end": 8,
+        "line_start": 175,
+        "line_end": 200,
+        "heading": "The Primitive Economic Object: the Residual"
+      },
+      "capture": "QUOTED",
+      "summary": "Residual is unresolved causal state; closure occurs at zero under declared scope and verification; productive action contracts residual.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "FORMAL_CLOSED",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-certified-bridge",
+      "source_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6",
+      "label": "Certified bridge and no arbitrary aggregation",
+      "location": {
+        "section": "V6 §6",
+        "page_start": 51,
+        "page_end": 51,
+        "line_start": 1717,
+        "line_end": 1725,
+        "heading": "Certified bridges and the prohibition on arbitrary aggregation"
+      },
+      "capture": "QUOTED",
+      "summary": "Cross-carrier transport requires a certified bridge; no bridge implies no arithmetic combination.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "BRIDGE_REQUIRED",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-calibration-ledger",
+      "source_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6",
+      "label": "Calibration ledger and UNKNOWN boundary",
+      "location": {
+        "section": "V6 §15",
+        "page_start": 54,
+        "page_end": 54,
+        "line_start": 1878,
+        "line_end": 1885,
+        "heading": "Calibration ledger"
+      },
+      "capture": "QUOTED",
+      "summary": "Empirical parameters require variable/unit/source/method/interval/date/domain/version provenance; missing calibration is UNKNOWN rather than zero.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "EMPIRICAL_CALIBRATION_PENDING",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-primitives",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-core-readme",
+      "label": "Candidate Set Calculus primitive tuple",
+      "location": {
+        "section": "Candidate primitives",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Candidate primitives"
+      },
+      "capture": "QUOTED",
+      "summary": "Set, Member, Relationship, State, Transform, Resolution, Provenance.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-transform-nonprojection",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-core-readme",
+      "label": "Transform-produced property non-projection",
+      "location": {
+        "section": "Initial invariants / Transform-produced properties",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Transform-produced properties"
+      },
+      "capture": "QUOTED",
+      "summary": "property(T(x)) does not imply property(x) unless an explicit rule establishes backward implication.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-unresolved-not-unknown",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-core-readme",
+      "label": "Unresolved is not unknown",
+      "location": {
+        "section": "Initial invariants / Unresolved is not unknown",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Unresolved is not unknown"
+      },
+      "capture": "QUOTED",
+      "summary": "Unresolved != Unknown; unresolved state may retain constraints, relationships, provenance, and resolution paths.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-provenance-survives",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-core-readme",
+      "label": "Provenance survives transformation",
+      "location": {
+        "section": "Initial invariants / Provenance survives transformation",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Provenance survives transformation"
+      },
+      "capture": "QUOTED",
+      "summary": "A resolution retains enough trace to identify admitted inputs, relationships, and transforms.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-plan-passage-explicit-resolution",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-plan",
+      "label": "Explicit resolution model",
+      "location": {
+        "section": "2. Resolution model",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Resolution model"
+      },
+      "capture": "STRUCTURAL",
+      "summary": "Operations terminate in explicit states rather than silently guessing; initial classes are resolved, unresolved, reversible resolution, closure, and logical failure.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-plan-passage-deterministic-execution",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-plan",
+      "label": "Deterministic execution and trace",
+      "location": {
+        "section": "3. Deterministic execution",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Deterministic execution"
+      },
+      "capture": "STRUCTURAL",
+      "summary": "Same normalized inputs and rules should reproduce a transform; trace explains inputs, rule, intermediate change, and final state.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-scope-v0-1-passage-core-scope",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-scope-v0-1",
+      "label": "v0.1 core implementation scope",
+      "location": {
+        "section": "Core implementation scope",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Core implementation scope"
+      },
+      "capture": "STRUCTURAL",
+      "summary": "Set, Member, Relationship, Transform, State, Resolution, Provenance/Trace plus deterministic application, explicit unresolved states, reversibility where valid, closure, failure, and conformance fixtures.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "NOT_APPLICABLE",
+      "unmapped_remainder": false
+    },
+    {
+      "id": "gr-ai-gamma:artifact:set-calculus-provenance-passage-principle",
+      "source_id": "gr-ai-gamma:artifact:set-calculus-provenance",
+      "label": "Preserve provenance without manufacturing provenance",
+      "location": {
+        "section": "Provenance principle",
+        "page_start": null,
+        "page_end": null,
+        "line_start": null,
+        "line_end": null,
+        "heading": "Provenance principle"
+      },
+      "capture": "QUOTED",
+      "summary": "Preserve provenance without manufacturing provenance; unresolved attribution remains uncertain rather than silently assigned.",
+      "epistemic_status": "OBSERVED",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "unmapped_remainder": false
+    }
+  ],
+  "objects": [
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-core",
+      "name": "Set Calculus Core",
+      "calculus": "SET_CALCULUS",
+      "kind": "DEFINITION",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "SC = <Set, Member, Relationship, State, Transform, Resolution, Provenance>",
+      "repo_path": "docs/intent-driven-generative-math/PRIMITIVES.md",
+      "section": "General Set Calculus primitives",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:idgm-specialization",
+      "name": "Intent-Driven Generative Math Specialization",
+      "calculus": "IDGM",
+      "kind": "DEFINITION",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "IDGM = SC + <Intent, Authority, Evidence>",
+      "repo_path": "docs/intent-driven-generative-math/PRIMITIVES.md",
+      "section": "Added specialization primitives",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:intent-state-distinction",
+      "name": "Intent-State Distinction",
+      "calculus": "IDGM",
+      "kind": "AXIOM",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "Intent is what should become true; State is what is true.",
+      "repo_path": "docs/intent-driven-generative-math/AXIOMS_AND_LAWS.md",
+      "section": "Axiom 1: Intent Distinction",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:crc-residual-primacy",
+      "name": "CRC Residual Primacy",
+      "calculus": "CRC",
+      "kind": "AXIOM",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "FORMAL_CLOSED",
+      "definition": "A causal problem may be represented by a typed residual; productive transforms contract it without violating protected boundaries.",
+      "repo_path": "docs/causal-reality-calculus/CORE_PRIMITIVES_AND_AXIOMS.md",
+      "section": "Axiom 16: Residual Primacy",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:crc-unbridged-not-commensurable",
+      "name": "CRC Unbridged Is Not Commensurable",
+      "calculus": "CRC",
+      "kind": "AXIOM",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "BRIDGE_REQUIRED",
+      "definition": "Cross-carrier arithmetic is forbidden without a certified bridge.",
+      "repo_path": "docs/causal-reality-calculus/CORE_PRIMITIVES_AND_AXIOMS.md",
+      "section": "Axiom 18: Unbridged Is Not Commensurable",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:crc-calibration-provenance",
+      "name": "CRC Calibration Provenance",
+      "calculus": "CRC",
+      "kind": "AXIOM",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "EMPIRICAL_CALIBRATION_PENDING",
+      "definition": "Empirical quantities used in causal resolution retain calibration provenance; uncalibrated values remain UNKNOWN.",
+      "repo_path": "docs/causal-reality-calculus/CORE_PRIMITIVES_AND_AXIOMS.md",
+      "section": "Axiom 26: Calibration Provenance",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-transform-nonprojection",
+      "name": "Set Calculus Transform Non-Projection",
+      "calculus": "SET_CALCULUS",
+      "kind": "LAW",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "A property produced by a transform is not automatically a property of the unresolved input.",
+      "repo_path": "docs/set-calculus-core/README.md",
+      "section": "Transform-produced properties",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-unresolved-not-unknown",
+      "name": "Set Calculus Unresolved Is Not Unknown",
+      "calculus": "SET_CALCULUS",
+      "kind": "LAW",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "An unresolved state can retain constraints, relationships, provenance, and possible resolution paths.",
+      "repo_path": "docs/set-calculus-core/README.md",
+      "section": "Unresolved is not unknown",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-provenance-persistence",
+      "name": "Set Calculus Provenance Persistence",
+      "calculus": "SET_CALCULUS",
+      "kind": "LAW",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "definition": "Resolution and transformation preserve enough ancestry to recover materially relevant inputs, relationships, and transforms.",
+      "repo_path": "docs/set-calculus-core/README.md",
+      "section": "Provenance survives transformation",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-explicit-resolution",
+      "name": "Set Calculus Explicit Resolution",
+      "calculus": "SET_CALCULUS",
+      "kind": "LAW",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "Operations resolve explicitly rather than silently guessing, including unresolved and failure outcomes.",
+      "repo_path": "PLAN.md",
+      "section": "Resolution model",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-deterministic-execution",
+      "name": "Set Calculus Deterministic Execution",
+      "calculus": "SET_CALCULUS",
+      "kind": "LAW",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "NOT_APPLICABLE",
+      "definition": "A transform should be reproducible from identical normalized inputs and rules and expose traceable execution state.",
+      "repo_path": "PLAN.md",
+      "section": "Deterministic execution",
+      "notes": []
+    },
+    {
+      "id": "gr-ai-gamma:concept:set-calculus-provenance-principle",
+      "name": "Set Calculus Provenance Principle",
+      "calculus": "SET_CALCULUS",
+      "kind": "AUDIT_RULE",
+      "epistemic_status": "ASSERTED",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "definition": "Preserve provenance without manufacturing provenance.",
+      "repo_path": "PROVENANCE.md",
+      "section": "Provenance principle",
+      "notes": []
+    }
+  ],
+  "mappings": [
+    {
+      "id": "map:idgm-sc-tuple-to-set-calculus-core",
+      "passage_id": "gr-ai-gamma:artifact:idgm-primitives-passage-sc-tuple",
+      "object_id": "gr-ai-gamma:concept:set-calculus-core",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "The repository passage states the primitive tuple verbatim.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:idgm-specialization-passage-to-definition",
+      "passage_id": "gr-ai-gamma:artifact:idgm-primitives-passage-specialization",
+      "object_id": "gr-ai-gamma:concept:idgm-specialization",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "The source passage states the IDGM specialization equation directly.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:intent-semantics-to-intent-state-distinction",
+      "passage_id": "gr-ai-gamma:artifact:idgm-intent-passage-semantics",
+      "object_id": "gr-ai-gamma:concept:intent-state-distinction",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Intent and State semantics are stated directly and repeated in the IDGM axioms.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:cte-residual-to-crc-residual-primacy",
+      "passage_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-residual-primacy",
+      "object_id": "gr-ai-gamma:concept:crc-residual-primacy",
+      "interpretation_level": "GENERALIZED",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "FORMAL_CLOSED",
+      "status": "ACTIVE",
+      "confidence": 0.98,
+      "rationale": "CRC lifts the typed economic residual into a general causal residual.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:cte-bridge-to-crc-unbridged",
+      "passage_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-certified-bridge",
+      "object_id": "gr-ai-gamma:concept:crc-unbridged-not-commensurable",
+      "interpretation_level": "GENERALIZED",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "BRIDGE_REQUIRED",
+      "status": "ACTIVE",
+      "confidence": 0.99,
+      "rationale": "The exact source rule is direct within residual carriers; CRC broadens the domain to causal carriers.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:cte-calibration-to-crc-calibration-provenance",
+      "passage_id": "gr-ai-gamma:artifact:causal-temporal-economics-v6-passage-calibration-ledger",
+      "object_id": "gr-ai-gamma:concept:crc-calibration-provenance",
+      "interpretation_level": "GENERALIZED",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "EMPIRICAL_CALIBRATION_PENDING",
+      "status": "ACTIVE",
+      "confidence": 0.99,
+      "rationale": "CRC preserves the source calibration tuple and broadens it to empirical causal quantities.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-core-readme-to-core",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-primitives",
+      "object_id": "gr-ai-gamma:concept:set-calculus-core",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Candidate primitive tuple matches the repository-wide Set Calculus core tuple.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-transform-nonprojection",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-transform-nonprojection",
+      "object_id": "gr-ai-gamma:concept:set-calculus-transform-nonprojection",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Core README states the non-projection rule directly.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-unresolved-not-unknown",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-unresolved-not-unknown",
+      "object_id": "gr-ai-gamma:concept:set-calculus-unresolved-not-unknown",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Core README states Unresolved != Unknown directly.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-provenance-persistence",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-core-readme-passage-provenance-survives",
+      "object_id": "gr-ai-gamma:concept:set-calculus-provenance-persistence",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Core README states that provenance survives transformation.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-explicit-resolution",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-plan-passage-explicit-resolution",
+      "object_id": "gr-ai-gamma:concept:set-calculus-explicit-resolution",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Working plan explicitly requires explicit terminal/reportable resolution states.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-deterministic-execution",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-plan-passage-deterministic-execution",
+      "object_id": "gr-ai-gamma:concept:set-calculus-deterministic-execution",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "NOT_APPLICABLE",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Working plan directly states deterministic execution and trace requirements.",
+      "derived_from_mapping_ids": []
+    },
+    {
+      "id": "map:sc-provenance-principle",
+      "passage_id": "gr-ai-gamma:artifact:set-calculus-provenance-passage-principle",
+      "object_id": "gr-ai-gamma:concept:set-calculus-provenance-principle",
+      "interpretation_level": "DIRECT",
+      "mapping_role": "PRIMARY",
+      "calibration_status": "PROVENANCE_REQUIRED",
+      "status": "ACTIVE",
+      "confidence": 1,
+      "rationale": "Repository provenance policy states the principle verbatim.",
+      "derived_from_mapping_ids": []
+    }
+  ],
+  "audit_findings": [
+    {
+      "id": "audit:crc-axioms-1-15-primary-provenance-gap",
+      "audit_class": "UNSOURCED_OBJECT",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "summary": "CRC Axioms 1-15 lack registered primary passage-level provenance.",
+      "source_ids": [
+        "gr-ai-gamma:artifact:causal-cartesian-plane-bundle"
+      ],
+      "passage_ids": [],
+      "object_ids": [],
+      "mapping_ids": [],
+      "recommended_action": "Extract exact Causal Cartesian Plane passages and map Axioms 1-15; mark remaining axioms as inherited Set Calculus or CRC synthesis."
+    },
+    {
+      "id": "audit:idgm-passage-extraction-incomplete",
+      "audit_class": "UNMAPPED_SOURCE",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "summary": "IDGM axioms and laws are registered as a source artifact but passage-level source records remain incomplete.",
+      "source_ids": [
+        "gr-ai-gamma:artifact:idgm-axioms-laws"
+      ],
+      "passage_ids": [],
+      "object_ids": [],
+      "mapping_ids": [],
+      "recommended_action": "Extract each IDGM axiom/law into passage and object records."
+    },
+    {
+      "id": "audit:set-calculus-core-passage-extraction-partial",
+      "audit_class": "UNMAPPED_SOURCE",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "summary": "Set Calculus source records now cover root scope/plan/provenance/core README, but the full canonical core specification remains incomplete.",
+      "source_ids": [
+        "gr-ai-gamma:artifact:set-calculus-readme",
+        "gr-ai-gamma:artifact:set-calculus-plan",
+        "gr-ai-gamma:artifact:set-calculus-scope-v0-1",
+        "gr-ai-gamma:artifact:set-calculus-provenance",
+        "gr-ai-gamma:artifact:set-calculus-core-readme"
+      ],
+      "passage_ids": [],
+      "object_ids": [],
+      "mapping_ids": [],
+      "recommended_action": "Continue registering docs/set-calculus-core artifacts and map every formal primitive, resolution state, and law at passage level."
+    }
+  ]
+}
