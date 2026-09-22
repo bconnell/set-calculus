@@ -60,6 +60,8 @@ t1 -> t2 -------->
 
 This creates a temporary divergence between the currently available relational structure and the state presently carried by the observer.
 
+Within this philosophy, that divergence is relative to the resolver's existing Monad. The Monad is treated here only as the resolver's established frame of reference; its definition and internal structure are outside the scope of this anchor and are not modified by it.
+
 Such divergence is not necessarily failure.
 
 ```text
