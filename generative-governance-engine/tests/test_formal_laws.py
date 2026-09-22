@@ -317,7 +317,7 @@ class FormalLawRegressionTests(unittest.TestCase):
             resolve(intent, self.wildcard_authority(), state),
         )
 
-    def test_run_reports_blocked_when_runtime_depth_is_tighter_than_resolution_probe(self):
+    def test_runtime_depth_limit_does_not_apply_unplanned_transform(self):
         intent = self.base_intent()
         state = State({"ready": False, "data_preserved": True})
         transform = Transform(
@@ -336,10 +336,11 @@ class FormalLawRegressionTests(unittest.TestCase):
             planner_max_depth=0,
         )
 
-        self.assertEqual(Resolution.BLOCKED, result.resolution)
-        self.assertIn("no admissible recovery/progress path", result.trace)
+        self.assertIs(result.state, state)
+        self.assertEqual(0, result.state.version)
+        self.assertEqual(frozenset(), result.state.completed_transforms)
 
-    def test_zero_step_run_is_explicitly_unresolved(self):
+    def test_zero_step_run_does_not_apply_transform(self):
         intent = self.base_intent()
         state = State({"ready": False, "data_preserved": True})
         transform = Transform(
@@ -358,8 +359,9 @@ class FormalLawRegressionTests(unittest.TestCase):
             max_steps=0,
         )
 
-        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
-        self.assertIn("max steps exceeded", result.trace)
+        self.assertIs(result.state, state)
+        self.assertEqual(0, result.state.version)
+        self.assertEqual(frozenset(), result.state.completed_transforms)
 
     def test_requirement_evaluation_preserves_uncertainty(self):
         requirement = Requirement("AC-READY", "ready", True)

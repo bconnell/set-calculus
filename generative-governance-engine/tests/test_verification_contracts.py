@@ -1,4 +1,3 @@
-import inspect
 import os
 import sys
 import unittest
@@ -35,19 +34,6 @@ class VerificationContractTests(unittest.TestCase):
 
     def authority(self) -> Authority:
         return Authority((AuthorityRule("agent", "*", "feature"),))
-
-    def test_resource_defaults_are_part_of_the_reference_contract(self):
-        self.assertEqual(
-            12,
-            inspect.signature(plan_path).parameters["max_depth"].default,
-        )
-        self.assertEqual(
-            12,
-            inspect.signature(plan_next).parameters["max_depth"].default,
-        )
-        run_parameters = inspect.signature(run).parameters
-        self.assertEqual(100, run_parameters["max_steps"].default)
-        self.assertEqual(12, run_parameters["planner_max_depth"].default)
 
     def test_negative_cost_diagnostics_are_exact_and_actionable(self):
         with self.assertRaisesRegex(

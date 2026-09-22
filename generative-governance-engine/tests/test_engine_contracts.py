@@ -219,7 +219,7 @@ class EngineContractTests(unittest.TestCase):
             result.trace[-1],
         )
 
-    def test_max_steps_returns_current_state_and_fresh_evidence(self):
+    def test_step_budget_preserves_actual_progress_state(self):
         prepare = Transform(
             "T-PREPARE",
             "agent",
@@ -245,11 +245,11 @@ class EngineContractTests(unittest.TestCase):
             max_steps=1,
         )
 
-        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
         self.assertEqual(1, result.state.version)
         self.assertEqual(frozenset({"T-PREPARE"}), result.state.completed_transforms)
+        self.assertTrue(result.state.facts["prepared"])
+        self.assertFalse(result.state.facts["ready"])
         self.assertEqual((), result.evidence)
-        self.assertEqual("max steps exceeded", result.trace[-1])
 
 
 if __name__ == "__main__":

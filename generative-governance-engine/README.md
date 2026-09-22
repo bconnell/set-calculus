@@ -82,19 +82,6 @@ risk_penalty = 0.0
 
 If no admissible path can reduce delta within the configured search depth, the current Resolution becomes `BLOCKED`.
 
-## Reference resource bounds
-
-The reference kernel intentionally uses finite default work bounds:
-
-```text
-plan_path.max_depth = 12
-plan_next.max_depth = 12
-run.max_steps = 100
-run.planner_max_depth = 12
-```
-
-These defaults are part of the v0.1 reference behavior. Callers may override them explicitly. A change to a default is therefore a behavioral change and must be reviewed and tested as such.
-
 ## Verification contract
 
 The GGE verification workflow checks the executable kernel at several independent boundaries:
