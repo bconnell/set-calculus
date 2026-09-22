@@ -31,8 +31,10 @@ It provides:
 - semantic Intent-State delta
 - deterministic authorization and precondition checks
 - invariant-preserving Transform admission
-- deterministic next-Transform planning
-- Transform execution with state versioning
+- dependency-aware Transform selection
+- blocked-state recovery through admissible prerequisite/precondition-enabling Transforms
+- deterministic planner tie-breaking
+- Transform execution with state versioning and completed-Transform history
 - current-state Evidence generation
 - canonical Resolution classification:
   - COMPLETED
@@ -42,7 +44,21 @@ It provides:
   - SUPERSEDED
   - FAILED
 - an end-to-end governance loop
-- conformance tests for the six Resolution states and invariant protection
+- conformance tests for Resolution, invariants, planner dependencies, recovery, and tie-breaking
+
+## Planner semantics
+
+`plan_path()` searches for the shortest admissible Transform sequence that reduces semantic Intent-State delta.
+
+A path may contain intermediate Transforms that do not directly satisfy Intent. Those steps are valid when they unlock a dependency or precondition required by a later advancing Transform.
+
+Deterministic ordering is:
+
+1. fewest Transforms;
+2. greatest semantic-delta reduction at the reached State;
+3. lexicographically smallest Transform-ID path.
+
+If no admissible path can reduce delta within the configured search depth, the current Resolution becomes `BLOCKED`.
 
 ## Run
 
