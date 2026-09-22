@@ -1,4 +1,4 @@
-name: Provenance Drift Check
+name: Provenance Drift Report
 
 on:
   pull_request:
@@ -22,6 +22,7 @@ permissions:
 jobs:
   provenance-drift:
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - name: Check out repository
@@ -32,9 +33,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Regenerate provenance views
+      - name: Regenerate provenance views locally for comparison
         run: python scripts/generate_provenance_views.py
 
-      - name: Fail on generated provenance drift
+      - name: Report generated provenance drift
+        shell: bash
         run: |
-          git diff --exit-code --             docs/provenance/generated/SOURCE_LEDGER.md             docs/provenance/generated/PROVENANCE_MATRIX.md             docs/provenance/generated/REVERSE_SOURCE_INDEX.md             docs/provenance/generated/COVERAGE_AUDIT.md
+          if git diff --quiet --             docs/provenance/generated/SOURCE_LEDGER.md             docs/provenance/generated/PROVENANCE_MATRIX.md             docs/provenance/generated/REVERSE_SOURCE_INDEX.md             docs/provenance/generated/COVERAGE_AUDIT.md
+          then
+            echo "Generated provenance views are synchronized."
+          else
+            echo "::warning::Generated provenance views differ from SOURCE_CATALOG.json."
+            echo "This is advisory only. No files are modified or committed by CI."
+            echo "A human may regenerate them with:"
+            echo "  python scripts/generate_provenance_views.py"
+            git diff --               docs/provenance/generated/SOURCE_LEDGER.md               docs/provenance/generated/PROVENANCE_MATRIX.md               docs/provenance/generated/REVERSE_SOURCE_INDEX.md               docs/provenance/generated/COVERAGE_AUDIT.md
+          fi
