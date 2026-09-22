@@ -49,6 +49,116 @@ class VerificationContractTests(unittest.TestCase):
         self.assertEqual(100, run_parameters["max_steps"].default)
         self.assertEqual(12, run_parameters["planner_max_depth"].default)
 
+    def dependency_chain(self, length: int) -> tuple[Transform, ...]:
+        transforms = []
+        for index in range(1, length + 1):
+            transform_id = f"T-{index:02d}"
+            effects = {"ready": True} if index == length else {f"step_{index}": True}
+            depends_on = () if index == 1 else (f"T-{index - 1:02d}",)
+            transforms.append(
+                Transform(
+                    transform_id,
+                    "agent",
+                    f"step-{index}",
+                    "feature",
+                    effects=effects,
+                    depends_on=depends_on,
+                )
+            )
+        return tuple(transforms)
+
+    def test_default_planner_depth_stops_before_thirteen_step_path(self):
+        chain = self.dependency_chain(13)
+        state = State({"ready": False, "data_preserved": True})
+
+        self.assertEqual(
+            (),
+            plan_path(self.intent(), self.authority(), state, chain),
+        )
+        self.assertIsNone(
+            plan_next(self.intent(), self.authority(), state, chain),
+        )
+
+        explicit_path = plan_path(
+            self.intent(),
+            self.authority(),
+            state,
+            chain,
+            max_depth=13,
+        )
+        self.assertEqual(13, len(explicit_path))
+        self.assertEqual("T-01", explicit_path[0].transform_id)
+        self.assertEqual("T-13", explicit_path[-1].transform_id)
+
+    def test_run_planner_depth_override_can_widen_beyond_default(self):
+        chain = self.dependency_chain(13)
+        state = State({"ready": False, "data_preserved": True})
+
+        blocked = run(
+            self.intent(),
+            self.authority(),
+            state,
+            chain,
+        )
+        self.assertEqual(Resolution.BLOCKED, blocked.resolution)
+
+        completed = run(
+            self.intent(),
+            self.authority(),
+            state,
+            chain,
+            planner_max_depth=13,
+            max_steps=13,
+        )
+        self.assertEqual(Resolution.COMPLETED, completed.resolution)
+        self.assertEqual(13, completed.state.version)
+
+    def test_default_run_step_budget_is_observable_at_one_hundred_transforms(self):
+        requirements = tuple(
+            Requirement(f"AC-{index:03d}", f"done_{index}", True)
+            for index in range(1, 102)
+        )
+        intent = Intent(
+            intent_id="INT-BUDGET",
+            version=1,
+            objective="Complete 101 independent requirements.",
+            acceptance_criteria=requirements,
+        )
+        transforms = tuple(
+            Transform(
+                f"T-{index:03d}",
+                "agent",
+                f"complete-{index}",
+                "feature",
+                effects={f"done_{index}": True},
+                base_cost=0.0,
+            )
+            for index in range(1, 102)
+        )
+        initial = State(
+            {f"done_{index}": False for index in range(1, 102)}
+        )
+
+        default_result = run(
+            intent,
+            self.authority(),
+            initial,
+            transforms,
+        )
+        self.assertEqual(Resolution.INCOMPLETE, default_result.resolution)
+        self.assertEqual(100, default_result.state.version)
+        self.assertEqual("max steps exhausted", default_result.trace[-1])
+
+        extended_result = run(
+            intent,
+            self.authority(),
+            initial,
+            transforms,
+            max_steps=101,
+        )
+        self.assertEqual(Resolution.COMPLETED, extended_result.resolution)
+        self.assertEqual(101, extended_result.state.version)
+
     def test_negative_cost_diagnostics_are_exact_and_actionable(self):
         with self.assertRaisesRegex(
             ValueError,
@@ -204,7 +314,10 @@ class VerificationContractTests(unittest.TestCase):
         self.assertIs(result.state, initial)
         self.assertEqual((), result.evidence)
         self.assertEqual(
-            ("state:0 resolution:BLOCKED",),
+            (
+                "state:0 resolution:BLOCKED",
+                "no admissible recovery/progress path",
+            ),
             result.trace,
         )
 
@@ -231,7 +344,7 @@ class VerificationContractTests(unittest.TestCase):
         self.assertEqual((), result.evidence)
         self.assertEqual(
             (
-                "state:0 resolution:INCOMPLETE",
+                "state:0 resolution:BLOCKED",
                 "no admissible recovery/progress path",
             ),
             result.trace,

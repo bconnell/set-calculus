@@ -245,11 +245,12 @@ class EngineContractTests(unittest.TestCase):
             max_steps=1,
         )
 
-        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
+        self.assertEqual(Resolution.INCOMPLETE, result.resolution)
         self.assertEqual(1, result.state.version)
         self.assertEqual(frozenset({"T-PREPARE"}), result.state.completed_transforms)
         self.assertEqual((), result.evidence)
-        self.assertEqual("max steps exceeded", result.trace[-1])
+        self.assertEqual("state:1 resolution:INCOMPLETE", result.trace[-2])
+        self.assertEqual("max steps exhausted", result.trace[-1])
 
 
 if __name__ == "__main__":

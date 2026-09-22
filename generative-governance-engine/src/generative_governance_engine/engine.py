@@ -271,12 +271,10 @@ def _criterion_is_proven(
     )
 
 
-def resolve(
+def _resolve_state(
     intent: Intent,
-    authority: Authority,
     state: State,
     evidence: Iterable[Evidence] = (),
-    transforms: Iterable[Transform] | None = None,
 ) -> Resolution:
     evidence = tuple(evidence)
 
@@ -305,9 +303,34 @@ def resolve(
             return Resolution.COMPLETED
         return Resolution.UNRESOLVED
 
+    return Resolution.INCOMPLETE
+
+
+def resolve(
+    intent: Intent,
+    authority: Authority,
+    state: State,
+    evidence: Iterable[Evidence] = (),
+    transforms: Iterable[Transform] | None = None,
+    *,
+    planner_max_depth: int = 12,
+) -> Resolution:
+    resolution = _resolve_state(intent, state, evidence)
+    if resolution is not Resolution.INCOMPLETE:
+        return resolution
+
     if transforms is not None:
         transforms = tuple(transforms)
-        if plan_next(intent, authority, state, transforms) is None:
+        if (
+            plan_next(
+                intent,
+                authority,
+                state,
+                transforms,
+                max_depth=planner_max_depth,
+            )
+            is None
+        ):
             return Resolution.BLOCKED
 
     return Resolution.INCOMPLETE
@@ -328,30 +351,30 @@ def run(
 
     for _ in range(max_steps):
         evidence = observe(intent, state)
-        resolution = resolve(intent, authority, state, evidence, transforms)
+        resolution = _resolve_state(intent, state, evidence)
+        path: tuple[Transform, ...] = ()
+
+        if resolution is Resolution.INCOMPLETE:
+            path = plan_path(
+                intent,
+                authority,
+                state,
+                transforms,
+                max_depth=planner_max_depth,
+            )
+            if not path:
+                resolution = Resolution.BLOCKED
+
         trace.append(f"state:{state.version} resolution:{resolution.value}")
 
         if resolution is not Resolution.INCOMPLETE:
+            if resolution is Resolution.BLOCKED:
+                trace.append("no admissible recovery/progress path")
             return GovernanceResult(
                 resolution=resolution,
                 state=state,
                 evidence=evidence,
                 trace=tuple(trace),
-            )
-
-        path = plan_path(
-            intent,
-            authority,
-            state,
-            transforms,
-            max_depth=planner_max_depth,
-        )
-        if not path:
-            return GovernanceResult(
-                resolution=Resolution.BLOCKED,
-                state=state,
-                evidence=evidence,
-                trace=tuple(trace + ["no admissible recovery/progress path"]),
             )
 
         trace.append(
@@ -369,9 +392,28 @@ def run(
         state = apply_transform(intent, authority, state, transform)
 
     evidence = observe(intent, state)
+    resolution = _resolve_state(intent, state, evidence)
+
+    if resolution is Resolution.INCOMPLETE:
+        path = plan_path(
+            intent,
+            authority,
+            state,
+            transforms,
+            max_depth=planner_max_depth,
+        )
+        if not path:
+            resolution = Resolution.BLOCKED
+
+    trace.append(f"state:{state.version} resolution:{resolution.value}")
+    if resolution is Resolution.INCOMPLETE:
+        trace.append("max steps exhausted")
+    elif resolution is Resolution.BLOCKED:
+        trace.append("no admissible recovery/progress path")
+
     return GovernanceResult(
-        resolution=Resolution.UNRESOLVED,
+        resolution=resolution,
         state=state,
         evidence=evidence,
-        trace=tuple(trace + ["max steps exceeded"]),
+        trace=tuple(trace),
     )
