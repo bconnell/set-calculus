@@ -415,6 +415,104 @@ class VerificationContractTests(unittest.TestCase):
         self.assertIsNotNone(selected)
         self.assertEqual("T-B-VIABLE", selected.transform_id)
 
+    def test_equal_cost_convergent_paths_preserve_deterministic_choice(self):
+        set_a = Transform(
+            "T-A",
+            "agent",
+            "set-a",
+            "feature",
+            effects={"a": True},
+            base_cost=1.0,
+        )
+        set_b = Transform(
+            "T-B",
+            "agent",
+            "set-b",
+            "feature",
+            effects={"b": True},
+            base_cost=1.0,
+        )
+        finish = Transform(
+            "T-C",
+            "agent",
+            "finish",
+            "feature",
+            effects={"ready": True},
+            preconditions=(
+                Requirement("P-A", "a", True),
+                Requirement("P-B", "b", True),
+            ),
+            depends_on=("T-A", "T-B"),
+            base_cost=1.0,
+        )
+
+        path = plan_path(
+            self.intent(),
+            self.authority(),
+            State(
+                {
+                    "ready": False,
+                    "data_preserved": True,
+                    "a": False,
+                    "b": False,
+                }
+            ),
+            (set_b, finish, set_a),
+            max_depth=3,
+        )
+
+        self.assertEqual(
+            ("T-A", "T-B", "T-C"),
+            tuple(item.transform_id for item in path),
+        )
+
+    def test_state_signature_preserves_order_dependent_fact_states(self):
+        write_a = Transform(
+            "T-A",
+            "agent",
+            "write-a",
+            "feature",
+            effects={"mode": "A"},
+            base_cost=1.0,
+        )
+        write_b = Transform(
+            "T-B",
+            "agent",
+            "write-b",
+            "feature",
+            effects={"mode": "B"},
+            base_cost=1.0,
+        )
+        finish = Transform(
+            "T-C",
+            "agent",
+            "finish",
+            "feature",
+            effects={"ready": True},
+            preconditions=(Requirement("P-MODE-A", "mode", "A"),),
+            depends_on=("T-A", "T-B"),
+            base_cost=1.0,
+        )
+
+        path = plan_path(
+            self.intent(),
+            self.authority(),
+            State(
+                {
+                    "ready": False,
+                    "data_preserved": True,
+                    "mode": "initial",
+                }
+            ),
+            (write_a, write_b, finish),
+            max_depth=3,
+        )
+
+        self.assertEqual(
+            ("T-B", "T-A", "T-C"),
+            tuple(item.transform_id for item in path),
+        )
+
     def test_run_reports_direct_blocked_resolution_without_false_progress_trace(self):
         transform = Transform(
             "T-READY",

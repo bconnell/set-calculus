@@ -139,11 +139,11 @@ def plan_path(
         ]
     ] = [(0.0, 0, (), state, ())]
 
-    # Lowest discovered cost for a concrete state signature. Equal-cost states
-    # may still compete deterministically through path ids in the queue.
-    # Because the signature includes the completed-transform set and Transform
-    # costs are fixed, repeated identical signatures normally have equal cost;
-    # the higher-cost rejection arm is defensive rather than expected behavior.
+    # Lowest discovered cost for a concrete state signature. Equal-cost
+    # duplicate states are pruned. Queue ordering is deterministic, so the
+    # lexicographically earliest equal-cost path reaches a signature first.
+    # State facts remain part of the signature because identical completed
+    # Transform sets can still produce different State when effects overlap.
     best_cost: dict[
         tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]],
         float,
@@ -193,7 +193,7 @@ def plan_path(
 
             signature = _state_signature(next_state)
             prior_cost = best_cost.get(signature)
-            if prior_cost is None or next_cost <= prior_cost:
+            if prior_cost is None or next_cost < prior_cost:
                 best_cost[signature] = next_cost
                 heapq.heappush(
                     queue,
