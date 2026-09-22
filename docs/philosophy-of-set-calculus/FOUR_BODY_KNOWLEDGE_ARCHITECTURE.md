@@ -22,6 +22,22 @@ Triadic Resolution Path
 
 The purpose of this distinction is de-idolization: the source remains credited and traceable, while the mathematics is named for the structure rather than the person associated with one historical formulation.
 
+## Terminology Authority
+
+Canonical terminology for this architecture is maintained in:
+
+~~~text
+CANONICAL_TERMINOLOGY_LEDGER.md
+~~~
+
+The ledger is authoritative for naming and role descriptions. It does not independently authorize structural changes.
+
+~~~text
+architecture = stable unless explicitly changed
+~~~
+
+If a terminology edit appears to alter the architecture, clarification is required before the structural change is made.
+
 ## Foundational Structures and Disciplinary Interfaces
 
 The architecture is not a hierarchy.
@@ -84,88 +100,130 @@ Set Calculus therefore treats disciplinary separation as a useful functional par
 
 ## Monadic Relational Structure
 
-The monadic relational structure is part of the foundational structure itself. It is not an additional branch, discipline, or layer.
+The **Monadic Relational Structure** is part of the foundational structure itself. It is not an additional branch, discipline, or layer.
 
-It describes a single underlying relational object that may expose different domain functions without becoming multiple independent realities.
+Canonical definition:
 
-A minimal working form is:
+> A single underlying relational object that may expose different domain functions without becoming multiple independent realities.
 
-```text
+Minimal working form:
+
+~~~text
 M = <E, R, S, T, P>
-```
+~~~
 
 where:
 
-```text
+~~~text
 E = entities / members
 R = relations
 S = relational state
 T = admissible transforms
 P = provenance
-```
+~~~
 
-The defining principle is:
+The defining identity rule is:
 
-```text
+~~~text
 M remains one relational object
 even when examined through different domain functions
-```
+~~~
 
-Mathematics, Logic, and Computer Science therefore operate as domain functions over the same foundational relational structure:
+### Domain functions
 
-```text
+Mathematics, Logic, and Computer Science operate as domain functions over the same foundational relational structure:
+
+~~~text
 D_math(M)
 D_logic(M)
 D_cs(M)
-```
+~~~
 
-Each produces a domain-resolved view:
+A **Domain Function** is:
 
-```text
+> A disciplinary projection or operation over the monadic relational structure that produces a domain-resolved view without becoming the whole object.
+
+Formally:
+
+~~~text
 D_i : M -> M_i
-```
+~~~
 
-but:
+with:
 
-```text
+~~~text
 M_i != M
-```
+~~~
 
-The projection is not the whole object.
+The projection is a valid local representation of the object. It is not the whole object.
 
-A domain function may achieve local closure over its own representation without eliminating the relations that connect that representation to the larger monadic object.
+### Local closure
 
-```text
-DomainClosure(D_i(M))
+A domain function may achieve **Local Closure** over its own representation and rules.
+
+~~~text
+LocalClosure(D_i(M))
+~~~
+
+Local Closure is valid within that domain, but:
+
+~~~text
+LocalClosure(D_i(M))
 !-> RelationalClosure(M)
-```
+~~~
 
-Or compactly:
+Canonical distinction:
 
-```text
+~~~text
 projection may close
 while relation remains open
-```
+~~~
 
-This means a mathematical result may be locally complete, a logical result may be internally valid, or a computational implementation may be operationally closed while the larger cross-domain relation remains unresolved.
+A mathematical result may therefore be locally complete, a logical result internally valid, or a computational implementation operationally closed while the larger relational object remains unresolved.
 
-The cross-domain relation survives because each domain view retains a common origin:
+### Cross-domain relation persistence
 
-```text
+The domain functions do not eliminate their common origin:
+
+~~~text
 M_math <- M -> M_logic
              \
               -> M_cs
-```
+~~~
+
+A **Cross-Domain Relation** is a relation that remains materially present across two or more domain-resolved views of the same monadic relational structure.
 
 Therefore:
 
-```text
+~~~text
 not represented locally
 !=
 not relationally present
-```
+~~~
 
-The common object is relational before it is disciplinary.
+and:
+
+~~~text
+domain projection
+!=
+ontological separation
+~~~
+
+### Relational reopening
+
+Because the same monadic object remains underneath the projections, one domain may expose information that causes another domain's Local Closure to reopen.
+
+~~~text
+local closure
+    ↓
+cross-domain relation becomes materially relevant
+    ↓
+reopen
+    ↓
+reconcile against M
+    ↓
+new local or relational resolution
+~~~
 
 A mathematical abstraction may expose a logical problem.
 
