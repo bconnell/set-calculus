@@ -13,14 +13,17 @@ from generative_governance_engine import (
     Authority,
     AuthorityRule,
     Intent,
+    IntentStatus,
     Requirement,
     Resolution,
     State,
     Transform,
+    admissible,
     observe,
     plan_next,
     plan_path,
     resolve,
+    run,
 )
 from generative_governance_engine.engine import apply_transform, semantic_delta
 
@@ -217,6 +220,155 @@ class FormalLawRegressionTests(unittest.TestCase):
                     ("T-PREPARE", "T-FINISH"),
                     tuple(t.transform_id for t in path),
                 )
+
+    def test_consistent_duplicate_requirement_key_remains_consistent(self):
+        intent = Intent(
+            intent_id="INT-DUPLICATE",
+            version=1,
+            objective="Allow the same requirement on both boundaries.",
+            acceptance_criteria=(Requirement("AC-READY", "ready", True),),
+            invariants=(Requirement("INV-READY", "ready", True),),
+        )
+        state = State({"ready": True})
+
+        self.assertEqual(
+            Resolution.COMPLETED,
+            resolve(intent, self.wildcard_authority(), state, observe(intent, state)),
+        )
+
+    def test_superseded_intent_rejects_transform_admissibility(self):
+        intent = Intent(
+            intent_id="INT-OLD",
+            version=1,
+            objective="Old objective.",
+            acceptance_criteria=(Requirement("AC-READY", "ready", True),),
+            status=IntentStatus.SUPERSEDED,
+        )
+        transform = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+
+        self.assertFalse(
+            admissible(
+                intent,
+                self.wildcard_authority(),
+                State({"ready": False}),
+                transform,
+            )
+        )
+
+    def test_completed_state_requires_no_planning_path(self):
+        intent = self.base_intent()
+        state = State({"ready": True, "data_preserved": True})
+        transform = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+
+        self.assertEqual(
+            (),
+            plan_path(intent, self.wildcard_authority(), state, (transform,)),
+        )
+
+    def test_zero_planner_depth_cannot_produce_path(self):
+        intent = self.base_intent()
+        state = State({"ready": False, "data_preserved": True})
+        transform = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+
+        self.assertEqual(
+            (),
+            plan_path(
+                intent,
+                self.wildcard_authority(),
+                state,
+                (transform,),
+                max_depth=0,
+            ),
+        )
+
+    def test_satisfied_acceptance_with_broken_invariant_fails(self):
+        intent = self.base_intent()
+        state = State({"ready": True, "data_preserved": False})
+
+        self.assertEqual(
+            Resolution.FAILED,
+            resolve(intent, self.wildcard_authority(), state, observe(intent, state)),
+        )
+
+    def test_unmet_intent_without_transform_catalog_is_incomplete(self):
+        intent = self.base_intent()
+        state = State({"ready": False, "data_preserved": True})
+
+        self.assertEqual(
+            Resolution.INCOMPLETE,
+            resolve(intent, self.wildcard_authority(), state),
+        )
+
+    def test_run_reports_blocked_when_runtime_depth_is_tighter_than_resolution_probe(self):
+        intent = self.base_intent()
+        state = State({"ready": False, "data_preserved": True})
+        transform = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+
+        result = run(
+            intent,
+            self.wildcard_authority(),
+            state,
+            (transform,),
+            planner_max_depth=0,
+        )
+
+        self.assertEqual(Resolution.BLOCKED, result.resolution)
+        self.assertIn("no admissible recovery/progress path", result.trace)
+
+    def test_zero_step_run_is_explicitly_unresolved(self):
+        intent = self.base_intent()
+        state = State({"ready": False, "data_preserved": True})
+        transform = Transform(
+            "T-READY",
+            "agent",
+            "set-ready",
+            "feature",
+            effects={"ready": True},
+        )
+
+        result = run(
+            intent,
+            self.wildcard_authority(),
+            state,
+            (transform,),
+            max_steps=0,
+        )
+
+        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
+        self.assertIn("max steps exceeded", result.trace)
+
+    def test_requirement_evaluation_preserves_uncertainty(self):
+        requirement = Requirement("AC-READY", "ready", True)
+        state = State(
+            {"ready": True},
+            uncertain=frozenset({"ready"}),
+        )
+
+        self.assertIsNone(requirement.evaluate(state))
 
     def test_selected_progress_does_not_increase_semantic_delta(self):
         intent = self.base_intent()
