@@ -185,7 +185,7 @@ jobs:
           branch_pct = 100.0 if branches == 0 else covered_branches * 100.0 / branches
 
           required_statement_pct = 100.0
-          required_branch_pct = 98.0
+          required_branch_pct = 100.0
 
           print(
               f"statements: {covered_statements}/{statements} = {statement_pct:.2f}% "
@@ -257,7 +257,7 @@ jobs:
           killed = int(stats["killed"])
           total = int(stats["total"])
           survived = int(stats["survived"])
-          required_kill_rate = 96.0
+          required_kill_rate = 98.0
 
           if total <= 0:
               print("mutation gate has no measured mutants")

@@ -443,6 +443,50 @@ class VerificationContractTests(unittest.TestCase):
                 (first, second),
             )
 
+    def test_duplicate_transform_id_diagnostic_lists_multiple_ids_stably(self):
+        transforms = (
+            Transform(
+                "T-B",
+                "agent",
+                "b-one",
+                "feature",
+                effects={"b1": True},
+            ),
+            Transform(
+                "T-A",
+                "agent",
+                "a-one",
+                "feature",
+                effects={"a1": True},
+            ),
+            Transform(
+                "T-B",
+                "agent",
+                "b-two",
+                "feature",
+                effects={"b2": True},
+            ),
+            Transform(
+                "T-A",
+                "agent",
+                "a-two",
+                "feature",
+                effects={"a2": True},
+            ),
+        )
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"^Transform IDs must be unique within a planner catalog; "
+            r"duplicate IDs: 'T-A', 'T-B'\.$",
+        ):
+            plan_path(
+                self.intent(),
+                self.authority(),
+                State({"ready": False, "data_preserved": True}),
+                transforms,
+            )
+
     def test_equal_cost_convergent_paths_preserve_deterministic_choice(self):
         set_a = Transform(
             "T-A",

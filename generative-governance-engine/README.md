@@ -105,8 +105,8 @@ The GGE verification workflow checks the executable kernel at several independen
 - installed-package smoke tests outside the repository tree on Python 3.11 and 3.14;
 - repository-integrity checks for whitespace errors, tracked cache/build artifacts, and unresolved merge markers;
 - 100 percent statement coverage on the core package;
-- at least 98 percent branch coverage on the core package;
-- mutation testing with a blocking kill-rate threshold of at least 96 percent, plus survivor review as adversarial evidence about test strength.
+- 100 percent branch coverage on the core package;
+- mutation testing with a blocking kill-rate threshold of at least 98 percent, plus survivor review as adversarial evidence about test strength.
 
 Coverage and mutation results are evidence about the executable implementation. They do not prove the formal mathematics, replace provenance review, or authorize changes to the governing specification.
 
