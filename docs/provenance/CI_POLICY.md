@@ -35,3 +35,16 @@ human maintainer
 ```
 
 The provenance system is designed to preserve history and uncertainty, not to transfer editorial or mathematical authority to CI or AI tooling.
+
+## Maintainer approval checklist
+
+Before committing a provenance update:
+
+- [ ] Review the proposed source, passage, object, mapping, or audit changes.
+- [ ] Regenerate the provenance views with `python scripts/generate_provenance_views.py`.
+- [ ] Inspect the resulting diff, including generated Markdown and any catalog/schema changes.
+- [ ] Confirm that interpretation level, mapping role, calibration status, and source locations are correct.
+- [ ] Resolve or explicitly leave unresolved any provenance uncertainty; do not fill gaps automatically.
+- [ ] Record explicit human approval before commit.
+- [ ] Commit only the changes that the maintainer has approved.
+
