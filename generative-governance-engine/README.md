@@ -82,6 +82,36 @@ risk_penalty = 0.0
 
 If no admissible path can reduce delta within the configured search depth, the current Resolution becomes `BLOCKED`.
 
+## Reference resource bounds
+
+The reference kernel intentionally uses finite default work bounds:
+
+```text
+plan_path.max_depth = 12
+plan_next.max_depth = 12
+run.max_steps = 100
+run.planner_max_depth = 12
+```
+
+These defaults are part of the v0.1 reference behavior. Callers may override them explicitly. A change to a default is therefore a behavioral change and must be reviewed and tested as such.
+
+## Verification contract
+
+The GGE verification workflow checks the executable kernel at several independent boundaries:
+
+- source tests on Ubuntu and Windows across Python 3.11, 3.12, 3.13, and 3.14;
+- installed-package smoke tests outside the repository tree on Python 3.11 and 3.14;
+- repository-integrity checks for whitespace errors, tracked cache/build artifacts, and unresolved merge markers;
+- 100 percent statement coverage on the core package;
+- at least 98 percent branch coverage on the core package;
+- mutation testing with a blocking kill-rate threshold of at least 96 percent, plus survivor review as adversarial evidence about test strength.
+
+Coverage and mutation results are evidence about the executable implementation. They do not prove the formal mathematics, replace provenance review, or authorize changes to the governing specification.
+
+The branch-coverage threshold is intentionally below 100 percent because the current planner retains a defensive higher-cost same-signature rejection arm. Under the present model, a state signature includes the completed-Transform set and Transform costs are fixed, so repeated identical signatures are expected to have equal summed cost. We preserve that defensive branch without fabricating a synthetic test for behavior that the current model does not produce.
+
+The runtime package remains zero-dependency. Coverage and mutation tools are development-only verification dependencies.
+
 ## Run
 
 From this directory:
