@@ -1,3 +1,4 @@
+import inspect
 import os
 import sys
 import unittest
@@ -250,6 +251,15 @@ class EngineContractTests(unittest.TestCase):
         self.assertTrue(result.state.facts["prepared"])
         self.assertFalse(result.state.facts["ready"])
         self.assertEqual((), result.evidence)
+        self.assertIsInstance(result.resolution, Resolution)
+        self.assertIsInstance(result.trace, tuple)
+        self.assertEqual("max steps exceeded", result.trace[-1])
+
+    def test_run_default_step_budget_is_100(self):
+        self.assertEqual(
+            100,
+            inspect.signature(run).parameters["max_steps"].default,
+        )
 
 
 if __name__ == "__main__":

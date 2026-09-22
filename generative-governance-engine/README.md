@@ -95,6 +95,8 @@ The GGE verification workflow checks the executable kernel at several independen
 
 Coverage and mutation results are evidence about the executable implementation. They do not prove the formal mathematics, replace provenance review, or authorize changes to the governing specification.
 
+The current `run()` API exposes a default `max_steps = 100` execution bound and reports `max steps exceeded` when that bound is exhausted. Those are implementation-level runtime contracts for this reference engine. They do not define the mathematical meaning of a Resolution state.
+
 The branch-coverage threshold is intentionally below 100 percent because the current planner retains a defensive higher-cost same-signature rejection arm. Under the present model, a state signature includes the completed-Transform set and Transform costs are fixed, so repeated identical signatures are expected to have equal summed cost. We preserve that defensive branch without fabricating a synthetic test for behavior that the current model does not produce.
 
 The runtime package remains zero-dependency. Coverage and mutation tools are development-only verification dependencies.
