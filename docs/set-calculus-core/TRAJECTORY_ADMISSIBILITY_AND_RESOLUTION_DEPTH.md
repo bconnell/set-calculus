@@ -2041,3 +2041,431 @@ Epistemic status:
 - Common Witness Envelope: **working formal definition**
 - Uniform validation algorithm: **working validation procedure**
 - External novelty/equivalence claims: **not established**
+
+
+---
+
+# 24. Identity Witness Correction
+
+Identity is a separate boundary compatibility obligation from State.
+
+Canonical distinction:
+
+```text
+IdentityCompat
+!=
+StateCompat
+```
+
+Identity answers what continues across the boundary.
+
+State answers what condition that continuing object is in.
+
+Boundary compatibility therefore expands to:
+
+```text
+BoundaryCompatible
+=
+IdentityCompat
+⊗A StateCompat
+⊗A ContextCompat
+⊗A AuthorityCompat
+⊗A InvariantCompat
+⊗A ProvenanceCompat
+```
+
+and the boundary evidence object becomes:
+
+```text
+E_B =
+<
+  E_identity,
+  E_state,
+  E_context,
+  E_authority,
+  E_invariant,
+  E_provenance
+>
+```
+
+The witness discriminator expands to:
+
+```text
+witness_type ∈ {
+  IDENTITY,
+  STATE,
+  CONTEXT,
+  AUTHORITY,
+  INVARIANT,
+  PROVENANCE
+}
+```
+
+## 24.1 IdentityWitnessPayload
+
+```text
+IdentityWitnessPayload {
+    source_identity        : IdentityRef          [1, non-null]
+    target_identity        : IdentityRef          [1, non-null]
+    identity_relation      : IdentityRelation     [1, non-null]
+    identity_basis         : EvidenceRef          [1, non-null]
+    preserved_properties   : IdentityPropertyRef  [0..*, non-null elements]
+    transformed_properties : IdentityTransformRef [0..*, non-null elements]
+}
+```
+
+where:
+
+```text
+IdentityRelation =
+    SAME_IDENTITY
+  | CONTINUOUS_IDENTITY
+  | DERIVED_IDENTITY
+  | PROJECTED_IDENTITY
+```
+
+Canonical identity distinctions:
+
+```text
+same state
+!=
+same identity
+
+different state
+!-> different identity
+
+DerivedFrom(x,y)
+!-> x = y
+```
+
+## 24.2 Identity payload validity
+
+Define:
+
+```text
+IdentityPayloadValid(W_id)
+```
+
+iff:
+
+```text
+CardinalityValid(W_id)
+∧
+IdentityApplicable(W_id)
+∧
+RelationEvidenceValid(W_id)
+∧
+PreservationCoverageValid(W_id)
+∧
+TransformConsistency(W_id)
+```
+
+### Cardinality
+
+Required singular fields must occur exactly once and be non-null.
+
+```text
+count(source_identity)     = 1
+count(target_identity)     = 1
+count(identity_relation)   = 1
+count(identity_basis)      = 1
+```
+
+Collections may contain zero or more non-null members.
+
+A type, cardinality, or forbidden-null violation is INVALID rather than UNRESOLVED.
+
+### Boundary applicability
+
+```text
+source_identity
+=
+BoundarySourceIdentity(π1)
+```
+
+and:
+
+```text
+target_identity
+=
+BoundaryTargetIdentityRequirement(π2)
+```
+
+A positively wrong identity is INVALID.
+
+An identity not yet resolved is UNRESOLVED unless partial resolution is available under the rules below.
+
+### Relation-specific evidence
+
+`SAME_IDENTITY` requires evidence establishing identity equality.
+
+`CONTINUOUS_IDENTITY` requires evidence establishing identity continuity plus complete coverage of materially required identity properties.
+
+`DERIVED_IDENTITY` requires evidence establishing `DerivedFrom(target,source)` and required inherited-property coverage.
+
+`PROJECTED_IDENTITY` requires evidence establishing authorized identity projection, required bridge validity, and required projected-property coverage.
+
+### Preservation coverage
+
+Let:
+
+```text
+I_req
+=
+RequiredIdentityProperties(
+  π1,
+  π2,
+  identity_relation
+)
+```
+
+and:
+
+```text
+I_pres =
+set(preserved_properties)
+
+I_trans =
+set(transformed_properties)
+```
+
+Then complete coverage requires:
+
+```text
+I_req
+⊆
+I_pres
+∪ AuthorizedTransformCoverage(I_trans)
+```
+
+A known required-property loss without authorized transformation is INVALID.
+
+Unresolved coverage with some positively established coverage may become PARTIAL.
+
+### Transformation consistency
+
+```text
+∀x ∈ transformed_properties:
+AuthorizedForRelation(
+  x,
+  identity_relation
+)
+```
+
+A known contradiction is INVALID.
+
+Unknown compatibility remains unresolved or partial depending on the amount of positively resolved structure.
+
+---
+
+# 25. Partial Resolution State
+
+PARTIAL is a first-class resolution state throughout the Set Math layer.
+
+Canonical distinction:
+
+```text
+PARTIAL
+!=
+UNRESOLVED
+```
+
+Define:
+
+> **Partial Resolution** is a resolution state in which at least one materially required obligation has resolved, at least one materially required obligation remains unresolved, and no decisive invalidating obligation has resolved negatively.
+
+The generic four-state pattern is:
+
+```text
+RESOLVED_POSITIVE
+PARTIAL
+UNRESOLVED
+RESOLVED_NEGATIVE
+```
+
+Domain-specific forms include:
+
+```text
+Witness Validation:
+VALID
+PARTIAL
+UNRESOLVED
+INVALID
+
+Trajectory Admissibility:
+ADMISSIBLE
+PARTIALLY_ADMISSIBLE
+UNRESOLVED
+INADMISSIBLE
+
+Requirement Entailment:
+ENTAILS
+PARTIALLY_ENTAILS
+UNRESOLVED
+DOES_NOT_ENTAIL
+
+Evidence Sufficiency:
+SUFFICIENT
+PARTIALLY_SUFFICIENT
+INCOMPLETE
+CONTRADICTED
+```
+
+The conceptual ladder is:
+
+```text
+Unknown
+!=
+Unresolved
+!=
+Partially Resolved
+!=
+Resolved
+```
+
+## 25.1 Four-valued admissibility composition
+
+The admissibility composition algebra becomes:
+
+| ⊗A | ADMISSIBLE | PARTIAL | UNRESOLVED | INADMISSIBLE |
+|---|---:|---:|---:|---:|
+| **ADMISSIBLE** | ADMISSIBLE | PARTIAL | UNRESOLVED | INADMISSIBLE |
+| **PARTIAL** | PARTIAL | PARTIAL | PARTIAL | INADMISSIBLE |
+| **UNRESOLVED** | UNRESOLVED | PARTIAL | UNRESOLVED | INADMISSIBLE |
+| **INADMISSIBLE** | INADMISSIBLE | INADMISSIBLE | INADMISSIBLE | INADMISSIBLE |
+
+Important cases:
+
+```text
+PARTIAL ⊗A UNRESOLVED
+=
+PARTIAL
+```
+
+because positive resolution already exists.
+
+```text
+UNRESOLVED ⊗A UNRESOLVED
+=
+UNRESOLVED
+```
+
+because no positive partial resolution has yet been established.
+
+```text
+x ⊗A INADMISSIBLE
+=
+INADMISSIBLE
+```
+
+for any final admissibility claim where the negative obligation is decisive.
+
+## 25.2 Uniform validation aggregation
+
+For a validation object with materially required obligations, let:
+
+```text
+resolved_positive = number resolved positively
+unresolved        = number not yet resolved
+resolved_negative = number decisively violated
+required_total    = total materially required obligations
+```
+
+Then:
+
+```text
+if resolved_negative > 0:
+    -> INVALID
+
+else if resolved_positive = required_total:
+    -> VALID
+
+else if resolved_positive > 0
+     and unresolved > 0:
+    -> PARTIAL
+
+else:
+    -> UNRESOLVED
+```
+
+The same pattern maps to the domain-specific names for admissibility, entailment, and evidence sufficiency.
+
+## 25.3 Identity validation with PARTIAL
+
+For example:
+
+```text
+identity relation established
++ some required identity properties proven preserved
++ at least one required identity property unresolved
++ no required property proven invalid
+=
+PARTIAL
+```
+
+Thus an unresolved remainder no longer erases known resolved structure.
+
+---
+
+# 26. Anchor Checkpoint: Six-Witness Four-State Boundary Model
+
+At this checkpoint the boundary-proof layer has two material corrections:
+
+1. **Identity is independent of State**, producing six typed boundary witnesses.
+2. **PARTIAL is a first-class resolution state**, producing four-valued resolution across validation, admissibility, evidence, and entailment.
+
+Current boundary witness set:
+
+```text
+Identity
+State
+Context
+Authority
+Invariant
+Provenance
+```
+
+Current resolution model:
+
+```text
+positive
+partial
+unresolved
+negative
+```
+
+Current dependency chain:
+
+```text
+Trajectory
+-> Trajectory Admissibility
+-> Boundary Compatibility
+-> Six-Dimension Boundary Evidence
+-> Typed Boundary Witnesses
+-> Common Witness Envelope
+-> Four-State Witness Validation
+-> Admissible / Partially Admissible Concatenation
+-> Reachability
+-> Resolution Depth
+```
+
+Canonical checkpoint laws:
+
+```text
+IdentityCompat != StateCompat
+
+PARTIAL != UNRESOLVED
+
+known resolved structure
+must not be erased
+by unresolved remainder
+```
+
+Epistemic status:
+
+- Identity Witness: **working formal definition**
+- Identity payload validation: **working validation predicate**
+- Partial Resolution: **working canonical resolution state**
+- Four-valued composition: **working algebra**
+- Six-witness boundary model: **working boundary formalization**
+- External novelty/equivalence claims: **not established**
