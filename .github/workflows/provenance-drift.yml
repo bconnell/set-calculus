@@ -1,0 +1,40 @@
+name: Provenance Drift Check
+
+on:
+  pull_request:
+    paths:
+      - "docs/provenance/SOURCE_CATALOG.json"
+      - "docs/provenance/PROVENANCE_SCHEMA.json"
+      - "docs/provenance/generated/**"
+      - "scripts/generate_provenance_views.py"
+      - ".github/workflows/provenance-drift.yml"
+  push:
+    paths:
+      - "docs/provenance/SOURCE_CATALOG.json"
+      - "docs/provenance/PROVENANCE_SCHEMA.json"
+      - "docs/provenance/generated/**"
+      - "scripts/generate_provenance_views.py"
+      - ".github/workflows/provenance-drift.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  provenance-drift:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Regenerate provenance views
+        run: python scripts/generate_provenance_views.py
+
+      - name: Fail on generated provenance drift
+        run: |
+          git diff --exit-code --             docs/provenance/generated/SOURCE_LEDGER.md             docs/provenance/generated/PROVENANCE_MATRIX.md             docs/provenance/generated/REVERSE_SOURCE_INDEX.md             docs/provenance/generated/COVERAGE_AUDIT.md
