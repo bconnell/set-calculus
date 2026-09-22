@@ -1,6 +1,6 @@
 # Segregated Provenance Records
 
-This directory records provenance for representations that contain less information than the preserved human-submitted whole.
+This directory records provenance for representations that contain less information than the preserved whole.
 
 Examples include:
 
@@ -13,7 +13,7 @@ Examples include:
 - scope reduction;
 - proposed deduplication.
 
-The original human-submitted material remains canonical and preserved unless a human maintainer explicitly authorizes removal.
+The original preserved material remains retained unless a human maintainer explicitly authorizes removal. This applies equally to human-authored material, AI-authored output, human-directed AI output, tool-generated records, and automation-generated records.
 
 Each segregation record should identify:
 
@@ -23,7 +23,7 @@ reduced / redacted representation
 reduction type
 reason
 proposer
-human-requested: yes / no / unknown
+human-requested or human-directed: yes / no / unknown
 date / version
 information affected
 original preserved: yes / no
