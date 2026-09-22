@@ -95,6 +95,8 @@ run.planner_max_depth = 12
 
 These defaults are part of the v0.1 reference behavior. Callers may override them explicitly. A change to a default is therefore a behavioral change and must be reviewed and tested as such.
 
+After the last permitted Transform, `run()` re-observes the resulting State and applies the canonical Resolution rules. Exhausting `max_steps` does not itself imply `UNRESOLVED`; if the final State remains `INCOMPLETE`, the trace records `max steps exhausted`.
+
 ## Verification contract
 
 The GGE verification workflow checks the executable kernel at several independent boundaries:

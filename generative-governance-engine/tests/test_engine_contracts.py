@@ -219,7 +219,7 @@ class EngineContractTests(unittest.TestCase):
             result.trace[-1],
         )
 
-    def test_max_steps_returns_current_state_and_fresh_evidence(self):
+    def test_max_steps_returns_canonical_final_state_resolution(self):
         prepare = Transform(
             "T-PREPARE",
             "agent",
@@ -245,11 +245,38 @@ class EngineContractTests(unittest.TestCase):
             max_steps=1,
         )
 
-        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
+        self.assertEqual(Resolution.INCOMPLETE, result.resolution)
         self.assertEqual(1, result.state.version)
         self.assertEqual(frozenset({"T-PREPARE"}), result.state.completed_transforms)
         self.assertEqual((), result.evidence)
-        self.assertEqual("max steps exceeded", result.trace[-1])
+        self.assertEqual("state:1 resolution:INCOMPLETE", result.trace[-2])
+        self.assertEqual("max steps exhausted", result.trace[-1])
+
+    def test_last_allowed_transform_can_complete(self):
+        finish = Transform(
+            "T-FINISH",
+            "agent",
+            "finish",
+            "feature",
+            effects={"ready": True},
+        )
+        initial = State({"ready": False, "data_preserved": True})
+
+        result = run(
+            self.intent(),
+            self.authority(),
+            initial,
+            (finish,),
+            max_steps=1,
+        )
+
+        self.assertEqual(Resolution.COMPLETED, result.resolution)
+        self.assertEqual(1, result.state.version)
+        self.assertEqual(frozenset({"T-FINISH"}), result.state.completed_transforms)
+        self.assertEqual(1, len(result.evidence))
+        self.assertEqual(result.state.version, result.evidence[0].state_version)
+        self.assertEqual("state:1 resolution:COMPLETED", result.trace[-1])
+        self.assertNotIn("max steps exhausted", result.trace)
 
 
 if __name__ == "__main__":

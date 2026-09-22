@@ -339,7 +339,7 @@ class FormalLawRegressionTests(unittest.TestCase):
         self.assertEqual(Resolution.BLOCKED, result.resolution)
         self.assertIn("no admissible recovery/progress path", result.trace)
 
-    def test_zero_step_run_is_explicitly_unresolved(self):
+    def test_zero_step_run_preserves_canonical_incomplete_resolution(self):
         intent = self.base_intent()
         state = State({"ready": False, "data_preserved": True})
         transform = Transform(
@@ -358,8 +358,14 @@ class FormalLawRegressionTests(unittest.TestCase):
             max_steps=0,
         )
 
-        self.assertEqual(Resolution.UNRESOLVED, result.resolution)
-        self.assertIn("max steps exceeded", result.trace)
+        self.assertEqual(Resolution.INCOMPLETE, result.resolution)
+        self.assertEqual(
+            (
+                "state:0 resolution:INCOMPLETE",
+                "max steps exhausted",
+            ),
+            result.trace,
+        )
 
     def test_requirement_evaluation_preserves_uncertainty(self):
         requirement = Requirement("AC-READY", "ready", True)

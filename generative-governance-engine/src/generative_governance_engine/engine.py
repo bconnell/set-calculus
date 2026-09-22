@@ -369,9 +369,13 @@ def run(
         state = apply_transform(intent, authority, state, transform)
 
     evidence = observe(intent, state)
+    resolution = resolve(intent, authority, state, evidence, transforms)
+    trace.append(f"state:{state.version} resolution:{resolution.value}")
+    if resolution is Resolution.INCOMPLETE:
+        trace.append("max steps exhausted")
     return GovernanceResult(
-        resolution=Resolution.UNRESOLVED,
+        resolution=resolution,
         state=state,
         evidence=evidence,
-        trace=tuple(trace + ["max steps exceeded"]),
+        trace=tuple(trace),
     )
