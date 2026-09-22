@@ -57,3 +57,7 @@ The exact vocabulary remains subject to formalization.
 ## First formalization task
 
 Define each primitive independently of programming-language implementation, then express a minimal canonical example in both mathematical notation and machine-readable form.
+
+## Active formalizations
+
+- `TRAJECTORY_ADMISSIBILITY_AND_RESOLUTION_DEPTH.md` - trajectory admissibility, composition, boundary compatibility, representation structures, depth-indexed requirements, requirement entailment, and supported resolution depth.
