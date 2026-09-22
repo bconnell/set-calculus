@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import deque
 from collections.abc import Iterable
 
 from .model import (
@@ -46,8 +47,15 @@ def _preconditions_hold(transform: Transform, state: State) -> bool:
     return all(req.evaluate(state) is True for req in transform.preconditions)
 
 
+def _dependencies_hold(transform: Transform, state: State) -> bool:
+    return all(
+        dependency in state.completed_transforms
+        for dependency in transform.depends_on
+    )
+
+
 def _preserves_invariants(intent: Intent, state: State, transform: Transform) -> bool:
-    projected = state.with_effects(transform.effects)
+    projected = state.with_effects(transform.effects, transform.transform_id)
     for invariant in intent.invariants:
         before = invariant.evaluate(state)
         after = invariant.evaluate(projected)
@@ -66,6 +74,7 @@ def admissible(
         return False
     return (
         authority.allows(transform.actor, transform.operation, transform.scope)
+        and _dependencies_hold(transform, state)
         and _preconditions_hold(transform, state)
         and _preserves_invariants(intent, state, transform)
     )
@@ -75,10 +84,84 @@ def _delta_size(intent: Intent, state: State) -> int:
     return len(semantic_delta(intent, state))
 
 
-def _advances(intent: Intent, state: State, transform: Transform) -> bool:
-    before = _delta_size(intent, state)
-    after = _delta_size(intent, state.with_effects(transform.effects))
-    return after < before
+def _state_signature(state: State) -> tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]]:
+    facts = tuple(sorted((key, repr(value)) for key, value in state.facts.items()))
+    return (
+        facts,
+        tuple(sorted(state.uncertain)),
+        tuple(sorted(state.completed_transforms)),
+    )
+
+
+def _simulate(state: State, transform: Transform) -> State:
+    return state.with_effects(transform.effects, transform.transform_id)
+
+
+def plan_path(
+    intent: Intent,
+    authority: Authority,
+    state: State,
+    transforms: Iterable[Transform],
+    *,
+    max_depth: int = 12,
+) -> tuple[Transform, ...]:
+    """Return the deterministic shortest admissible path that reduces semantic delta.
+
+    The path may contain dependency or recovery transforms that do not directly
+    reduce Intent-State delta themselves. Deterministic ordering is:
+
+    1. fewest transforms;
+    2. greatest semantic-delta reduction at the reached state;
+    3. lexicographically smallest transform-id path.
+    """
+    transforms = tuple(sorted(transforms, key=lambda item: item.transform_id))
+    initial_delta = _delta_size(intent, state)
+    if initial_delta == 0:
+        return ()
+
+    queue: deque[tuple[State, tuple[Transform, ...]]] = deque([(state, ())])
+    best_depth: dict[
+        tuple[tuple[tuple[str, str], ...], tuple[str, ...], tuple[str, ...]],
+        int,
+    ] = {_state_signature(state): 0}
+
+    for depth in range(1, max_depth + 1):
+        successes: list[tuple[int, tuple[str, ...], tuple[Transform, ...]]] = []
+        level_count = len(queue)
+
+        for _ in range(level_count):
+            current_state, path = queue.popleft()
+
+            for transform in transforms:
+                if transform.transform_id in current_state.completed_transforms:
+                    continue
+                if not admissible(intent, authority, current_state, transform):
+                    continue
+
+                next_state = _simulate(current_state, transform)
+                next_path = (*path, transform)
+                next_delta = _delta_size(intent, next_state)
+
+                if next_delta < initial_delta:
+                    reduction = initial_delta - next_delta
+                    ids = tuple(item.transform_id for item in next_path)
+                    successes.append((-reduction, ids, next_path))
+                    continue
+
+                signature = _state_signature(next_state)
+                prior_depth = best_depth.get(signature)
+                if prior_depth is None or depth < prior_depth:
+                    best_depth[signature] = depth
+                    queue.append((next_state, next_path))
+
+        if successes:
+            successes.sort(key=lambda item: (item[0], item[1]))
+            return successes[0][2]
+
+        if not queue:
+            break
+
+    return ()
 
 
 def plan_next(
@@ -86,22 +169,17 @@ def plan_next(
     authority: Authority,
     state: State,
     transforms: Iterable[Transform],
+    *,
+    max_depth: int = 12,
 ) -> Transform | None:
-    candidates = [
-        transform
-        for transform in transforms
-        if admissible(intent, authority, state, transform)
-        and _advances(intent, state, transform)
-    ]
-    if not candidates:
-        return None
-
-    def score(transform: Transform) -> tuple[int, str]:
-        projected = state.with_effects(transform.effects)
-        reduction = _delta_size(intent, state) - _delta_size(intent, projected)
-        return (-reduction, transform.transform_id)
-
-    return sorted(candidates, key=score)[0]
+    path = plan_path(
+        intent,
+        authority,
+        state,
+        transforms,
+        max_depth=max_depth,
+    )
+    return path[0] if path else None
 
 
 def apply_transform(
@@ -114,7 +192,7 @@ def apply_transform(
         raise PermissionError(
             f"Transform {transform.transform_id!r} is not admissible."
         )
-    return state.with_effects(transform.effects)
+    return state.with_effects(transform.effects, transform.transform_id)
 
 
 def observe(
@@ -196,6 +274,7 @@ def run(
     transforms: Iterable[Transform],
     *,
     max_steps: int = 100,
+    planner_max_depth: int = 12,
 ) -> GovernanceResult:
     transforms = tuple(transforms)
     state = initial_state
@@ -214,15 +293,27 @@ def run(
                 trace=tuple(trace),
             )
 
-        transform = plan_next(intent, authority, state, transforms)
-        if transform is None:
+        path = plan_path(
+            intent,
+            authority,
+            state,
+            transforms,
+            max_depth=planner_max_depth,
+        )
+        if not path:
             return GovernanceResult(
                 resolution=Resolution.BLOCKED,
                 state=state,
                 evidence=evidence,
-                trace=tuple(trace + ["no admissible advancing transform"]),
+                trace=tuple(trace + ["no admissible recovery/progress path"]),
             )
 
+        if len(path) > 1:
+            trace.append(
+                "plan:" + "->".join(transform.transform_id for transform in path)
+            )
+
+        transform = path[0]
         trace.append(f"apply:{transform.transform_id}")
         state = apply_transform(intent, authority, state, transform)
 
