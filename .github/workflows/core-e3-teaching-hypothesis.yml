@@ -1,0 +1,71 @@
+name: Core E3 Teaching Hypothesis
+
+on:
+  push:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
+      - "docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.json"
+      - "docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json"
+      - "docs/dependency-map/generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md"
+      - "docs/dependency-map/README.md"
+      - "docs/textbook/README.md"
+      - "scripts/audit_core_dependency_inventory.py"
+      - "scripts/audit_core_e3_teaching_hypothesis.py"
+      - "scripts/generate_core_e3_teaching_hypothesis.py"
+      - ".github/workflows/core-e3-teaching-hypothesis.yml"
+  pull_request:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
+      - "docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.json"
+      - "docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json"
+      - "docs/dependency-map/generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md"
+      - "docs/dependency-map/README.md"
+      - "docs/textbook/README.md"
+      - "scripts/audit_core_dependency_inventory.py"
+      - "scripts/audit_core_e3_teaching_hypothesis.py"
+      - "scripts/generate_core_e3_teaching_hypothesis.py"
+      - ".github/workflows/core-e3-teaching-hypothesis.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate dependency-derived E3 hypothesis
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile E3 tooling
+        run: |
+          python -m py_compile scripts/audit_core_dependency_inventory.py
+          python -m py_compile scripts/audit_core_e3_teaching_hypothesis.py
+          python -m py_compile scripts/generate_core_e3_teaching_hypothesis.py
+
+      - name: Validate JSON syntax
+        run: |
+          python -m json.tool docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.json > /dev/null
+          python -m json.tool docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json > /dev/null
+
+      - name: Validate E3 hypothesis
+        run: python scripts/audit_core_e3_teaching_hypothesis.py
+
+      - name: Run E3 validator self-tests
+        run: python scripts/audit_core_e3_teaching_hypothesis.py --self-test
+
+      - name: Verify generated E3 report
+        run: python scripts/generate_core_e3_teaching_hypothesis.py --check
+
+      - name: Capture structured E3 evidence
+        if: always()
+        run: python scripts/audit_core_e3_teaching_hypothesis.py --json
