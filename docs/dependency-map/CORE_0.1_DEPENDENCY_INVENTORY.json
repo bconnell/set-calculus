@@ -1,0 +1,802 @@
+{
+  "schema_version": "1.0",
+  "status": "PROVISIONAL_RESEARCH",
+  "source_document": "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md",
+  "scope": "Concept-level material dependencies used to derive the Core 0.1 candidate teaching layers from the current dependency research. This companion does not establish E1, E2, or E3 PASS and does not classify every possible calculus dependency.",
+  "authority_note": "CORE_0.1_COMPLETENESS_CHECKLIST.md names Chad Coulter as owner of E1-E3. This inventory is contributor evidence for review, not a release-gate decision.",
+  "allowed_classes": [
+    "HARD",
+    "STRONG",
+    "SUPPORTING",
+    "HISTORICAL/CURRICULAR"
+  ],
+  "topology_policy": {
+    "constraint_classes": [
+      "HARD",
+      "STRONG"
+    ],
+    "non_constraint_classes": [
+      "SUPPORTING",
+      "HISTORICAL/CURRICULAR"
+    ],
+    "description": "Only HARD and STRONG edges constrain the generated candidate topological layers. SUPPORTING and HISTORICAL/CURRICULAR edges remain visible but do not force layer order."
+  },
+  "declared_roots": [
+    {
+      "node": "functions_algebra_trigonometry",
+      "kind": "FOUNDATIONAL_ROOT",
+      "rationale": "The current graph begins the main single-variable trunk at Functions / algebra / trigonometry."
+    },
+    {
+      "node": "linear_algebra",
+      "kind": "PARALLEL_DOMAIN_ROOT",
+      "rationale": "The current graph introduces Linear algebra as an independent join into the systems branch."
+    },
+    {
+      "node": "vectors_coordinates",
+      "kind": "PARALLEL_DOMAIN_ROOT",
+      "rationale": "The current graph introduces vectors / coordinates as an independent entry to the multivariable and vector-calculus branches."
+    },
+    {
+      "node": "trigonometric_series",
+      "kind": "UNRESOLVED_SOURCE_GAP",
+      "rationale": "The current source gives Trigonometric series an outgoing dependency to Fourier methods but does not classify an incoming prerequisite. No missing prerequisite is inferred here."
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "q001",
+      "related_nodes": [
+        "trigonometric_series"
+      ],
+      "question": "What classified prerequisite, if any, should feed Trigonometric series?",
+      "reason": "The source graph supplies an outgoing edge to Fourier methods but no incoming material dependency."
+    },
+    {
+      "id": "q002",
+      "related_nodes": [
+        "line_integrals",
+        "surface_integrals",
+        "integration_techniques"
+      ],
+      "question": "Should line and surface integrals carry an explicit cross-branch dependency from integration machinery?",
+      "reason": "The current graph routes Vector fields directly to Line integrals and Surface integrals without classifying a cross-branch integration prerequisite."
+    },
+    {
+      "id": "q003",
+      "related_nodes": [
+        "green_stokes_divergence",
+        "line_integrals",
+        "surface_integrals"
+      ],
+      "question": "How should the integral-theorem layer move if the missing cross-branch integration dependency is later established?",
+      "reason": "The generated layer for Green / Stokes / Divergence is sensitive to the unresolved cross-branch dependency in q002."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "functions_algebra_trigonometry",
+      "label": "Functions / algebra / trigonometry",
+      "family": "FOUNDATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "limits",
+      "label": "Limits",
+      "family": "FOUNDATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "continuity",
+      "label": "Continuity",
+      "family": "FOUNDATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "sequences_convergence",
+      "label": "Sequences / convergence",
+      "family": "SERIES",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "derivative_definition",
+      "label": "Derivative definition",
+      "family": "DIFFERENTIATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "infinite_series",
+      "label": "Infinite series",
+      "family": "SERIES",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "differentiation_rules",
+      "label": "Differentiation rules",
+      "family": "DIFFERENTIATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "power_series",
+      "label": "Power series",
+      "family": "SERIES",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "derivative_applications_rates_extrema",
+      "label": "Derivative applications: rates / extrema",
+      "family": "DIFFERENTIATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "local_linearity",
+      "label": "Local linearity",
+      "family": "DIFFERENTIATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "taylor_series",
+      "label": "Taylor series",
+      "family": "SERIES",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "antiderivatives",
+      "label": "Antiderivatives",
+      "family": "INTEGRATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "definite_integral",
+      "label": "Definite integral",
+      "family": "INTEGRATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "fundamental_theorem_calculus",
+      "label": "Fundamental Theorem of Calculus",
+      "family": "INTEGRATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "integration_techniques",
+      "label": "Integration techniques",
+      "family": "INTEGRATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "integral_applications",
+      "label": "Integral applications",
+      "family": "INTEGRATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "first_order_odes",
+      "label": "First-order differential equations",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "second_order_odes",
+      "label": "Second-order ODEs",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "numerical_slope_field_methods",
+      "label": "Numerical / slope-field methods",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "linear_algebra",
+      "label": "Linear algebra",
+      "family": "LINEAR_SYSTEMS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "linear_systems",
+      "label": "Linear systems",
+      "family": "LINEAR_SYSTEMS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "eigen_methods",
+      "label": "Eigen methods",
+      "family": "LINEAR_SYSTEMS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "phase_portraits",
+      "label": "Phase portraits",
+      "family": "LINEAR_SYSTEMS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "systems_of_odes",
+      "label": "Systems of ODEs",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "series_solutions_odes",
+      "label": "Series solutions of ODEs",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "laplace_transforms_convolution",
+      "label": "Laplace transforms / convolution",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "trigonometric_series",
+      "label": "Trigonometric series",
+      "family": "SERIES",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "fourier_methods",
+      "label": "Fourier methods",
+      "family": "ODE_DYNAMICS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "vectors_coordinates",
+      "label": "Vectors / coordinates",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "multivariable_functions",
+      "label": "Functions of several variables",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "partial_derivatives",
+      "label": "Partial derivatives",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "gradient",
+      "label": "Gradient",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "multivariable_chain_rule",
+      "label": "Multivariable chain rule",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "optimization_lagrange",
+      "label": "Optimization / Lagrange multipliers",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "multiple_integrals",
+      "label": "Multiple integrals",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "change_variables_jacobians",
+      "label": "Change of variables / Jacobians",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "vector_fields",
+      "label": "Vector fields",
+      "family": "VECTOR_CALCULUS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "line_integrals",
+      "label": "Line integrals",
+      "family": "VECTOR_CALCULUS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "surface_integrals",
+      "label": "Surface integrals",
+      "family": "VECTOR_CALCULUS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "green_stokes_divergence",
+      "label": "Green / Stokes / Divergence theorems",
+      "family": "VECTOR_CALCULUS",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "calc_iii_course_bundle",
+      "label": "Calc III as a course bundle",
+      "family": "CURRICULAR_CONTAINER",
+      "include_in_teaching_layers": false
+    },
+    {
+      "id": "vector_calculus_bundle",
+      "label": "Vector calculus as a course/topic bundle",
+      "family": "CURRICULAR_CONTAINER",
+      "include_in_teaching_layers": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "e001",
+      "from": "functions_algebra_trigonometry",
+      "to": "limits",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places functions, algebra, and trigonometry directly before Limits as the conventional prerequisite base."
+    },
+    {
+      "id": "e002",
+      "from": "limits",
+      "to": "continuity",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §4.1",
+      "rationale": "The graph places Continuity after Limits, and §4.1 identifies continuity as closely connected to limits and supporting the standard theorems that follow."
+    },
+    {
+      "id": "e003",
+      "from": "limits",
+      "to": "derivative_definition",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§4.1; §10 provisional classifications",
+      "rationale": "The document states that the derivative is defined through a limit and provisionally classifies limits -> derivative definition as HARD."
+    },
+    {
+      "id": "e004",
+      "from": "continuity",
+      "to": "derivative_definition",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §4.1",
+      "rationale": "The visual graph routes Continuity toward the derivative branch, but §4.1 identifies Limits, not Continuity, as the defining dependency; Continuity is retained as supporting rather than forced order."
+    },
+    {
+      "id": "e005",
+      "from": "limits",
+      "to": "sequences_convergence",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph branches from Limits to Sequences / convergence."
+    },
+    {
+      "id": "e006",
+      "from": "sequences_convergence",
+      "to": "infinite_series",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Infinite series after Sequences / convergence."
+    },
+    {
+      "id": "e007",
+      "from": "derivative_definition",
+      "to": "differentiation_rules",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Differentiation rules after the Derivative definition."
+    },
+    {
+      "id": "e008",
+      "from": "infinite_series",
+      "to": "power_series",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Power series after Infinite series."
+    },
+    {
+      "id": "e009",
+      "from": "differentiation_rules",
+      "to": "derivative_applications_rates_extrema",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph branches from Differentiation rules to Applications / rates / extrema."
+    },
+    {
+      "id": "e010",
+      "from": "differentiation_rules",
+      "to": "local_linearity",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph branches from Differentiation rules to Local linearity."
+    },
+    {
+      "id": "e011",
+      "from": "power_series",
+      "to": "taylor_series",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Taylor series after Power series."
+    },
+    {
+      "id": "e012",
+      "from": "differentiation_rules",
+      "to": "antiderivatives",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§7 Minimal conceptual ordering",
+      "rationale": "The minimal conceptual spine places Antiderivative after Derivative and Differentiation rules."
+    },
+    {
+      "id": "e013",
+      "from": "derivative_applications_rates_extrema",
+      "to": "antiderivatives",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The visual graph joins the applications branch into Antiderivatives; this is retained as supporting rather than a mathematical necessity."
+    },
+    {
+      "id": "e014",
+      "from": "local_linearity",
+      "to": "antiderivatives",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The visual graph joins Local linearity into Antiderivatives; this is retained as supporting rather than a mathematical necessity."
+    },
+    {
+      "id": "e015",
+      "from": "antiderivatives",
+      "to": "definite_integral",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §7",
+      "rationale": "The graph and minimal spine place Definite integral after Antiderivatives."
+    },
+    {
+      "id": "e016",
+      "from": "definite_integral",
+      "to": "fundamental_theorem_calculus",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§10 provisional classifications",
+      "rationale": "The document provisionally classifies definite integral -> Fundamental Theorem as HARD."
+    },
+    {
+      "id": "e017",
+      "from": "fundamental_theorem_calculus",
+      "to": "integration_techniques",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph branches from the Fundamental Theorem to Integration techniques."
+    },
+    {
+      "id": "e018",
+      "from": "fundamental_theorem_calculus",
+      "to": "integral_applications",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph branches from the Fundamental Theorem to Integral applications."
+    },
+    {
+      "id": "e019",
+      "from": "integration_techniques",
+      "to": "first_order_odes",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§4.2; §10 provisional classifications",
+      "rationale": "The document identifies first-order ODEs as accessible after basic integration and provisionally classifies basic integration -> separable first-order ODEs as STRONG."
+    },
+    {
+      "id": "e020",
+      "from": "integral_applications",
+      "to": "first_order_odes",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The visual graph joins Integral applications into the first-order ODE branch, but the narrative identifies basic integration as the material machinery."
+    },
+    {
+      "id": "e021",
+      "from": "first_order_odes",
+      "to": "second_order_odes",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §7 Branch B",
+      "rationale": "The graph and dynamics branch place Second-order ODEs after First-order ODEs."
+    },
+    {
+      "id": "e022",
+      "from": "first_order_odes",
+      "to": "numerical_slope_field_methods",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §4.3",
+      "rationale": "The graph branches from First-order differential equations to Numerical / slope-field methods, and §4.3 groups slope fields and qualitative first-order behavior with early ODE work."
+    },
+    {
+      "id": "e023",
+      "from": "integration_techniques",
+      "to": "laplace_transforms_convolution",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph explicitly maps Integration techniques to Laplace transforms / convolution."
+    },
+    {
+      "id": "e024",
+      "from": "power_series",
+      "to": "series_solutions_odes",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§4.3; §10 provisional classifications",
+      "rationale": "The document states that series solutions depend on power series and provisionally classifies that dependency as HARD."
+    },
+    {
+      "id": "e025",
+      "from": "trigonometric_series",
+      "to": "fourier_methods",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§3; §4.3",
+      "rationale": "The graph maps Trigonometric series to Fourier methods, and the narrative states that Fourier methods depend on trigonometric series and integration."
+    },
+    {
+      "id": "e026",
+      "from": "linear_algebra",
+      "to": "linear_systems",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §4.3",
+      "rationale": "The graph feeds Linear algebra into Linear systems, while §4.3 states that systems of ODEs depend strongly on linear algebra."
+    },
+    {
+      "id": "e027",
+      "from": "second_order_odes",
+      "to": "linear_systems",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The visual graph connects Second-order ODEs into Linear systems; this is retained as supporting because the document separately identifies Linear algebra as the strong dependency for systems."
+    },
+    {
+      "id": "e028",
+      "from": "linear_systems",
+      "to": "eigen_methods",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Eigen methods after Linear systems."
+    },
+    {
+      "id": "e029",
+      "from": "linear_systems",
+      "to": "phase_portraits",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph places Phase portraits after Linear systems."
+    },
+    {
+      "id": "e030",
+      "from": "eigen_methods",
+      "to": "systems_of_odes",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§3; §4.3; §10 provisional classifications",
+      "rationale": "The graph routes Eigen methods to Systems of ODEs, and the document identifies eigenvalue methods as dependent on matrices/eigenvectors."
+    },
+    {
+      "id": "e031",
+      "from": "vectors_coordinates",
+      "to": "multivariable_functions",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6A-B",
+      "rationale": "The graph feeds vectors / coordinates into Functions of several variables, matching the geometric/vector foundation preceding multivariable differentiation."
+    },
+    {
+      "id": "e032",
+      "from": "differentiation_rules",
+      "to": "multivariable_functions",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph shows Single-variable derivatives feeding the multivariable branch; this is treated as supporting rather than necessary to define multivariable functions."
+    },
+    {
+      "id": "e033",
+      "from": "multivariable_functions",
+      "to": "partial_derivatives",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6B",
+      "rationale": "Partial derivatives are placed directly after Functions of several variables in the graph and multivariable-differentiation strand."
+    },
+    {
+      "id": "e034",
+      "from": "partial_derivatives",
+      "to": "gradient",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6B",
+      "rationale": "The graph and multivariable strand place Gradient after Partial derivatives."
+    },
+    {
+      "id": "e035",
+      "from": "partial_derivatives",
+      "to": "multivariable_chain_rule",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6B",
+      "rationale": "The graph and multivariable strand place the Multivariable chain rule after Partial derivatives."
+    },
+    {
+      "id": "e036",
+      "from": "gradient",
+      "to": "optimization_lagrange",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6B",
+      "rationale": "The graph joins Gradient into Optimization / Lagrange multipliers."
+    },
+    {
+      "id": "e037",
+      "from": "multivariable_chain_rule",
+      "to": "optimization_lagrange",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6B",
+      "rationale": "The graph joins the Multivariable chain rule into Optimization / Lagrange multipliers."
+    },
+    {
+      "id": "e038",
+      "from": "definite_integral",
+      "to": "multiple_integrals",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6C",
+      "rationale": "The graph states Single-variable integration -> Multiple integrals; Definite integral is the concept-level single-variable integration anchor used here."
+    },
+    {
+      "id": "e039",
+      "from": "multiple_integrals",
+      "to": "change_variables_jacobians",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6C",
+      "rationale": "The graph places Change of variables / Jacobians after Multiple integrals."
+    },
+    {
+      "id": "e040",
+      "from": "vectors_coordinates",
+      "to": "vector_fields",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6D",
+      "rationale": "The vector-calculus branch starts from vector structure and proceeds to Vector fields."
+    },
+    {
+      "id": "e041",
+      "from": "differentiation_rules",
+      "to": "vector_fields",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3 Core dependency graph",
+      "rationale": "The graph labels the input as Vectors + derivatives before Vector fields; derivative machinery is retained as supporting rather than a defining prerequisite for the field object itself."
+    },
+    {
+      "id": "e042",
+      "from": "vector_fields",
+      "to": "line_integrals",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6D",
+      "rationale": "The vector-calculus branch places Line integrals after Vector fields."
+    },
+    {
+      "id": "e043",
+      "from": "vector_fields",
+      "to": "surface_integrals",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6D",
+      "rationale": "The vector-calculus branch places Surface integrals after Vector fields."
+    },
+    {
+      "id": "e044",
+      "from": "line_integrals",
+      "to": "green_stokes_divergence",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6D",
+      "rationale": "The graph joins Line integrals into the Green / Stokes / Divergence theorem stage."
+    },
+    {
+      "id": "e045",
+      "from": "surface_integrals",
+      "to": "green_stokes_divergence",
+      "class": "STRONG",
+      "order_constraint": true,
+      "basis": "EXPLICIT_GRAPH",
+      "source_anchor": "§3; §6D",
+      "rationale": "The graph joins Surface integrals into the Green / Stokes / Divergence theorem stage."
+    },
+    {
+      "id": "e046",
+      "from": "calc_iii_course_bundle",
+      "to": "first_order_odes",
+      "class": "HISTORICAL/CURRICULAR",
+      "order_constraint": false,
+      "basis": "EXPLICIT_NARRATIVE",
+      "source_anchor": "§2; §4.2; §10 provisional classifications",
+      "rationale": "The document states that Calc III as a whole is not a mathematical prerequisite for first-order ODEs and classifies the course-order relation as HISTORICAL/CURRICULAR."
+    }
+  ],
+  "non_dependencies": [
+    {
+      "id": "n001",
+      "from": "vector_calculus_bundle",
+      "to": "first_order_odes",
+      "result": "NONE",
+      "source_anchor": "§6; §10 provisional classifications",
+      "rationale": "The document explicitly records vector calculus -> ordinary first-order ODEs as NONE and explains that first-order ODEs can be studied without the later vector-calculus branch."
+    }
+  ]
+}
