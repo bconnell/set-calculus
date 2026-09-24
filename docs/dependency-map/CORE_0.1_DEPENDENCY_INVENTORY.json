@@ -303,6 +303,24 @@
       "label": "Vector calculus as a course/topic bundle",
       "family": "CURRICULAR_CONTAINER",
       "include_in_teaching_layers": false
+    },
+    {
+      "id": "parametric_representation",
+      "label": "Parametric representation / curves",
+      "family": "REPRESENTATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "polar_representation",
+      "label": "Polar representation / coordinates",
+      "family": "REPRESENTATION",
+      "include_in_teaching_layers": true
+    },
+    {
+      "id": "vector_valued_functions",
+      "label": "Vector-valued functions",
+      "family": "MULTIVARIABLE",
+      "include_in_teaching_layers": true
     }
   ],
   "edges": [
@@ -805,6 +823,76 @@
       "basis": "WORKING_INFERENCE",
       "source_anchor": "docs/dependency-map/002-dependency-gap-resolution.md §3.2",
       "rationale": "MIT multivariable-calculus material derives a parameterized surface integral as a double integral over the parameter domain. The current Multiple integrals node is therefore a required prerequisite for Surface integrals."
+    },
+    {
+      "id": "e051",
+      "from": "functions_algebra_trigonometry",
+      "to": "parametric_representation",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §2.1",
+      "rationale": "MIT describes a parametric curve by coordinate functions such as x(t), y(t), and z(t). Within the current node vocabulary, scalar functions are therefore required to construct the parametric representation."
+    },
+    {
+      "id": "e052",
+      "from": "parametric_representation",
+      "to": "line_integrals",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §2.2",
+      "rationale": "MIT line-integral material identifies parametric representation as the standard general method for expressing a path and reducing the line integral to an ordinary single-variable integral."
+    },
+    {
+      "id": "e053",
+      "from": "functions_algebra_trigonometry",
+      "to": "polar_representation",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §3.1",
+      "rationale": "MIT defines polar coordinates through radius and angle and relates them to Cartesian coordinates using trigonometric coordinate relations, requiring the functions/algebra/trigonometry foundation represented by the source node."
+    },
+    {
+      "id": "e054",
+      "from": "polar_representation",
+      "to": "multiple_integrals",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §3.2",
+      "rationale": "MIT teaches double integration in polar coordinates as an important coordinate method. Polar representation supports multiple integration but is not required for defining or performing all multiple integrals."
+    },
+    {
+      "id": "e055",
+      "from": "functions_algebra_trigonometry",
+      "to": "vector_valued_functions",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §4.1",
+      "rationale": "A vector-valued function uses a scalar variable as input and component functions to produce a vector-valued output; the existing functions foundation supplies that functional structure."
+    },
+    {
+      "id": "e056",
+      "from": "vectors_coordinates",
+      "to": "vector_valued_functions",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §4.1",
+      "rationale": "MIT introduces vector-valued functions in the vector-calculus sequence after vector arithmetic, and their outputs are vectors. The existing vectors/coordinates node is therefore a required structural prerequisite."
+    },
+    {
+      "id": "e057",
+      "from": "vector_valued_functions",
+      "to": "parametric_representation",
+      "class": "SUPPORTING",
+      "order_constraint": false,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/003-e1-coverage-evidence.md §4.2",
+      "rationale": "A parametric space curve can be packaged as a vector-valued position function. That representation is useful and unifying, but coordinate-function parametric curves can be introduced without first formalizing the general vector-valued-function abstraction."
     }
   ],
   "non_dependencies": [
