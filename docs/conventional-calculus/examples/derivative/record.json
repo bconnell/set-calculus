@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "example_id": "D1-derivative-x-squared",
+  "checklist_gate": "D1",
+  "gate_claim": "NOT_ASSERTED",
+  "artifact_status": "BLOCKED_PENDING_CANONICAL_MAPPING",
+  "conventional": {
+    "statement": "f(x)=x^2",
+    "operation": "differentiate with respect to x",
+    "result": "f'(x)=2x",
+    "verification": "Using the conventional limit definition: ((x+h)^2-x^2)/h = 2x+h for h != 0, and the limit as h -> 0 is 2x."
+  },
+  "set_calculus": {
+    "representation_status": "MISSING_CANONICAL_SPEC",
+    "representation": null,
+    "transform_resolution_status": "MISSING_CANONICAL_SPEC",
+    "transform_resolution": null
+  },
+  "mapped_conventional_result": null,
+  "equivalence": "UNDETERMINED",
+  "blocking_reason": "The current repository does not define a canonical Set Calculus derivative representation or derivative transform/resolution semantics. Supplying one here would manufacture canonical mathematics rather than validate existing project semantics.",
+  "provenance": [
+    {
+      "kind": "REPOSITORY_SOURCE",
+      "path": "CORE_0.1_COMPLETENESS_CHECKLIST.md",
+      "role": "Defines the D1 minimum example, required record shape, ownership, and pass/fail evidence."
+    },
+    {
+      "kind": "REPOSITORY_SOURCE",
+      "path": "docs/conventional-calculus/README.md",
+      "role": "Defines the compatibility rule that valid conventional results must be preserved and the compatibility-record sequence."
+    }
+  ],
+  "notes": [
+    "The conventional baseline is complete and independently checkable.",
+    "The Set Calculus portion is intentionally blocked rather than filled with invented notation or transforms.",
+    "This artifact must not be cited as D1 PASS."
+  ]
+}
