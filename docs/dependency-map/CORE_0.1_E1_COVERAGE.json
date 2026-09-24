@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0",
+  "status": "PROVISIONAL_RESEARCH",
+  "source_list_path": "docs/dependency-map/README.md",
+  "source_heading": "Initial concept families",
+  "scope": "Coverage mapping for the repository's stated first mapping pass. This file does not assert that the list is exhaustive enough for E1 PASS.",
+  "authority_note": "CORE_0.1_COMPLETENESS_CHECKLIST.md names Chad Coulter as owner of E1. This mapping is contributor evidence only.",
+  "targets": [
+    {
+      "name": "functions and relations",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "functions_algebra_trigonometry"
+      ],
+      "rationale": "The foundational functions node represents the current function/relation entry point."
+    },
+    {
+      "name": "limits and continuity",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "limits",
+        "continuity"
+      ],
+      "rationale": "Both concepts are explicit inventory nodes."
+    },
+    {
+      "name": "rates of change",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "derivative_applications_rates_extrema"
+      ],
+      "rationale": "The derivative-applications node explicitly includes rates."
+    },
+    {
+      "name": "derivatives",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "derivative_definition",
+        "differentiation_rules"
+      ],
+      "rationale": "Definition and operational rules are represented separately."
+    },
+    {
+      "name": "accumulation",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "definite_integral",
+        "integral_applications"
+      ],
+      "rationale": "The integral branch represents accumulation and its applications."
+    },
+    {
+      "name": "definite and indefinite integration",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "definite_integral",
+        "antiderivatives"
+      ],
+      "rationale": "Definite integration and antiderivative/indefinite integration are both explicit."
+    },
+    {
+      "name": "Fundamental Theorem of Calculus",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "fundamental_theorem_calculus"
+      ],
+      "rationale": "The theorem is an explicit inventory node."
+    },
+    {
+      "name": "sequences and series",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "sequences_convergence",
+        "infinite_series",
+        "power_series"
+      ],
+      "rationale": "The series branch covers sequence convergence, infinite series, and power series."
+    },
+    {
+      "name": "parametric representation",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "parametric_representation"
+      ],
+      "rationale": "Added as a concept-level node with evidence-backed dependencies."
+    },
+    {
+      "name": "polar representation",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "polar_representation"
+      ],
+      "rationale": "Added as a concept-level node with evidence-backed dependencies."
+    },
+    {
+      "name": "vectors and vector-valued functions",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "vectors_coordinates",
+        "vector_valued_functions"
+      ],
+      "rationale": "Vector foundations and vector-valued functions are represented separately."
+    },
+    {
+      "name": "partial derivatives",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "partial_derivatives"
+      ],
+      "rationale": "Partial derivatives are an explicit inventory node."
+    },
+    {
+      "name": "multiple integration",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "multiple_integrals"
+      ],
+      "rationale": "Multiple integrals are an explicit inventory node."
+    },
+    {
+      "name": "vector fields",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "vector_fields"
+      ],
+      "rationale": "Vector fields are an explicit inventory node."
+    },
+    {
+      "name": "ordinary differential equations",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "first_order_odes",
+        "second_order_odes"
+      ],
+      "rationale": "First- and second-order ODE concepts are represented."
+    },
+    {
+      "name": "systems of differential equations",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "systems_of_odes"
+      ],
+      "rationale": "Systems of ODEs are an explicit inventory node."
+    },
+    {
+      "name": "qualitative / phase behavior",
+      "status": "REPRESENTED",
+      "node_ids": [
+        "numerical_slope_field_methods",
+        "phase_portraits"
+      ],
+      "rationale": "Slope-field/qualitative methods and phase portraits represent this family."
+    }
+  ],
+  "limits": [
+    "The repository calls this list a starting inventory, not an exhaustive conventional-calculus taxonomy.",
+    "A complete 17/17 mapping against this list is therefore evidence of initial-list representation only, not E1 PASS.",
+    "Named topics elsewhere in the research document may still warrant separate concept nodes or coverage review."
+  ]
+}
