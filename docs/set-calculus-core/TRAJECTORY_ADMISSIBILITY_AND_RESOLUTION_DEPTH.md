@@ -47,6 +47,8 @@ A long trajectory may repeat the same structural distinction and therefore add l
 
 # 2. Trajectory Admissibility
 
+> **Historical status-vocabulary note:** The three-state result vocabulary introduced in this section predates the PARTIAL correction. For current working status projection, use Section 25 and the Section 26 Six-Witness Four-State Boundary Model. The axioms below are retained as development history and must not be read as excluding PARTIAL.
+
 Define:
 
 ```text
@@ -203,7 +205,9 @@ and prevents path completion by assumption.
 
 ---
 
-# 3. Admissibility Composition Algebra
+# 3. Admissibility Composition Algebra (Historical Three-State Baseline)
+
+> **Superseded status algebra:** This three-state composition table is retained to preserve the development path. Section 25.1 defines the current working four-valued admissibility composition with PARTIAL.
 
 Let:
 
@@ -420,6 +424,8 @@ may occur when previously missing evidence resolves.
 ---
 
 # 4. Boundary Compatibility
+
+> **Historical dimensional/status note:** The boundary form immediately below predates the separate Identity witness and PARTIAL state. Sections 24-26 supply the current working six-dimension boundary evidence and four-state validation model. The component discussions in this section are retained as development history.
 
 Define:
 
@@ -1164,7 +1170,9 @@ UNRESOLVED
 
 for a fully resolved entailment claim.
 
-## 14.5 Three-valued entailment
+## 14.5 Three-valued entailment (Historical Baseline)
+
+> **Superseded entailment vocabulary:** This three-valued form is retained as development history. Section 25 defines the current working four-state entailment form: ENTAILS, PARTIALLY_ENTAILS, UNRESOLVED, and DOES_NOT_ENTAIL.
 
 Define:
 
@@ -1336,7 +1344,7 @@ Status:
 
 - Trajectory admissibility relation: **working formal definition**
 - Minimum admissibility axioms: **working axiom set**
-- Three-valued admissibility composition: **working algebra**
+- Three-valued admissibility composition: **historical baseline; superseded by Section 25.1 four-valued admissibility composition**
 - Boundary compatibility predicate: **working formal definition**
 - Representation structure `G`: **working formal definition**
 - Depth-indexed requirements `R_t`: **working formal definition**
@@ -1724,7 +1732,9 @@ Valid iff required lineage is traceable, accepted by the target segment, and com
 
 ---
 
-# 21. Common Witness Envelope
+# 21. Common Witness Envelope (Historical Five-Witness Baseline)
+
+> **Superseded witness dimensionality:** This section preserves the pre-Identity witness envelope. Section 24 separates Identity from State, and Section 26 identifies the current working six-witness boundary model. The five-witness discriminator below is historical, not the current working discriminator.
 
 All five witness types share a common outer form:
 
@@ -1791,7 +1801,9 @@ The envelope is uniform; the typed payload preserves the specific mathematics of
 
 ---
 
-# 22. Uniform Witness Validation Algorithm
+# 22. Uniform Witness Validation Algorithm (Historical Three-State Baseline)
+
+> **Superseded validation vocabulary:** This procedure preserves the earlier three-state validation path. Section 25 makes PARTIAL first-class, while Sections 24-26 separate Identity from State and apply the six-witness model. The three-state return type below is historical.
 
 Define:
 
@@ -1945,7 +1957,9 @@ SchemaValid(W)
 
 INCOMPLETE required evidence produces UNRESOLVED unless a positive violation has already been established.
 
-## 22.2 Aggregate boundary validation
+## 22.2 Aggregate boundary validation (Historical Five-Witness Baseline)
+
+> **Superseded aggregation:** The five-witness evidence tuple and aggregation below predate the Identity correction. Section 24 expands the evidence object to six components, and Section 26 identifies that six-witness form as the current working boundary model.
 
 Let:
 
@@ -1999,11 +2013,13 @@ otherwise
 
 ---
 
-# 23. Anchor Checkpoint: Boundary-Proof Layer
+# 23. Anchor Checkpoint: Boundary-Proof Layer (Historical Baseline)
 
-At this checkpoint the Set Math thread has moved from path validity into explicit proof-carrying boundary composition.
+> **Checkpoint status:** This checkpoint records the pre-Identity, pre-PARTIAL boundary-proof layer. Sections 24-26 immediately correct its witness dimensionality and resolution vocabulary. It is retained as development history and should not be used to override those later checkpoints.
 
-The current dependency chain is:
+At this checkpoint the Set Math thread had moved from path validity into explicit proof-carrying boundary composition.
+
+The dependency chain recorded at this checkpoint was:
 
 ```text
 Trajectory
@@ -2018,7 +2034,7 @@ Trajectory
 -> Resolution Depth
 ```
 
-The current minimum proof principle is:
+The minimum proof principle recorded at this checkpoint was:
 
 ```text
 no admissible concatenation
