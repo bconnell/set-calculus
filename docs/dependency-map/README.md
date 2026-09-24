@@ -58,12 +58,17 @@ That mapping is deliberately narrower than E1 itself: it verifies representation
 
 ## Core 0.1 machine-readable companion
 
-The current Core 0.1 teaching-order evidence is represented in one machine-readable companion:
+The current Core 0.1 dependency and teaching-order evidence is represented by:
 
 - [`CORE_0.1_DEPENDENCY_INVENTORY.json`](CORE_0.1_DEPENDENCY_INVENTORY.json) — classified concept-level nodes and edges;
 - [`CORE_0.1_DEPENDENCY_INVENTORY.schema.json`](CORE_0.1_DEPENDENCY_INVENTORY.schema.json) — structural schema;
-- [`generated/CORE_0.1_DERIVED_TEACHING_ORDER.md`](generated/CORE_0.1_DERIVED_TEACHING_ORDER.md) — generated topological projection.
+- [`generated/CORE_0.1_DERIVED_TEACHING_ORDER.md`](generated/CORE_0.1_DERIVED_TEACHING_ORDER.md) — generated topological projection;
+- [`CORE_0.1_E3_TEACHING_HYPOTHESIS.json`](CORE_0.1_E3_TEACHING_HYPOTHESIS.json) — staged teaching hypothesis derived from the graph;
+- [`CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json`](CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json) — structural schema for the E3 hypothesis;
+- [`generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md`](generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md) — generated human-review view of the staged hypothesis.
 
-The JSON companion is the source for the generated teaching layers. The narrative research document remains the source context for the classifications and rationales. Generated Markdown must not be edited independently.
+The dependency inventory is the source for the generated topological layers. The E3 hypothesis must match those layers exactly: stage precedence is dependency-derived, while order among concepts inside one stage remains explicitly non-forced.
 
-The companion is provisional contributor evidence. It does not set E1, E2, or E3 to PASS.
+The narrative research document remains the source context for classifications and rationales. Generated Markdown must not be edited independently.
+
+These artifacts are provisional contributor evidence. They do not set E1, E2, or E3 to PASS.
