@@ -2,6 +2,12 @@
 
 This directory will hold the canonical mathematical vocabulary and formal transform model.
 
+## Core 0.1 canonical path
+
+See [`CORE_0.1_PATH_INDEX.md`](CORE_0.1_PATH_INDEX.md) for the repository-wide Core 0.1 navigation index.
+
+The path index records both present artifacts and release-checklist artifacts that are still missing. `CORE_0.1_COMPLETENESS_CHECKLIST.md` remains the canonical pass/fail authority; the index does not declare gate completion.
+
 ## Candidate primitives
 
 ```text
