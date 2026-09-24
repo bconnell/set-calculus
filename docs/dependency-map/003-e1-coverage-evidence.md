@@ -150,7 +150,20 @@ E1 PASS
 
 The README says the family list is a starting inventory. Other named topics in the research document — for example improper integrals, directional derivatives, forcing/resonance, and PDE context — remain outside the narrow claim made by this audit.
 
-## 6. Evidence limits
+## 6. Validation path
+
+This branch validates both projections independently:
+
+```bash
+python scripts/audit_core_dependency_inventory.py --self-test
+python scripts/generate_core_dependency_order.py --check
+python scripts/audit_core_e1_coverage.py --self-test
+python scripts/generate_core_e1_coverage.py --check
+```
+
+The dependency-order checks guard the graph structure and generated topological projection. The E1 checks separately guard exact coverage of the README's stated initial concept-family list and the generated coverage view.
+
+## 7. Evidence limits
 
 The external MIT material is used to justify the prerequisite mappings for the three newly represented concepts.
 
