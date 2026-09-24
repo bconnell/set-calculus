@@ -1,0 +1,60 @@
+name: Core Dependency Inventory
+
+on:
+  push:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/**"
+      - "docs/textbook/README.md"
+      - "scripts/audit_core_dependency_inventory.py"
+      - "scripts/generate_core_dependency_order.py"
+      - ".github/workflows/core-dependency-inventory.yml"
+  pull_request:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/**"
+      - "docs/textbook/README.md"
+      - "scripts/audit_core_dependency_inventory.py"
+      - "scripts/generate_core_dependency_order.py"
+      - ".github/workflows/core-dependency-inventory.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate dependency inventory and derived order
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile tooling
+        run: |
+          python -m py_compile scripts/audit_core_dependency_inventory.py
+          python -m py_compile scripts/generate_core_dependency_order.py
+
+      - name: Validate JSON syntax
+        run: |
+          python -m json.tool docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json > /dev/null
+          python -m json.tool docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.schema.json > /dev/null
+
+      - name: Validate dependency inventory
+        run: python scripts/audit_core_dependency_inventory.py
+
+      - name: Run validator mutation self-tests
+        run: python scripts/audit_core_dependency_inventory.py --self-test
+
+      - name: Verify generated teaching-order report
+        run: python scripts/generate_core_dependency_order.py --check
+
+      - name: Capture structured inventory evidence
+        if: always()
+        run: python scripts/audit_core_dependency_inventory.py --json
