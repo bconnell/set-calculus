@@ -137,12 +137,21 @@ def context_excerpt(text: str, line: int, radius: int = 5) -> str:
     return "\n".join(lines[start:end]).strip()
 
 
-def classify(path: str, excerpt: str) -> str:
+def nearest_heading(text: str, line: int) -> str:
+    lines = text.splitlines()
+    index = min(max(line - 1, 0), max(len(lines) - 1, 0))
+    for candidate in reversed(lines[: index + 1]):
+        if re.match(r"^#{1,6}\s+", candidate):
+            return candidate.strip()
+    return ""
+
+
+def classify(path: str, text: str, line: int, excerpt: str) -> str:
     if path in CONTROL_PATHS:
         return "CONTROL_REFERENCE"
 
-    lowered = excerpt.lower()
-    if any(marker in lowered for marker in HISTORICAL_MARKERS):
+    scope = "\n".join((nearest_heading(text, line), excerpt)).lower()
+    if any(marker in scope for marker in HISTORICAL_MARKERS):
         return "MARKED_HISTORICAL"
 
     return "REVIEW_REQUIRED"
@@ -175,7 +184,7 @@ def audit(root: Path) -> list[Finding]:
                             label=rule.label,
                             path=rel,
                             line=line,
-                            classification=classify(rel, excerpt),
+                            classification=classify(rel, text, line, excerpt),
                             excerpt=excerpt,
                         )
                     )
