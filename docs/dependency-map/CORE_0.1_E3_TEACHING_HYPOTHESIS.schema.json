@@ -28,12 +28,10 @@
       "const": "NOT_ASSERTED"
     },
     "source_inventory": {
-      "type": "string",
-      "minLength": 1
+      "const": "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
     },
     "source_projection": {
-      "type": "string",
-      "minLength": 1
+      "const": "docs/dependency-map/generated/CORE_0.1_DERIVED_TEACHING_ORDER.md"
     },
     "authority_note": {
       "type": "string",
