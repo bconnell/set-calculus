@@ -22,6 +22,12 @@ HYPOTHESIS_SCHEMA_PATH = Path("docs/dependency-map/CORE_0.1_E3_TEACHING_HYPOTHES
 EXPECTED_WITHIN_STAGE = "UNORDERED_NOT_MATHEMATICALLY_FORCED"
 EXPECTED_STATUS = "PROVISIONAL_HYPOTHESIS"
 EXPECTED_GATE_CLAIM = "NOT_ASSERTED"
+EXPECTED_SOURCE_INVENTORY = Path(
+    "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
+)
+EXPECTED_SOURCE_PROJECTION = Path(
+    "docs/dependency-map/generated/CORE_0.1_DERIVED_TEACHING_ORDER.md"
+)
 
 
 def load_hypothesis(root: Path) -> dict[str, Any]:
@@ -48,6 +54,14 @@ def validate(
         errors.append("E3 hypothesis status must remain PROVISIONAL_HYPOTHESIS")
     if hypothesis.get("gate_claim") != EXPECTED_GATE_CLAIM:
         errors.append("E3 hypothesis gate_claim must remain NOT_ASSERTED")
+    if hypothesis.get("source_inventory") != EXPECTED_SOURCE_INVENTORY.as_posix():
+        errors.append(
+            "E3 source_inventory must reference the canonical dependency inventory"
+        )
+    if hypothesis.get("source_projection") != EXPECTED_SOURCE_PROJECTION.as_posix():
+        errors.append(
+            "E3 source_projection must reference the generated dependency projection"
+        )
 
     policy = hypothesis.get("derivation_policy", {})
     if set(policy.get("constraining_classes", [])) != {"HARD", "STRONG"}:
@@ -180,6 +194,15 @@ def validate(
         errors.append("E3 hypothesis must include at least one TEACHING_HYPOTHESIS note")
 
     if root is not None:
+        for label, source_path in (
+            ("source_inventory", EXPECTED_SOURCE_INVENTORY),
+            ("source_projection", EXPECTED_SOURCE_PROJECTION),
+        ):
+            if not (root / source_path).is_file():
+                errors.append(
+                    f"E3 {label} target is missing: {source_path.as_posix()}"
+                )
+
         if not (root / HYPOTHESIS_SCHEMA_PATH).is_file():
             errors.append(
                 f"missing E3 schema: {HYPOTHESIS_SCHEMA_PATH.as_posix()}"
@@ -238,6 +261,12 @@ def run_self_tests(
     errs = validate(leaked, inventory)
     if not any("curricular containers leaked" in error for error in errs):
         failures.append("self-test failed: curricular-container leak was not detected")
+
+    wrong_source = copy.deepcopy(hypothesis)
+    wrong_source["source_projection"] = "docs/dependency-map/generated/WRONG.md"
+    errs = validate(wrong_source, inventory)
+    if not any("source_projection" in error for error in errs):
+        failures.append("self-test failed: source-projection drift was not detected")
 
     reversed_edge = copy.deepcopy(hypothesis)
     source = "functions_algebra_trigonometry"
