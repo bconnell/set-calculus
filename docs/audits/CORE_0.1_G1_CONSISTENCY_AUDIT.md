@@ -2,7 +2,7 @@
 
 **Audit base:** \`e2f343104d7b720693f12a483b9243deca6bbacb\`  
 **Scope:** repository consistency evidence for \`CORE_0.1_COMPLETENESS_CHECKLIST.md\` gate G1  
-**Status:** findings present; this document does not mark G1 as passed
+**Status:** legacy findings are preserved and explicitly marked historical/superseded on this branch; maintainer review remains required; this document does not mark G1 as passed
 
 ## Purpose
 
@@ -29,7 +29,7 @@ The active trajectory formalization contains later corrective checkpoints that e
 
 These later anchors are the basis for identifying earlier incompatible forms as legacy candidates. This is a consistency observation, not a claim that the audit has authority to promote or demote canonical rules.
 
-## Confirmed review-required findings
+## Baseline findings and branch disposition
 
 All confirmed findings below occur in:
 
@@ -45,7 +45,7 @@ The early admissibility-composition table is likewise three-state.
 
 Later Section 25 introduces four-valued admissibility with \`PARTIAL\`, and Section 26 identifies four-state resolution as the current model.
 
-**Classification:** active contradiction candidate until the earlier form is explicitly harmonized or marked historical/superseded.
+**Baseline classification:** active contradiction candidate. **Branch disposition:** preserved in place and explicitly marked as a historical/superseded three-state baseline.
 
 ### 2. Three-valued entailment remains active-looking
 
@@ -57,7 +57,7 @@ Section 25 later defines the domain-specific entailment states as:
 
 \`ENTAILS / PARTIALLY_ENTAILS / UNRESOLVED / DOES_NOT_ENTAIL\`
 
-**Classification:** active contradiction candidate until Section 14.5 is marked historical/superseded or rewritten under maintainer review.
+**Baseline classification:** active contradiction candidate. **Branch disposition:** Section 14.5 is preserved and explicitly marked as a historical baseline superseded by the four-state entailment model in Section 25.
 
 ### 3. Five-witness common envelope remains active-looking
 
@@ -69,7 +69,7 @@ and its discriminator contains State, Context, Authority, Invariant, and Provena
 
 Section 24 later separates Identity from State and expands the discriminator to six witness types.
 
-**Classification:** direct G1 five-witness finding.
+**Baseline classification:** direct G1 five-witness finding. **Branch disposition:** the five-witness envelope is preserved and explicitly marked as a historical baseline superseded by the six-witness model.
 
 ### 4. Common witness status remains three-state
 
@@ -81,7 +81,7 @@ Section 25 later defines witness validation as:
 
 \`VALID / PARTIAL / UNRESOLVED / INVALID\`
 
-**Classification:** active contradiction candidate.
+**Baseline classification:** active contradiction candidate. **Branch disposition:** the three-state witness status is preserved within an explicitly historical five-witness baseline.
 
 ### 5. Uniform witness validation returns only three states
 
@@ -93,7 +93,7 @@ and later says the typed validator returns those same three values.
 
 Section 25 makes \`PARTIAL\` first-class.
 
-**Classification:** direct G1 three-valued witness-validation finding.
+**Baseline classification:** direct G1 three-valued witness-validation finding. **Branch disposition:** Section 22 is preserved and explicitly marked as a historical three-state validation baseline.
 
 ### 6. Identity is still handled inside the earlier State witness path
 
@@ -107,7 +107,7 @@ Section 24 later states:
 
 and gives Identity its own witness payload.
 
-**Classification:** direct G1 Identity-inside-State finding.
+**Baseline classification:** direct G1 Identity-inside-State finding. **Branch disposition:** the pre-Identity State witness and validation path are preserved under explicitly historical pre-Identity sections; Section 24 remains the current correction anchor.
 
 ### 7. Earlier aggregate boundary evidence contains five witnesses
 
@@ -123,7 +123,7 @@ and validates those five components.
 
 Section 24 later expands the boundary evidence object to include Identity as a separate sixth component.
 
-**Classification:** direct G1 obsolete-boundary-aggregation finding.
+**Baseline classification:** direct G1 obsolete-boundary-aggregation finding. **Branch disposition:** the five-component aggregation is preserved and explicitly marked as a historical baseline superseded by the six-component Identity-aware boundary object.
 
 ### 8. Earlier aggregate text still says "all five VALID"
 
@@ -131,13 +131,27 @@ The earlier aggregation rule uses "all five VALID" as the positive boundary cond
 
 The later six-witness checkpoint supersedes that dimensionality.
 
-**Classification:** direct G1 five-witness/aggregation finding.
+**Baseline classification:** direct G1 five-witness/aggregation finding. **Branch disposition:** the wording remains preserved inside the explicitly historical aggregation block.
 
 ## Negative-exhaustion search
 
 The targeted search found the later canonical text rejecting negative exhaustion and explicitly describing that assumption as superseded. No separate unmarked rule requiring negative exhaustion was confirmed in this audit pass.
 
 This is not a proof that no such wording exists anywhere. The repository-wide script remains responsible for continuing to search for positive requirement forms.
+
+## Executable branch evidence
+
+The repository-wide audit is enforced by `.github/workflows/core-g1-consistency-audit.yml`.
+
+A strict run succeeds only when the scanner finds zero `REVIEW_REQUIRED` matches. Historical/superseded material remains visible and is reported separately rather than deleted.
+
+The branch has demonstrated a successful strict run with:
+
+- `REVIEW_REQUIRED = 0`
+- `MARKED_HISTORICAL = 15`
+- `CONTROL_REFERENCE = 6`
+
+These counts are verification evidence for the branch cleanup. They are not a maintainer decision that G1 is formally passed. The final branch head must retain a successful strict workflow run after any subsequent edits.
 
 ## Conservative cleanup path
 
