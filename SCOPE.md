@@ -71,6 +71,8 @@ Reorganization alone is not evidence that conventional mathematics is incorrect.
 
 The executable release checklist is maintained in `CORE_0.1_COMPLETENESS_CHECKLIST.md`. That file is the canonical pass/fail gate for Core 0.1 and expands the criteria below into artifact, ownership, and evidence requirements.
 
+Use the [Core 0.1 canonical path index](docs/set-calculus-core/CORE_0.1_PATH_INDEX.md) to locate the current artifacts and the required artifact paths that are still missing. The path index is navigational evidence only; it does not change checklist ownership or pass/fail state.
+
 ## v0.1 exit criteria
 
 v0.1 is ready to advance when the repository contains:
