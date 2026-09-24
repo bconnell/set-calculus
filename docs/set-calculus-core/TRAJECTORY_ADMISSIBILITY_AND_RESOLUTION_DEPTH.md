@@ -1357,7 +1357,9 @@ No claim of external novelty or equivalence to a standard formal system is made 
 
 ---
 
-# 18. Admissible Concatenation Closure Theorem
+# 18. Admissible Concatenation Closure Theorem (Historical Baseline)
+
+> **Superseded proof-obligation shape:** This theorem is retained as development history from the earlier three-state, pre-Identity boundary model. Sections 24-26 add Identity as an independent boundary obligation and PARTIAL as a first-class state. The proof structure below must not be read as excluding those later obligations.
 
 ## Theorem
 
@@ -1490,7 +1492,9 @@ The accumulated-prefix qualification matters because earlier segments may contri
 
 ---
 
-# 19. Boundary Evidence Object
+# 19. Boundary Evidence Object (Historical Five-Component Baseline)
+
+> **Superseded evidence dimensionality:** This five-component boundary evidence object predates the separate Identity evidence introduced in Section 24. Section 26 identifies the six-witness model as the current working boundary formalization. The object below is retained as development history.
 
 Define the minimum boundary evidence bundle:
 
@@ -1611,7 +1615,9 @@ It must establish traceability, target acceptance, and defined provenance compos
 
 ---
 
-# 20. Minimal Typed Boundary Witness Schemas
+# 20. Minimal Typed Boundary Witness Schemas (Historical Pre-Identity Baseline)
+
+> **Superseded State/Identity coupling:** These schemas predate the Section 24 Identity Witness Correction. In particular, Identity must not be treated as merely a State relation in the current working model; Section 24 defines Identity as an independent witness obligation.
 
 ## 20.1 State Witness
 
