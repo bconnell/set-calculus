@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CORE_0.1_E3_TEACHING_HYPOTHESIS.schema.json",
+  "title": "Set Calculus Core 0.1 E3 Teaching Hypothesis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "gate_claim",
+    "source_inventory",
+    "source_projection",
+    "authority_note",
+    "derivation_policy",
+    "stages",
+    "excluded_curricular_containers",
+    "hypothesis_notes",
+    "unresolved_questions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "status": {
+      "const": "PROVISIONAL_HYPOTHESIS"
+    },
+    "gate_claim": {
+      "const": "NOT_ASSERTED"
+    },
+    "source_inventory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_projection": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "derivation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraining_classes",
+        "non_constraining_classes",
+        "within_stage_ordering",
+        "course_bundle_policy",
+        "description"
+      ],
+      "properties": {
+        "constraining_classes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "HARD",
+              "STRONG"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "non_constraining_classes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "SUPPORTING",
+              "HISTORICAL/CURRICULAR"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "within_stage_ordering": {
+          "const": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+        },
+        "course_bundle_policy": {
+          "const": "EXCLUDED_FROM_TEACHING_STAGES"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stage",
+          "node_ids",
+          "within_stage_ordering"
+        ],
+        "properties": {
+          "stage": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "node_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "within_stage_ordering": {
+            "const": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+          }
+        }
+      }
+    },
+    "excluded_curricular_containers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "hypothesis_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "statement"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^h[0-9]{3}$"
+          },
+          "kind": {
+            "enum": [
+              "DERIVED_CONSTRAINT",
+              "TEACHING_HYPOTHESIS"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
