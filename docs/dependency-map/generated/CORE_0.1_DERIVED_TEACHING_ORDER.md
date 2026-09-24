@@ -16,12 +16,12 @@ CORE_0.1_COMPLETENESS_CHECKLIST.md names Chad Coulter as owner of E1-E3. This in
 
 ## Inventory summary
 
-- Teaching-layer nodes: 40
-- Classified dependency edges: 50
-- Constraining edges: 42
-- HARD edges: 13
+- Teaching-layer nodes: 43
+- Classified dependency edges: 57
+- Constraining edges: 47
+- HARD edges: 18
 - STRONG edges: 29
-- SUPPORTING edges: 7
+- SUPPORTING edges: 9
 - HISTORICAL/CURRICULAR edges: 1
 - Explicit non-dependency observations: 1
 - Derived topological layers: 10
@@ -30,7 +30,7 @@ Source-basis counts:
 
 - EXPLICIT_GRAPH: 38
 - EXPLICIT_NARRATIVE: 8
-- WORKING_INFERENCE: 4
+- WORKING_INFERENCE: 11
 
 ## Candidate topological layers
 
@@ -47,7 +47,10 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 - **Functions of several variables** (`multivariable_functions`) — MULTIVARIABLE. Constraining predecessors: Vectors / coordinates [STRONG].
 - **Limits** (`limits`) — FOUNDATION. Constraining predecessors: Functions / algebra / trigonometry [STRONG].
 - **Linear systems** (`linear_systems`) — LINEAR_SYSTEMS. Constraining predecessors: Linear algebra [HARD].
+- **Parametric representation / curves** (`parametric_representation`) — REPRESENTATION. Constraining predecessors: Functions / algebra / trigonometry [HARD].
+- **Polar representation / coordinates** (`polar_representation`) — REPRESENTATION. Constraining predecessors: Functions / algebra / trigonometry [HARD].
 - **Vector fields** (`vector_fields`) — VECTOR_CALCULUS. Constraining predecessors: Vectors / coordinates [STRONG].
+- **Vector-valued functions** (`vector_valued_functions`) — MULTIVARIABLE. Constraining predecessors: Functions / algebra / trigonometry [HARD]; Vectors / coordinates [HARD].
 
 ### Layer 2
 
@@ -85,7 +88,7 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 
 - **Fourier methods** (`fourier_methods`) — ODE_DYNAMICS. Constraining predecessors: Definite integral [HARD]; Trigonometric series [HARD].
 - **Fundamental Theorem of Calculus** (`fundamental_theorem_calculus`) — INTEGRATION. Constraining predecessors: Definite integral [HARD].
-- **Line integrals** (`line_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Definite integral [HARD]; Vector fields [STRONG].
+- **Line integrals** (`line_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Definite integral [HARD]; Parametric representation / curves [HARD]; Vector fields [STRONG].
 - **Multiple integrals** (`multiple_integrals`) — MULTIVARIABLE. Constraining predecessors: Definite integral [STRONG].
 
 ### Layer 7
@@ -129,7 +132,9 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 | Differentiation rules | Vector fields | SUPPORTING | EXPLICIT_GRAPH | The graph labels the input as Vectors + derivatives before Vector fields; derivative machinery is retained as supporting rather than a defining prerequisite for the field object itself. |
 | Integral applications | First-order differential equations | SUPPORTING | EXPLICIT_GRAPH | The visual graph joins Integral applications into the first-order ODE branch, but the narrative identifies basic integration as the material machinery. |
 | Local linearity | Antiderivatives | SUPPORTING | EXPLICIT_GRAPH | The visual graph joins Local linearity into Antiderivatives; this is retained as supporting rather than a mathematical necessity. |
+| Polar representation / coordinates | Multiple integrals | SUPPORTING | WORKING_INFERENCE | MIT teaches double integration in polar coordinates as an important coordinate method. Polar representation supports multiple integration but is not required for defining or performing all multiple integrals. |
 | Second-order ODEs | Linear systems | SUPPORTING | EXPLICIT_GRAPH | The visual graph connects Second-order ODEs into Linear systems; this is retained as supporting because the document separately identifies Linear algebra as the strong dependency for systems. |
+| Vector-valued functions | Parametric representation / curves | SUPPORTING | WORKING_INFERENCE | A parametric space curve can be packaged as a vector-valued position function. That representation is useful and unifying, but coordinate-function parametric curves can be introduced without first formalizing the general vector-valued-function abstraction. |
 
 ## Explicit non-dependencies
 
@@ -143,8 +148,6 @@ This report is a deterministic projection of the current inventory, not a claim 
 In particular, unresolved cross-branch dependencies can move nodes to later layers. The open questions above are therefore part of the result, not defects to hide.
 
 ## Reproduction
-
-From the repository root:
 
 ```bash
 python scripts/audit_core_dependency_inventory.py
