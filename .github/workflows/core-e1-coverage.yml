@@ -1,0 +1,68 @@
+name: Core E1 Initial-Family Coverage
+
+on:
+  push:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/README.md"
+      - "docs/dependency-map/CORE_0.1_E1_COVERAGE.json"
+      - "docs/dependency-map/CORE_0.1_E1_COVERAGE.schema.json"
+      - "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
+      - "docs/dependency-map/003-e1-coverage-evidence.md"
+      - "docs/dependency-map/generated/CORE_0.1_E1_COVERAGE.md"
+      - "scripts/audit_core_e1_coverage.py"
+      - "scripts/generate_core_e1_coverage.py"
+      - ".github/workflows/core-e1-coverage.yml"
+  pull_request:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/README.md"
+      - "docs/dependency-map/CORE_0.1_E1_COVERAGE.json"
+      - "docs/dependency-map/CORE_0.1_E1_COVERAGE.schema.json"
+      - "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json"
+      - "docs/dependency-map/003-e1-coverage-evidence.md"
+      - "docs/dependency-map/generated/CORE_0.1_E1_COVERAGE.md"
+      - "scripts/audit_core_e1_coverage.py"
+      - "scripts/generate_core_e1_coverage.py"
+      - ".github/workflows/core-e1-coverage.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate E1 initial-family coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile E1 coverage tooling
+        run: |
+          python -m py_compile scripts/audit_core_e1_coverage.py
+          python -m py_compile scripts/generate_core_e1_coverage.py
+
+      - name: Validate JSON syntax
+        run: |
+          python -m json.tool docs/dependency-map/CORE_0.1_E1_COVERAGE.json > /dev/null
+          python -m json.tool docs/dependency-map/CORE_0.1_E1_COVERAGE.schema.json > /dev/null
+
+      - name: Validate README coverage mapping
+        run: python scripts/audit_core_e1_coverage.py
+
+      - name: Run coverage validator self-tests
+        run: python scripts/audit_core_e1_coverage.py --self-test
+
+      - name: Verify generated E1 coverage report
+        run: python scripts/generate_core_e1_coverage.py --check
+
+      - name: Capture structured E1 evidence
+        if: always()
+        run: python scripts/audit_core_e1_coverage.py --json
