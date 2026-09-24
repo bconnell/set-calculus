@@ -26,7 +26,19 @@ The current machine-derived candidate ordering is published at:
 
 It is generated from the provisional machine-readable dependency inventory rather than written as a separate authoritative sequence. HARD and STRONG edges constrain the layers; SUPPORTING and HISTORICAL/CURRICULAR edges do not.
 
-The generated output is still a hypothesis. Open dependency questions can move nodes to later layers, so it must not be treated as a final table of contents or as E3 PASS.
+## E3 staged teaching hypothesis
+
+The current executable teaching-order hypothesis is published at:
+
+[`../dependency-map/generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md`](../dependency-map/generated/CORE_0.1_E3_TEACHING_HYPOTHESIS.md)
+
+Its ordered stages are the exact topological layers derived from the current HARD and STRONG dependency edges.
+
+Concepts within the same stage are deliberately **not ordered**. Any choice among same-stage concepts is a teaching hypothesis rather than a mathematical prerequisite claim unless a future dependency edge establishes otherwise.
+
+Curricular containers such as Calc III are excluded from the staged hypothesis and are not treated as dependency evidence.
+
+The staged output remains provisional. Open dependency questions can change later stages, and the artifact must not be treated as a final table of contents or as E3 PASS.
 
 ## Compatibility layer
 
