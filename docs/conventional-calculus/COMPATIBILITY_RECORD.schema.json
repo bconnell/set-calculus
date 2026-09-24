@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "COMPATIBILITY_RECORD.schema.json",
+  "title": "Set Calculus Conventional Compatibility Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "example_id",
+    "checklist_gate",
+    "gate_claim",
+    "artifact_status",
+    "conventional",
+    "set_calculus",
+    "mapped_conventional_result",
+    "equivalence",
+    "blocking_reason",
+    "provenance",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "example_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checklist_gate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gate_claim": {
+      "const": "NOT_ASSERTED"
+    },
+    "artifact_status": {
+      "enum": [
+        "BLOCKED_PENDING_CANONICAL_MAPPING",
+        "CANDIDATE_MAPPING"
+      ]
+    },
+    "conventional": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "operation",
+        "result",
+        "verification"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verification": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "set_calculus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representation_status",
+        "representation",
+        "transform_resolution_status",
+        "transform_resolution"
+      ],
+      "properties": {
+        "representation_status": {
+          "enum": [
+            "MISSING_CANONICAL_SPEC",
+            "CANDIDATE"
+          ]
+        },
+        "representation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "transform_resolution_status": {
+          "enum": [
+            "MISSING_CANONICAL_SPEC",
+            "CANDIDATE"
+          ]
+        },
+        "transform_resolution": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "mapped_conventional_result": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "equivalence": {
+      "enum": [
+        "UNDETERMINED",
+        "EQUIVALENT",
+        "DIFFERENT"
+      ]
+    },
+    "blocking_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "path",
+          "role"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "REPOSITORY_SOURCE",
+              "GENERATED_EVIDENCE"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
