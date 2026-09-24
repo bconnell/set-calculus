@@ -1,0 +1,49 @@
+name: Core G1 Consistency Audit
+
+on:
+  push:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+      - "docs/set-calculus-core/**"
+      - "docs/philosophy-of-set-calculus/**"
+      - "docs/audits/CORE_0.1_G1_CONSISTENCY_AUDIT.md"
+      - "scripts/audit_core_g1_consistency.py"
+      - ".github/workflows/core-g1-consistency-audit.yml"
+  pull_request:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+      - "docs/set-calculus-core/**"
+      - "docs/philosophy-of-set-calculus/**"
+      - "docs/audits/CORE_0.1_G1_CONSISTENCY_AUDIT.md"
+      - "scripts/audit_core_g1_consistency.py"
+      - ".github/workflows/core-g1-consistency-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Strict G1 legacy consistency scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile audit tool
+        run: python -m py_compile scripts/audit_core_g1_consistency.py
+
+      - name: Run strict G1 audit
+        run: python scripts/audit_core_g1_consistency.py --strict
+
+      - name: Capture structured audit evidence
+        if: always()
+        run: python scripts/audit_core_g1_consistency.py --json
