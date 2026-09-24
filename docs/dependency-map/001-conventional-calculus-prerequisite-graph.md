@@ -527,6 +527,14 @@ Explicit non-dependency observation:
 
 These classifications remain provisional and should be validated concept by concept. Normalizing this example table does not establish E2 PASS or classify every material edge used by the teaching-order hypothesis.
 
+### E1 initial-family coverage
+
+The repository's stated first mapping pass is tracked separately in `CORE_0.1_E1_COVERAGE.json`.
+
+Research 003 adds explicit concept nodes for parametric representation, polar representation, and vector-valued functions, the three families that were not directly represented in the prior machine-readable inventory. See `003-e1-coverage-evidence.md` for the external mathematical evidence used to classify their prerequisite edges.
+
+A complete mapping of the README's starting list is initial-list coverage evidence only. It does not establish E1 PASS or prove that the starting list is an exhaustive conventional-calculus taxonomy.
+
 ### Machine-readable continuation
 
 The concept-level companion for the teaching-order hypothesis is now maintained in:
