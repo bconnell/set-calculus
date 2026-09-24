@@ -50,6 +50,12 @@ This list is a starting inventory, not an asserted ordering.
 
 For each proposed dependency, record why it is required. Course placement alone is not evidence of mathematical necessity.
 
+## Core 0.1 E1 coverage evidence
+
+The repository's stated first mapping pass is tracked in [`CORE_0.1_E1_COVERAGE.json`](CORE_0.1_E1_COVERAGE.json), with a generated review view at [`generated/CORE_0.1_E1_COVERAGE.md`](generated/CORE_0.1_E1_COVERAGE.md).
+
+That mapping is deliberately narrower than E1 itself: it verifies representation of the README's starting concept-family list, but it does not assert that the list is exhaustive enough for E1 PASS.
+
 ## Core 0.1 machine-readable companion
 
 The current Core 0.1 teaching-order evidence is represented in one machine-readable companion:
