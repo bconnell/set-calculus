@@ -37,7 +37,6 @@ A missing required artifact remains missing. The index must not substitute a nea
 | Definite-integral round trip | MISSING_REQUIRED | `docs/conventional-calculus/examples/integral/` | D2 required artifact path |
 | First-order ODE round trip | MISSING_REQUIRED | `docs/conventional-calculus/examples/ode-first-order/` | D3 required artifact path |
 | Compatibility report | MISSING_REQUIRED | `docs/conventional-calculus/COMPATIBILITY_REPORT.md` | D4 required artifact |
-| End-to-end provenance round trip | MISSING_REQUIRED | `docs/conventional-calculus/examples/provenance-round-trip/` | Candidate location for F3 evidence; maintainer approval required before treating this path as canonical |
 
 ## Reading order
 
