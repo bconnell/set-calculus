@@ -507,20 +507,25 @@ HISTORICAL / CURRICULAR
   A precedes B in common curricula but no strong mathematical dependency has yet been demonstrated
 ```
 
-Example provisional classifications:
+Example provisional classifications normalized to the Core 0.1 E2 vocabulary:
 
-| Dependency | Initial class |
-|---|---|
-| limits -> derivative definition | HARD |
-| definite integral -> Fundamental Theorem | HARD |
-| basic integration -> separable first-order ODEs | HARD/STRONG |
-| power series -> series solutions of ODEs | HARD |
-| linear algebra -> eigenvalue solution of ODE systems | HARD |
-| Calc III as a whole -> first-order ODEs | HISTORICAL/CURRICULAR |
-| vector calculus -> ordinary first-order ODEs | NONE |
-| multivariable calculus -> PDE methods | STRONG, topic-dependent |
+| Dependency | Initial class | Rationale |
+|---|---|---|
+| limits -> derivative definition | HARD | The derivative definition in this research graph is explicitly defined through a limit. |
+| definite integral -> Fundamental Theorem | HARD | The Fundamental Theorem entry in this graph links differentiation to the already-defined definite integral. |
+| basic integration -> separable first-order ODEs | STRONG | This document identifies separable first-order ODEs as accessible after basic integration; integration supplies the normal solution machinery without making all later integration technique a prerequisite. |
+| power series -> series solutions of ODEs | HARD | The document identifies power series as specifically required for the series-solution branch. |
+| linear algebra -> eigenvalue solution of ODE systems | HARD | The systems branch explicitly depends on matrices, eigenvalues, and eigenvectors from linear algebra. |
+| Calc III as a whole -> first-order ODEs | HISTORICAL/CURRICULAR | The document gives direct curricular evidence that first-order ODE work can occur without treating Calc III as a mathematical prerequisite block. |
+| multivariable calculus -> PDE methods | STRONG | The document describes multivariable derivatives and vector-calculus context as materially useful for PDE introductions while keeping the dependency topic-dependent. |
 
-These classifications are provisional and should be validated concept by concept.
+Explicit non-dependency observation:
+
+| Relationship tested | Result | Rationale |
+|---|---|---|
+| vector calculus -> ordinary first-order ODEs | NONE | The graph explicitly separates ordinary first-order ODEs from the later vector-calculus branch; this is not a dependency edge and therefore does not receive an E2 dependency class. |
+
+These classifications remain provisional and should be validated concept by concept. Normalizing this example table does not establish E2 PASS or classify every material edge used by the teaching-order hypothesis.
 
 ---
 
