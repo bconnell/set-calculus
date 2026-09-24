@@ -137,20 +137,35 @@ def context_excerpt(text: str, line: int, radius: int = 5) -> str:
     return "\n".join(lines[start:end]).strip()
 
 
-def nearest_heading(text: str, line: int) -> str:
+def heading_scope(text: str, line: int) -> str:
+    """Return the active Markdown heading ancestry for a source line."""
     lines = text.splitlines()
-    index = min(max(line - 1, 0), max(len(lines) - 1, 0))
+    if not lines:
+        return ""
+
+    index = min(max(line - 1, 0), len(lines) - 1)
+    by_level: dict[int, str] = {}
+
     for candidate in reversed(lines[: index + 1]):
-        if re.match(r"^#{1,6}\s+", candidate):
-            return candidate.strip()
-    return ""
+        match = re.match(r"^(#{1,6})\s+(.+)$", candidate)
+        if not match:
+            continue
+
+        level = len(match.group(1))
+        if level not in by_level:
+            by_level[level] = candidate.strip()
+
+        if level == 1:
+            break
+
+    return "\n".join(by_level[level] for level in sorted(by_level))
 
 
 def classify(path: str, text: str, line: int, excerpt: str) -> str:
     if path in CONTROL_PATHS:
         return "CONTROL_REFERENCE"
 
-    scope = "\n".join((nearest_heading(text, line), excerpt)).lower()
+    scope = "\n".join((heading_scope(text, line), excerpt)).lower()
     if any(marker in scope for marker in HISTORICAL_MARKERS):
         return "MARKED_HISTORICAL"
 
