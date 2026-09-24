@@ -1,0 +1,65 @@
+name: Core G2 Canonical Path Index
+
+on:
+  push:
+    paths:
+      - "README.md"
+      - "SCOPE.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.schema.json"
+      - "PROVENANCE.md"
+      - "docs/set-calculus-core/**"
+      - "docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md"
+      - "docs/provenance/**"
+      - "docs/dependency-map/**"
+      - "docs/conventional-calculus/**"
+      - "tests/conformance/**"
+      - "generative-governance-engine/README.md"
+      - "scripts/audit_core_g2_path_index.py"
+      - ".github/workflows/core-g2-path-index.yml"
+  pull_request:
+    paths:
+      - "README.md"
+      - "SCOPE.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.yaml"
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.schema.json"
+      - "PROVENANCE.md"
+      - "docs/set-calculus-core/**"
+      - "docs/philosophy-of-set-calculus/CANONICAL_TERMINOLOGY_LEDGER.md"
+      - "docs/provenance/**"
+      - "docs/dependency-map/**"
+      - "docs/conventional-calculus/**"
+      - "tests/conformance/**"
+      - "generative-governance-engine/README.md"
+      - "scripts/audit_core_g2_path_index.py"
+      - ".github/workflows/core-g2-path-index.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate Core 0.1 path index
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile path-index verifier
+        run: python -m py_compile scripts/audit_core_g2_path_index.py
+
+      - name: Validate path-index integrity
+        run: python scripts/audit_core_g2_path_index.py
+
+      - name: Capture structured path-index evidence
+        if: always()
+        run: python scripts/audit_core_g2_path_index.py --json
