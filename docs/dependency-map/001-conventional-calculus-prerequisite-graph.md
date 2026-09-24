@@ -560,6 +560,16 @@ That will produce the first defensible Set Calculus curriculum order.
 
 ### MIT OpenCourseWare
 
+Additional dependency-gap evidence:
+
+- Calculus with Theory course notes (trigonometric/Fourier series and coefficient integrals): https://ocw.mit.edu/courses/18-014-calculus-with-theory-fall-2010/d5305fffd94bc1db8da13d6c9e2cce82_MIT18_014F10_course_notes.pdf
+- Differential Equations, Fourier Series: Basics: https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-iii-fourier-series-and-laplace-transform/fourier-series-basics/
+- Multivariable Calculus final-review transcript (line integrals reduce to ordinary one-variable integrals after parameterization): https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/sr7kCpzAuYw_transcript.pdf
+- Surface-integral derivation as a double integral: https://ocw.mit.edu/ans7870/18/18.013a/textbook/HTML/chapter24/section01.html
+- Line Integrals and Stokes' Theorem: https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/pages/4.-triple-integrals-and-surface-integrals-in-3-space/part-c-line-integrals-and-stokes-theorem/
+
+See also `002-dependency-gap-resolution.md` for the exact graph inferences supported by these sources.
+
 - Single Variable Calculus syllabus: https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/pages/syllabus/
 - Multivariable Calculus syllabus: https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/pages/syllabus/
 - Multivariable Calculus topic structure: https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/download/
