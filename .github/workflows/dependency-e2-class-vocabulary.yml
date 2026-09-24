@@ -1,0 +1,43 @@
+name: Dependency E2 Class Vocabulary
+
+on:
+  push:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md"
+      - "scripts/audit_dependency_e2_class_vocabulary.py"
+      - ".github/workflows/dependency-e2-class-vocabulary.yml"
+  pull_request:
+    paths:
+      - "CORE_0.1_COMPLETENESS_CHECKLIST.md"
+      - "docs/dependency-map/001-conventional-calculus-prerequisite-graph.md"
+      - "scripts/audit_dependency_e2_class_vocabulary.py"
+      - ".github/workflows/dependency-e2-class-vocabulary.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate provisional E2 classes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile dependency-class verifier
+        run: python -m py_compile scripts/audit_dependency_e2_class_vocabulary.py
+
+      - name: Validate E2 class vocabulary
+        run: python scripts/audit_dependency_e2_class_vocabulary.py
+
+      - name: Capture structured E2 evidence
+        if: always()
+        run: python scripts/audit_dependency_e2_class_vocabulary.py --json
