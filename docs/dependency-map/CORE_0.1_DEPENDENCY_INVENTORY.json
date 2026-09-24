@@ -36,41 +36,19 @@
       "node": "vectors_coordinates",
       "kind": "PARALLEL_DOMAIN_ROOT",
       "rationale": "The current graph introduces vectors / coordinates as an independent entry to the multivariable and vector-calculus branches."
-    },
-    {
-      "node": "trigonometric_series",
-      "kind": "UNRESOLVED_SOURCE_GAP",
-      "rationale": "The current source gives Trigonometric series an outgoing dependency to Fourier methods but does not classify an incoming prerequisite. No missing prerequisite is inferred here."
     }
   ],
   "open_questions": [
     {
-      "id": "q001",
-      "related_nodes": [
-        "trigonometric_series"
-      ],
-      "question": "What classified prerequisite, if any, should feed Trigonometric series?",
-      "reason": "The source graph supplies an outgoing edge to Fourier methods but no incoming material dependency."
-    },
-    {
-      "id": "q002",
-      "related_nodes": [
-        "line_integrals",
-        "surface_integrals",
-        "integration_techniques"
-      ],
-      "question": "Should line and surface integrals carry an explicit cross-branch dependency from integration machinery?",
-      "reason": "The current graph routes Vector fields directly to Line integrals and Surface integrals without classifying a cross-branch integration prerequisite."
-    },
-    {
-      "id": "q003",
+      "id": "q004",
       "related_nodes": [
         "green_stokes_divergence",
         "line_integrals",
-        "surface_integrals"
+        "surface_integrals",
+        "multiple_integrals"
       ],
-      "question": "How should the integral-theorem layer move if the missing cross-branch integration dependency is later established?",
-      "reason": "The generated layer for Green / Stokes / Divergence is sensitive to the unresolved cross-branch dependency in q002."
+      "question": "Should the combined Green / Stokes / Divergence theorem node be split into separate theorem nodes with distinct prerequisites?",
+      "reason": "The gap-resolution evidence now establishes integration prerequisites feeding line and surface integrals, but the combined theorem node still hides theorem-specific prerequisite differences. Splitting that node would be an architectural refinement requiring maintainer review rather than an inference made in this contribution."
     }
   ],
   "nodes": [
@@ -787,6 +765,46 @@
       "basis": "EXPLICIT_NARRATIVE",
       "source_anchor": "§2; §4.2; §10 provisional classifications",
       "rationale": "The document states that Calc III as a whole is not a mathematical prerequisite for first-order ODEs and classifies the course-order relation as HISTORICAL/CURRICULAR."
+    },
+    {
+      "id": "e047",
+      "from": "infinite_series",
+      "to": "trigonometric_series",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/002-dependency-gap-resolution.md §2.1",
+      "rationale": "MIT calculus notes present a trigonometric series explicitly as an infinite summation of sine and cosine terms. Within the current node vocabulary, Infinite series is therefore a required structural prerequisite for Trigonometric series."
+    },
+    {
+      "id": "e048",
+      "from": "definite_integral",
+      "to": "fourier_methods",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/002-dependency-gap-resolution.md §2.2",
+      "rationale": "MIT Fourier-series notes define Fourier coefficients through definite-integral formulas. The current Fourier methods node therefore requires the Definite integral machinery in addition to the existing Trigonometric series dependency."
+    },
+    {
+      "id": "e049",
+      "from": "definite_integral",
+      "to": "line_integrals",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/002-dependency-gap-resolution.md §3.1",
+      "rationale": "MIT multivariable-calculus review material states that after parameterizing a curve, a line integral reduces to an ordinary one-variable integral. The current Definite integral node is therefore a required computational/formal prerequisite for Line integrals."
+    },
+    {
+      "id": "e050",
+      "from": "multiple_integrals",
+      "to": "surface_integrals",
+      "class": "HARD",
+      "order_constraint": true,
+      "basis": "WORKING_INFERENCE",
+      "source_anchor": "docs/dependency-map/002-dependency-gap-resolution.md §3.2",
+      "rationale": "MIT multivariable-calculus material derives a parameterized surface integral as a double integral over the parameter domain. The current Multiple integrals node is therefore a required prerequisite for Surface integrals."
     }
   ],
   "non_dependencies": [
