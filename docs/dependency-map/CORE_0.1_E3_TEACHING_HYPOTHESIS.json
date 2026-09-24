@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "status": "PROVISIONAL_HYPOTHESIS",
+  "gate_claim": "NOT_ASSERTED",
+  "source_inventory": "docs/dependency-map/CORE_0.1_DEPENDENCY_INVENTORY.json",
+  "source_projection": "docs/dependency-map/generated/CORE_0.1_DERIVED_TEACHING_ORDER.md",
+  "authority_note": "CORE_0.1_COMPLETENESS_CHECKLIST.md names Chad Coulter as owner of E3. This artifact is contributor evidence for review and does not mark E3 PASS.",
+  "derivation_policy": {
+    "constraining_classes": [
+      "HARD",
+      "STRONG"
+    ],
+    "non_constraining_classes": [
+      "SUPPORTING",
+      "HISTORICAL/CURRICULAR"
+    ],
+    "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED",
+    "course_bundle_policy": "EXCLUDED_FROM_TEACHING_STAGES",
+    "description": "Teaching stages are the exact topological layers derived from HARD and STRONG dependency edges. Nodes within the same stage are intentionally unordered because the current graph does not force precedence among them."
+  },
+  "stages": [
+    {
+      "stage": 0,
+      "node_ids": [
+        "functions_algebra_trigonometry",
+        "linear_algebra",
+        "vectors_coordinates"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 1,
+      "node_ids": [
+        "limits",
+        "linear_systems",
+        "multivariable_functions",
+        "parametric_representation",
+        "polar_representation",
+        "vector_fields",
+        "vector_valued_functions"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 2,
+      "node_ids": [
+        "continuity",
+        "derivative_definition",
+        "eigen_methods",
+        "partial_derivatives",
+        "phase_portraits",
+        "sequences_convergence"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 3,
+      "node_ids": [
+        "differentiation_rules",
+        "gradient",
+        "infinite_series",
+        "multivariable_chain_rule",
+        "systems_of_odes"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 4,
+      "node_ids": [
+        "antiderivatives",
+        "derivative_applications_rates_extrema",
+        "local_linearity",
+        "optimization_lagrange",
+        "power_series",
+        "trigonometric_series"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 5,
+      "node_ids": [
+        "definite_integral",
+        "series_solutions_odes",
+        "taylor_series"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 6,
+      "node_ids": [
+        "fourier_methods",
+        "fundamental_theorem_calculus",
+        "line_integrals",
+        "multiple_integrals"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 7,
+      "node_ids": [
+        "change_variables_jacobians",
+        "integral_applications",
+        "integration_techniques",
+        "surface_integrals"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 8,
+      "node_ids": [
+        "first_order_odes",
+        "green_stokes_divergence",
+        "laplace_transforms_convolution"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    },
+    {
+      "stage": 9,
+      "node_ids": [
+        "numerical_slope_field_methods",
+        "second_order_odes"
+      ],
+      "within_stage_ordering": "UNORDERED_NOT_MATHEMATICALLY_FORCED"
+    }
+  ],
+  "excluded_curricular_containers": [
+    "calc_iii_course_bundle",
+    "vector_calculus_bundle"
+  ],
+  "hypothesis_notes": [
+    {
+      "id": "h001",
+      "kind": "DERIVED_CONSTRAINT",
+      "statement": "Every HARD or STRONG dependency must originate in an earlier teaching stage than its target."
+    },
+    {
+      "id": "h002",
+      "kind": "TEACHING_HYPOTHESIS",
+      "statement": "Concepts sharing a stage may be taught in any locally appropriate order unless future evidence adds a constraining edge."
+    },
+    {
+      "id": "h003",
+      "kind": "TEACHING_HYPOTHESIS",
+      "statement": "The staged projection is a reviewable curriculum hypothesis, not a final chapter order or claim that all conventional calculus topics have been modeled."
+    }
+  ],
+  "unresolved_questions": [
+    "q004"
+  ]
+}
