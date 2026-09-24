@@ -527,6 +527,16 @@ Explicit non-dependency observation:
 
 These classifications remain provisional and should be validated concept by concept. Normalizing this example table does not establish E2 PASS or classify every material edge used by the teaching-order hypothesis.
 
+### Machine-readable continuation
+
+The concept-level companion for the teaching-order hypothesis is now maintained in:
+
+- `CORE_0.1_DEPENDENCY_INVENTORY.json` — provisional machine-readable nodes, classified dependency edges, non-dependencies, declared roots, and open dependency questions;
+- `CORE_0.1_DEPENDENCY_INVENTORY.schema.json` — structural schema for the companion;
+- `generated/CORE_0.1_DERIVED_TEACHING_ORDER.md` — deterministic topological layers generated from the HARD and STRONG edges.
+
+The generated layers are research evidence, not a final curriculum and not E1, E2, or E3 PASS. Missing cross-branch dependencies remain explicit open questions rather than being filled by assumption.
+
 ---
 
 ## 11. Research conclusions
@@ -570,3 +580,7 @@ That will produce the first defensible Set Calculus curriculum order.
 ## 13. Next document
 
 **Research 002:** Concept-level dependency classification for Calc II, Calc III, and Differential Equations, with HARD / STRONG / SUPPORTING / HISTORICAL edge labels and a first topological sort.
+
+### Implementation update
+
+The machine-readable companion and deterministic topological projection described above now implement the first executable part of that Research 002 direction. The original next-document statement is retained as research history; the companion does not claim that every remaining calculus dependency has been classified or that the release gates have passed.
