@@ -17,9 +17,9 @@ CORE_0.1_COMPLETENESS_CHECKLIST.md names Chad Coulter as owner of E1-E3. This in
 ## Inventory summary
 
 - Teaching-layer nodes: 40
-- Classified dependency edges: 46
-- Constraining edges: 38
-- HARD edges: 9
+- Classified dependency edges: 50
+- Constraining edges: 42
+- HARD edges: 13
 - STRONG edges: 29
 - SUPPORTING edges: 7
 - HISTORICAL/CURRICULAR edges: 1
@@ -30,6 +30,7 @@ Source-basis counts:
 
 - EXPLICIT_GRAPH: 38
 - EXPLICIT_NARRATIVE: 8
+- WORKING_INFERENCE: 4
 
 ## Candidate topological layers
 
@@ -39,12 +40,10 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 
 - **Functions / algebra / trigonometry** (`functions_algebra_trigonometry`) — FOUNDATION. Declared root: FOUNDATIONAL_ROOT.
 - **Linear algebra** (`linear_algebra`) — LINEAR_SYSTEMS. Declared root: PARALLEL_DOMAIN_ROOT.
-- **Trigonometric series** (`trigonometric_series`) — SERIES. Declared root: UNRESOLVED_SOURCE_GAP.
 - **Vectors / coordinates** (`vectors_coordinates`) — MULTIVARIABLE. Declared root: PARALLEL_DOMAIN_ROOT.
 
 ### Layer 1
 
-- **Fourier methods** (`fourier_methods`) — ODE_DYNAMICS. Constraining predecessors: Trigonometric series [HARD].
 - **Functions of several variables** (`multivariable_functions`) — MULTIVARIABLE. Constraining predecessors: Vectors / coordinates [STRONG].
 - **Limits** (`limits`) — FOUNDATION. Constraining predecessors: Functions / algebra / trigonometry [STRONG].
 - **Linear systems** (`linear_systems`) — LINEAR_SYSTEMS. Constraining predecessors: Linear algebra [HARD].
@@ -55,17 +54,14 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 - **Continuity** (`continuity`) — FOUNDATION. Constraining predecessors: Limits [STRONG].
 - **Derivative definition** (`derivative_definition`) — DIFFERENTIATION. Constraining predecessors: Limits [HARD].
 - **Eigen methods** (`eigen_methods`) — LINEAR_SYSTEMS. Constraining predecessors: Linear systems [STRONG].
-- **Line integrals** (`line_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Vector fields [STRONG].
 - **Partial derivatives** (`partial_derivatives`) — MULTIVARIABLE. Constraining predecessors: Functions of several variables [HARD].
 - **Phase portraits** (`phase_portraits`) — LINEAR_SYSTEMS. Constraining predecessors: Linear systems [STRONG].
 - **Sequences / convergence** (`sequences_convergence`) — SERIES. Constraining predecessors: Limits [STRONG].
-- **Surface integrals** (`surface_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Vector fields [STRONG].
 
 ### Layer 3
 
 - **Differentiation rules** (`differentiation_rules`) — DIFFERENTIATION. Constraining predecessors: Derivative definition [STRONG].
 - **Gradient** (`gradient`) — MULTIVARIABLE. Constraining predecessors: Partial derivatives [HARD].
-- **Green / Stokes / Divergence theorems** (`green_stokes_divergence`) — VECTOR_CALCULUS. Constraining predecessors: Line integrals [STRONG]; Surface integrals [STRONG].
 - **Infinite series** (`infinite_series`) — SERIES. Constraining predecessors: Sequences / convergence [STRONG].
 - **Multivariable chain rule** (`multivariable_chain_rule`) — MULTIVARIABLE. Constraining predecessors: Partial derivatives [HARD].
 - **Systems of ODEs** (`systems_of_odes`) — ODE_DYNAMICS. Constraining predecessors: Eigen methods [HARD].
@@ -77,6 +73,7 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 - **Local linearity** (`local_linearity`) — DIFFERENTIATION. Constraining predecessors: Differentiation rules [STRONG].
 - **Optimization / Lagrange multipliers** (`optimization_lagrange`) — MULTIVARIABLE. Constraining predecessors: Gradient [STRONG]; Multivariable chain rule [STRONG].
 - **Power series** (`power_series`) — SERIES. Constraining predecessors: Infinite series [STRONG].
+- **Trigonometric series** (`trigonometric_series`) — SERIES. Constraining predecessors: Infinite series [HARD].
 
 ### Layer 5
 
@@ -86,7 +83,9 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 
 ### Layer 6
 
+- **Fourier methods** (`fourier_methods`) — ODE_DYNAMICS. Constraining predecessors: Definite integral [HARD]; Trigonometric series [HARD].
 - **Fundamental Theorem of Calculus** (`fundamental_theorem_calculus`) — INTEGRATION. Constraining predecessors: Definite integral [HARD].
+- **Line integrals** (`line_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Definite integral [HARD]; Vector fields [STRONG].
 - **Multiple integrals** (`multiple_integrals`) — MULTIVARIABLE. Constraining predecessors: Definite integral [STRONG].
 
 ### Layer 7
@@ -94,10 +93,12 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 - **Change of variables / Jacobians** (`change_variables_jacobians`) — MULTIVARIABLE. Constraining predecessors: Multiple integrals [STRONG].
 - **Integral applications** (`integral_applications`) — INTEGRATION. Constraining predecessors: Fundamental Theorem of Calculus [STRONG].
 - **Integration techniques** (`integration_techniques`) — INTEGRATION. Constraining predecessors: Fundamental Theorem of Calculus [STRONG].
+- **Surface integrals** (`surface_integrals`) — VECTOR_CALCULUS. Constraining predecessors: Multiple integrals [HARD]; Vector fields [STRONG].
 
 ### Layer 8
 
 - **First-order differential equations** (`first_order_odes`) — ODE_DYNAMICS. Constraining predecessors: Integration techniques [STRONG].
+- **Green / Stokes / Divergence theorems** (`green_stokes_divergence`) — VECTOR_CALCULUS. Constraining predecessors: Line integrals [STRONG]; Surface integrals [STRONG].
 - **Laplace transforms / convolution** (`laplace_transforms_convolution`) — ODE_DYNAMICS. Constraining predecessors: Integration techniques [STRONG].
 
 ### Layer 9
@@ -112,13 +113,10 @@ These layers are mechanically derived from the current HARD and STRONG edge set.
 | Functions / algebra / trigonometry | FOUNDATIONAL_ROOT | The current graph begins the main single-variable trunk at Functions / algebra / trigonometry. |
 | Linear algebra | PARALLEL_DOMAIN_ROOT | The current graph introduces Linear algebra as an independent join into the systems branch. |
 | Vectors / coordinates | PARALLEL_DOMAIN_ROOT | The current graph introduces vectors / coordinates as an independent entry to the multivariable and vector-calculus branches. |
-| Trigonometric series | UNRESOLVED_SOURCE_GAP | The current source gives Trigonometric series an outgoing dependency to Fourier methods but does not classify an incoming prerequisite. No missing prerequisite is inferred here. |
 
 ## Open dependency questions
 
-- **q001 — What classified prerequisite, if any, should feed Trigonometric series?** Related nodes: Trigonometric series. Reason: The source graph supplies an outgoing edge to Fourier methods but no incoming material dependency.
-- **q002 — Should line and surface integrals carry an explicit cross-branch dependency from integration machinery?** Related nodes: Line integrals, Surface integrals, Integration techniques. Reason: The current graph routes Vector fields directly to Line integrals and Surface integrals without classifying a cross-branch integration prerequisite.
-- **q003 — How should the integral-theorem layer move if the missing cross-branch integration dependency is later established?** Related nodes: Green / Stokes / Divergence theorems, Line integrals, Surface integrals. Reason: The generated layer for Green / Stokes / Divergence is sensitive to the unresolved cross-branch dependency in q002.
+- **q004 — Should the combined Green / Stokes / Divergence theorem node be split into separate theorem nodes with distinct prerequisites?** Related nodes: Green / Stokes / Divergence theorems, Line integrals, Surface integrals, Multiple integrals. Reason: The gap-resolution evidence now establishes integration prerequisites feeding line and surface integrals, but the combined theorem node still hides theorem-specific prerequisite differences. Splitting that node would be an architectural refinement requiring maintainer review rather than an inference made in this contribution.
 
 ## Non-constraining classified edges
 
