@@ -28,3 +28,26 @@ conventional statement
 ```
 
 The first examples should be deliberately small: derivative as change relation, integral as accumulation/recovery, and a simple first-order differential equation as a relationship between change and state.
+
+## D1 derivative readiness
+
+The required D1 example path now exists at [`examples/derivative/`](examples/derivative/).
+
+Its conventional baseline is complete and executable:
+
+```text
+f(x)=x^2
+-> f'(x)=2x
+```
+
+The Set Calculus half is intentionally marked blocked because the current repository does not yet define a canonical derivative representation or derivative transform/resolution rule.
+
+That block is part of the evidence. It prevents a compatibility record from presenting invented notation or a placeholder transform as D1 validation.
+
+See:
+
+- [`examples/derivative/README.md`](examples/derivative/README.md)
+- [`examples/derivative/record.json`](examples/derivative/record.json)
+- [`COMPATIBILITY_RECORD.schema.json`](COMPATIBILITY_RECORD.schema.json)
+
+This readiness artifact does not mark D1 PASS.
