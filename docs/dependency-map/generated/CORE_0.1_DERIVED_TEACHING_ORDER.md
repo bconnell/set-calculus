@@ -149,6 +149,8 @@ In particular, unresolved cross-branch dependencies can move nodes to later laye
 
 ## Reproduction
 
+From the repository root:
+
 ```bash
 python scripts/audit_core_dependency_inventory.py
 python scripts/audit_core_dependency_inventory.py --self-test
